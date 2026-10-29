@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI가 만든 소프트웨어, 어떻게 믿을까 (2편) — 검증이 실제로 잡아낸 것들</title>
+<meta name="description" content="결론부터: 1편에서 &quot;AI를 안 믿는 3겹 구조&quot;를 이야기했습니다. 이번엔 그 구조가 실제로 무엇을 잡아냈는지입니다. 검증 과정에서 걸린 문제는 기록상 60건이 넘는데, 그중 조용히 자물쇠를 바꿔치기하던 코드, 철거 중인 방에 들어간 청소부 같은 버그 세 편을 비유로…">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/ai-trust-2.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/ai-trust-2.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI가 만든 소프트웨어, 어떻게 믿을까 (2편) — 검증이 실제로 잡아낸 것들">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI가 만든 소프트웨어, 어떻게 믿을까 (2편) — 검증이 실제로 잡아낸 것들">
+<meta property="og:description" content="결론부터: 1편에서 &quot;AI를 안 믿는 3겹 구조&quot;를 이야기했습니다. 이번엔 그 구조가 실제로 무엇을 잡아냈는지입니다. 검증 과정에서 걸린 문제는 기록상 60건이 넘는데, 그중 조용히 자물쇠를 바꿔치기하던 코드, 철거 중인 방에 들어간 청소부 같은 버그 세 편을 비유로…">
+<meta name="twitter:description" content="결론부터: 1편에서 &quot;AI를 안 믿는 3겹 구조&quot;를 이야기했습니다. 이번엔 그 구조가 실제로 무엇을 잡아냈는지입니다. 검증 과정에서 걸린 문제는 기록상 60건이 넘는데, 그중 조용히 자물쇠를 바꿔치기하던 코드, 철거 중인 방에 들어간 청소부 같은 버그 세 편을 비유로…">
+<meta property="article:published_time" content="2026-08-06T20:36:24+09:00">
+<meta property="article:modified_time" content="2026-08-06T20:36:24+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI가 만든 소프트웨어, 어떻게 믿을까 (2편) — 검증이 실제로 잡아낸 것들", "datePublished": "2026-08-06T20:36:24+09:00", "dateModified": "2026-08-06T20:36:24+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/ai-trust-2.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 1편에서 \"AI를 안 믿는 3겹 구조\"를 이야기했습니다. 이번엔 그 구조가 실제로 무엇을 잡아냈는지입니다. 검증 과정에서 걸린 문제는 기록상 60건이 넘는데, 그중 조용히 자물쇠를 바꿔치기하던 코드, 철거 중인 방에 들어간 청소부 같은 버그 세 편을 비유로…"}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-ai-trust">AI가 만든 소프트웨어, 어떻게 믿을까</a></p>
+    <h1 class="post-title">AI가 만든 소프트웨어, 어떻게 믿을까 (2편) — 검증이 실제로 잡아낸 것들</h1>
+    <p class="post-meta"><time datetime="2026-08-06T20:36:24+09:00">2026년 8월 6일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 1편에서 "AI를 안 믿는 3겹 구조"를 이야기했습니다. 이번엔 그 구조가 <strong>실제로 무엇을 잡아냈는지</strong>입니다. 검증 과정에서 걸린 문제는 기록상 60건이 넘는데, 그중 <strong>조용히 자물쇠를 바꿔치기하던 코드, 철거 중인 방에 들어간 청소부 같은 버그</strong> 세 편을 비유로 풀어봅니다. 셋 다 실제 기록에 남은 사건입니다.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/ai-trust-1.html">1편 — 우리는 AI를 믿지 않기로 했습니다</a></blockquote>
+
+<h2>사례 1 — 조용한 자물쇠 바꿔치기</h2>
+
+<p>이런 시공업자를 상상해 보세요. "국산 자물쇠로 채워 주세요"라고 주문했는데, 마침 재고가 없자 <strong>말없이 다른 자물쇠를 채워 놓는</strong> 겁니다. 문은 잠기니까 겉보기엔 아무 문제가 없습니다. 주문한 사람은 국산 자물쇠라고 믿고 살죠.</p>
+
+<p>파일 암호화 기능에서 정확히 이런 동작이 발견됐습니다. 설정 파일에 암호화 방식을 잘못 적으면(오타 등), 프로그램이 에러를 내는 대신 <strong>조용히 기본 방식(AES)으로 바꿔서 암호화</strong>했어요. 암호화 자체는 되고 있으니 어떤 정상 동작 테스트도 실패하지 않습니다. 이걸 검사역 AI가 잡았습니다.</p>
+
+<p><strong>수정 방향이 핵심입니다.</strong> "몰래 다른 걸로 해주는 친절"을 금지하고, 주문과 다르면 <strong>프로그램이 아예 기동을 거부하고 즉시 알리도록</strong> 바꿨습니다. 시작 시점에 시끄럽게 실패하는 것이, 몇 달을 조용히 틀리게 도는 것보다 백배 낫기 때문이에요.</p>
+
+<p><strong>막은 사고</strong>: 규정상 특정 암호 방식이 필수인 엄격한 환경에서, 담당자는 그 방식을 쓴다고 믿는데 실제로는 다른 방식으로 저장되는 <strong>규정 위반 상태가 장기간 지속</strong>될 뻔했습니다. 파일이 쌓인 뒤에 발견되면 전량을 다시 암호화해야 하는 유형의 사고예요.</p>
+
+<h2>사례 2 — 딛고 선 사다리를 치워버리다</h2>
+
+<p>높은 곳에서 사다리를 딛고 일하는 사람이 있는데, 다른 사람이 "이제 정리하자"며 그 사다리를 치워버리면 어떻게 될까요. 딛고 있던 발판이 사라져 그대로 추락합니다.</p>
+
+<p>프로그램에도 똑같은 상황이 있어요. 프로그램을 종료하면서 내부 자원을 하나씩 정리(사다리 치우기)하는데, <strong>아직 끝나지 않은 다른 작업이 방금 치워진 그 자원을 딛으려는</strong> 경우입니다. 한 언어용 연결 부품을 검증하던 중, 종료가 진행되는 동안 다른 작업이 이미 정리된 내부 자원을 건드리면 프로그램 전체가 통째로 죽을 수 있다는 게 발견됐습니다. 수정은 간단한 원칙이었어요 — <strong>"사다리 위에 누가 있는 동안엔 아무도 못 치우게."</strong> 종료가 시작되면 다른 작업이 그 자원에 접근하지 못하도록 잠금을 걸어, 아직 쓰는 중이면 정리를 미루게 했습니다.</p>
+
+<p><strong>막은 사고</strong>: 이런 문제의 고약한 점은 <strong>매번이 아니라 가끔, 그것도 특정 실사용 환경에서만</strong> 터진다는 겁니다. "종료 버튼을 눌렀는데 가끔 프로그램이 죽어요" 같은 신고는 재현도 추적도 극히 어렵습니다. 프로그램 종료는 실제 사용에서 반드시 일어나는 동작이므로, 배포 전에 이 유형을 차단한 것은 배포 후의 긴 추적 비용을 통째로 지운 것과 같아요.</p>
+
+<h2>사례 3 — 한 사람의 건강검진이 가족의 같은 병을 찾아내다</h2>
+
+<p>이 소프트웨어는 네 가지 프로그래밍 언어(C++, Python, C#, Java)에서 쓸 수 있도록 언어별 연결 부품을 각각 만들었고, <strong>언어마다 검증 공정을 처음부터 다시</strong> 돌렸습니다. 비용이 드는 방식이지만, 그 비용이 수익으로 돌아온 사건이 있어요.</p>
+
+<p>가장 나중에 만든 Java용 부품을 검증하던 중, 검사역 AI가 특정한 불완전 문자(깨진 이모지처럼 짝이 맞지 않는 특수 문자)가 들어오면 <strong>경고 없이 데이터가 조용히 손상되는</strong> 약점을 보고했습니다. 그런데 확인 과정에서 놀라운 게 드러났어요 — <strong>이미 검증을 마치고 출고된 C# 부품에도 똑같은 결함이 잠복해 있었던 겁니다.</strong> 한 언어의 건강검진이 다른 언어의 같은 병을 찾아낸 셈이고, 두 언어를 동시에 수정했습니다(조용한 손상 대신 명시적으로 거부하고 알리도록).</p>
+
+<p><strong>이 사례의 의미</strong>: 검증을 반복할수록 새 결과물만 좋아지는 게 아니라 <strong>이미 만든 것까지 소급해서 좋아지는</strong> 구조라는 증거입니다. 데이터가 소리 없이 깨지는 사고는 손상 시점과 발견 시점이 멀어 원인 추적이 가장 어려운 유형인데, 두 언어에서 미리 제거됐어요.</p>
+
+<h2>"그 성과 기록도 결국 자기들이 쓴 것 아닌가요?"</h2>
+
+<p>맞는 지적입니다. "우리가 60건을 잡았다"는 문장 자체는 자기 보고이고, 자기 보고는 1편 첫머리에서 우리가 스스로 믿지 않겠다고 한 바로 그것이에요.</p>
+
+<p>그래서 이 프로젝트의 모든 수정은 <strong>버전 관리 시스템</strong>(모든 변경의 일시·내용이 지워지지 않게 남는 장부, 개발 용어로 '커밋')에 기록되어 있고, 잡힌 약점 하나하나는 그 재현 조건이 <strong>자동 테스트의 이름으로</strong> 저장소에 남아 있습니다. 즉 각 사례는 "우리 말을 믿어 달라"가 아니라, <strong>제3자가 저장소를 열어 변경 기록과 테스트 이름으로 직접 재확인할 수 있는</strong> 형태로 존재해요. 확인 경로가 열려 있다는 사실 자체가 신뢰의 근거입니다.</p>
+
+<h2>다음 편</h2>
+
+<p>여기까지는 "잡아낸 것들"입니다. 그런데 정말 중요한 질문이 남았어요 — <strong>그럼 못 잡은 건 몇 건인가?</strong> 다음 편에서는 이 검증 체계가 <strong>실제로 놓친 한 건</strong>과, 개발을 수행한 <strong>AI 본인의 증언</strong>까지 공개하겠습니다. → <a href="https://blog.secondbranch.kr/2026/08/ai-trust-3.html">3편 — 못 잡은 것, 그리고 만든 AI의 증언</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>AI 검증</li><li>AI 협업</li><li>버그</li><li>소프트웨어 품질</li><li>자동 테스트</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/ai-trust-1.html">AI가 만든 소프트웨어, 어떻게 믿을까 (1편) — 우리는 AI를 믿지 않기로 했습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/ai-trust-3.html">AI가 만든 소프트웨어, 어떻게 믿을까 (3편) — 못 잡은 것, 그리고 만든 AI의 증언</a></p>
+<p><a href="/#series-ai-trust">AI가 만든 소프트웨어, 어떻게 믿을까 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

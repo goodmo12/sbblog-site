@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (6편) — 한 공고가 일곱 번 올 뻔했습니다</title>
+<meta name="description" content="5편에서 &quot;제목+주소&quot;를 열쇠로 삼아 중복을 막았다고 했죠. 잘 되는 줄 알았어요. 그런데 공고 하나가 알림 일곱 개로 쪼개질 뻔했습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/notice-bot-6.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/notice-bot-6.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (6편) — 한 공고가 일곱 번 올 뻔했습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (6편) — 한 공고가 일곱 번 올 뻔했습니다">
+<meta property="og:description" content="5편에서 &quot;제목+주소&quot;를 열쇠로 삼아 중복을 막았다고 했죠. 잘 되는 줄 알았어요. 그런데 공고 하나가 알림 일곱 개로 쪼개질 뻔했습니다.">
+<meta name="twitter:description" content="5편에서 &quot;제목+주소&quot;를 열쇠로 삼아 중복을 막았다고 했죠. 잘 되는 줄 알았어요. 그런데 공고 하나가 알림 일곱 개로 쪼개질 뻔했습니다.">
+<meta property="article:published_time" content="2026-08-01T17:33:20+09:00">
+<meta property="article:modified_time" content="2026-08-02T19:39:36+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (6편) — 한 공고가 일곱 번 올 뻔했습니다", "datePublished": "2026-08-01T17:33:20+09:00", "dateModified": "2026-08-02T19:39:36+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/notice-bot-6.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "5편에서 \"제목+주소\"를 열쇠로 삼아 중복을 막았다고 했죠. 잘 되는 줄 알았어요. 그런데 공고 하나가 알림 일곱 개로 쪼개질 뻔했습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (6편) — 한 공고가 일곱 번 올 뻔했습니다</h1>
+    <p class="post-meta"><time datetime="2026-08-01T17:33:20+09:00">2026년 8월 1일</time></p>
+  </header>
+  <div class="post-body">
+<p>5편에서 "제목+주소"를 열쇠로 삼아 중복을 막았다고 했죠. 잘 되는 줄 알았어요. 그런데 <strong>공고 하나가 알림 일곱 개로 쪼개질 뻔했습니다.</strong></p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-5.html">5편 — 같은 공고가 계속 왔습니다</a></blockquote>
+
+<h2>공고 하나가 여러 줄로 쪼개져 있었어요</h2>
+
+<p>원인은 응답을 열어보고 알았습니다. 마이홈 API는 <strong>공고 한 건을 여러 줄로 나눠서</strong> 줍니다.</p>
+
+<p>한 공고 안에 아파트가 여러 단지 들어 있으면, 단지마다 한 줄씩 만들어지는 식이에요. 사람이 보기엔 공고 하나인데 데이터로는 일곱 줄인 거죠.</p>
+
+<p>실제로 지금 받아보면 이렇습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>구분</th><th>받은 줄 수</th><th>실제 공고 수</th></tr>
+</thead>
+<tbody>
+<tr><td>임대</td><td>100줄</td><td><strong>34건</strong></td></tr>
+<tr><td>분양</td><td>64줄</td><td><strong>32건</strong></td></tr>
+</tbody>
+</table>
+
+<p><strong>줄 수와 공고 수가 두 배 가까이 차이 납니다.</strong></p>
+
+<h2>주소에 단지 번호가 붙어 있었어요</h2>
+
+<p>그래도 제목이 같으니 제 열쇠에 걸렸어야 하는 것 아닌가 싶었어요. 문제는 <strong>주소</strong>였습니다.</p>
+
+<pre>...ttotHouseDetailView.do?pblancId=1340&amp;houseSn=3
+...ttotHouseDetailView.do?pblancId=1340&amp;houseSn=8
+...ttotHouseDetailView.do?pblancId=1340&amp;houseSn=9</pre>
+
+<p>앞부분(공고 번호)은 같은데 <strong>뒤에 단지 번호가 붙어서</strong> 주소가 전부 달라집니다. 제목은 같아도 주소가 다르니 제 열쇠는 <strong>다른 공고</strong>라고 판단해버린 거예요.</p>
+
+<p>숫자로 보면 이렇습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>구분</th><th>공고 수</th><th>만들어진 열쇠 수</th></tr>
+</thead>
+<tbody>
+<tr><td>임대</td><td>34건</td><td><strong>59개</strong></td></tr>
+<tr><td>분양</td><td>32건</td><td><strong>64개</strong></td></tr>
+</tbody>
+</table>
+
+<p>분양은 사실상 줄 수만큼 알림이 갈 뻔했어요.</p>
+
+<h2>공고 번호로 대표 한 줄만 뽑았어요</h2>
+
+<p>해결은 단순했습니다. 데이터에 <strong>공고 번호</strong>가 따로 들어 있었거든요. 같은 번호가 이미 나왔으면 건너뛰고, <strong>공고당 첫 줄만</strong> 남겼습니다.</p>
+
+<p>알림 대상을 고를 때 이미 본 공고 번호를 기억해두고 거르는 식이에요. 열 줄이 와도 한 줄만 통과합니다.</p>
+
+<p>여기서 짚어둘 게 있어요. <strong>이건 5편의 중복 제거와 다른 층위입니다.</strong></p>
+
+<ul>
+<li>5편은 <strong>"어제 본 것을 오늘 또 보내지 않기"</strong> — 시간에 걸친 중복</li>
+<li>이번은 <strong>"한 번에 온 열 줄을 한 건으로 묶기"</strong> — 같은 응답 안의 중복</li>
+</ul>
+
+<p>둘 다 중복 제거라 부르지만 걸러야 할 지점이 달랐어요. 앞의 것만 만들어두고 뒤의 것을 놓쳤던 겁니다.</p>
+
+<h2>반대로, 조용히 사라진 것들도 있었어요</h2>
+
+<p>더 고약한 걸 나중에 발견했습니다. 든든전세 쪽은 <strong>정반대 문제</strong>를 안고 있었어요.</p>
+
+<p>3편에서 이 API는 상세 주소를 안 준다고 했죠. 그래서 저는 조회 페이지 주소를 <strong>고정으로</strong> 붙였습니다. 그 말은 <strong>300건이 전부 같은 주소</strong>를 갖는다는 뜻이에요.</p>
+
+<p>주소가 다 같으니 열쇠는 사실상 제목 하나로 결정됩니다. 그런데 든든전세 제목은 제가 지역·면적으로 조합해 만든 것이라, <strong>다른 물건인데 제목이 똑같아지는</strong> 경우가 생겼어요.</p>
+
+<pre>물건 300건 → 서로 다른 열쇠는 290개
+             → 10건이 알림 없이 사라짐</pre>
+
+<p>예를 들어 <code>서울 강서구 든든전세 (29.99㎡)</code>라는 제목을 가진 물건이 <strong>세 건</strong> 있습니다. 동도 다르고 보증금도 다른 별개 물건인데, 제 봇에겐 하나로 보였어요.</p>
+
+<h2>같은 열쇠, 정반대 고장</h2>
+
+<p>정리하면 이렇게 됩니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th></th><th>마이홈</th><th>든든전세</th></tr>
+</thead>
+<tbody>
+<tr><td>주소가</td><td>너무 잘게 나뉨</td><td>아예 없음(고정값)</td></tr>
+<tr><td>그래서</td><td>한 공고가 <strong>여러 번</strong> 옴</td><td>여러 물건이 <strong>한 건</strong>으로 합쳐짐</td></tr>
+<tr><td>체감</td><td>시끄러움 — 바로 알아챔</td><td>조용함 — <strong>한참 몰랐음</strong></td></tr>
+</tbody>
+</table>
+
+<p>같은 열쇠 설계가 소스에 따라 정반대로 고장 났어요. 그리고 <strong>알아채는 속도가 완전히 달랐습니다.</strong></p>
+
+<p>중복은 알림이 겹쳐 울리니 금방 눈에 띕니다. 반면 10건이 사라진 건 <strong>아무 일도 일어나지 않아서</strong> 한참 뒤에야 발견했어요.</p>
+
+<h2>정리 — 안 오는 건 알아채기 어렵다</h2>
+
+<p>이 편에서 얻은 건 기술보다 태도에 가까워요.</p>
+
+<p><strong>잘못 온 알림은 눈에 띕니다. 안 온 알림은 안 띕니다.</strong> 봇이 조용하면 "새 공고가 없나 보다" 하고 넘어가게 되죠. 그게 정상인지 고장인지 구분할 방법이 없었어요.</p>
+
+<p>그래서 지금은 수집한 건수와 실제 알림 건수를 함께 기록해둡니다. 둘의 차이가 설명되지 않으면 뭔가 잘못된 겁니다. 참고로 <strong>든든전세 10건 문제는 아직 안 고쳤어요.</strong> 고칠 방법은 정리해뒀는데, 급한 것부터 하다 보니 밀려 있습니다.</p>
+
+<h2>다음 편</h2>
+
+<p>알림은 정확해졌는데 이번엔 읽기가 불편했어요. 링크를 누르기까지 손이 몇 번 가는지 세어보고 나서 손을 봤습니다. → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-7.html">7편 — 텔레그램 봇 인라인 키보드로 버튼을 달았습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/08/notice-bot-5.html">5편 — 같은 공고가 계속 왔습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>API 함정</li><li>dedup</li><li>공고 알림봇</li><li>데이터 설계</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/notice-bot-5.html">공고 알림봇 만들기 (5편) — 같은 공고가 계속 왔습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/notice-bot-7.html">공고 알림봇 만들기 (7편) — 텔레그램 봇 인라인 키보드로 버튼을 달았습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

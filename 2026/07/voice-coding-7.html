@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽</title>
+<meta name="description" content="인식이 자꾸 약하길래 &quot;소리가 작아서 그런가?&quot; 했어요. 그래서 음량을 키워봤죠. 그런데 키워도, 더 키워도 안 됐습니다. 결국 마주한 건 무료 모델의 천장이었어요.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-7.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-7.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽">
+<meta property="og:description" content="인식이 자꾸 약하길래 &quot;소리가 작아서 그런가?&quot; 했어요. 그래서 음량을 키워봤죠. 그런데 키워도, 더 키워도 안 됐습니다. 결국 마주한 건 무료 모델의 천장이었어요.">
+<meta name="twitter:description" content="인식이 자꾸 약하길래 &quot;소리가 작아서 그런가?&quot; 했어요. 그래서 음량을 키워봤죠. 그런데 키워도, 더 키워도 안 됐습니다. 결국 마주한 건 무료 모델의 천장이었어요.">
+<meta property="article:published_time" content="2026-07-27T20:50:02+09:00">
+<meta property="article:modified_time" content="2026-07-27T21:01:30+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽", "datePublished": "2026-07-27T20:50:02+09:00", "dateModified": "2026-07-27T21:01:30+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-7.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "인식이 자꾸 약하길래 \"소리가 작아서 그런가?\" 했어요. 그래서 음량을 키워봤죠. 그런데 키워도, 더 키워도 안 됐습니다. 결국 마주한 건 무료 모델의 천장이었어요."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽</h1>
+    <p class="post-meta"><time datetime="2026-07-27T20:50:02+09:00">2026년 7월 27일</time></p>
+  </header>
+  <div class="post-body">
+<p>인식이 자꾸 약하길래 "소리가 작아서 그런가?" 했어요. 그래서 음량을 키워봤죠. 그런데 <strong>키워도, 더 키워도 안 됐습니다.</strong> 결국 마주한 건 무료 모델의 천장이었어요.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-6.html">6편 — 한국어로 말했는데 영어로 알아듣는 이유</a></blockquote>
+
+<h2>"소리가 작아서 그런가?" — 게인을 넣었어요</h2>
+
+<p>핀마이크가 USB라 윈도우 입력 볼륨은 이미 최대(100%)였어요. 마이크 부스트 같은 것도 없었고요. 그래서 <strong>소프트웨어로 소리를 키우는(게인)</strong> 기능을 넣었어요. 인식기에 들어가기 직전에 음량을 몇 배로 증폭하는 거죠.</p>
+
+<h2>키워도, 더 키워도 안 됐어요</h2>
+
+<p>게인을 1.5배, 3배, 5배까지 올려봤어요. 로그로 레벨이 실제로 올라간 것도 확인했고요. 그런데 정작 인식은…</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>게인 배수</th><th>입력 레벨</th><th>"긁어온" 인식</th></tr>
+</thead>
+<tbody>
+<tr><td>×1.5</td><td>낮음</td><td>즐거운 ❌</td></tr>
+<tr><td>×3</td><td>중간</td><td>즐거운 ❌</td></tr>
+<tr><td>×5</td><td>원음 수준</td><td>즐거운 ❌</td></tr>
+</tbody>
+</table>
+
+<p><strong>소리를 원음 수준까지 키웠는데도 "긁어온"이 여전히 "즐거운"으로 틀렸어요.</strong> 여기서 깨달았죠. <strong>음량은 범인이 아니었구나.</strong> whisper의 음향 모델은 생각보다 튼튼해서, 소리가 좀 작아도 알아듣긴 하더라고요. (재밌게도, 게인이 없어도 인식하던 걸 데이터가 보여줬어요.)</p>
+
+<h2>진짜 벽은 모델 자체였어요</h2>
+
+<p>그러면 "긁어온"은 왜 안 될까? 이건 <strong>음량이 아니라 whisper 모델이 그 발음을 잘 못 잡는</strong> 문제였어요. 비슷한 걸 하나 더 발견했죠.</p>
+
+<p><strong>"싶어요"라고 말하면 자꾸 "싶습니다"로 바꿔서 인식</strong>했어요. whisper의 디코더는 사실 언어모델이라, 학습한 데이터(뉴스·문어)에 <strong>격식체(-습니다)가 훨씬 많다 보니</strong>, 음향이 조금만 애매해도 <strong>더 익숙한 "-습니다"로 완성</strong>해버리는 거였죠.</p>
+
+<p>즉 모델이 <strong>"내가 아는 그럴듯한 말"로 밀어붙이는</strong> 경향이 있었어요. 이건 소리를 아무리 키워도 안 바뀌는, <strong>모델의 성격</strong> 같은 거였죠.</p>
+
+<h2>initial_prompt도 양날이었어요</h2>
+
+<p>"긁어온"을 힌트 목록(initial_prompt)에 넣어봤어요. 그랬더니 "긁어온"은 잘 잡혔는데, 이번엔 <strong>음향이 비슷한 "읽어온"이 "긁어온"으로 끌려갔어요.</strong> 한쪽을 세우면 다른 쪽이 희생되는 거죠. 만능 해결책은 없었어요.</p>
+
+<h2>결론 — 여기까지가 무료 모델의 천장</h2>
+
+<p>정리하면 이랬어요.</p>
+
+<ul>
+<li><strong>음량(게인)</strong> 은 어느 선까지만 도움 — 결정타는 아님</li>
+<li><strong>whisper large-v3</strong> 는 무료로 쓰기엔 훌륭하지만, <strong>애매한 발음을 "익숙한 말"로 밀어붙이는</strong> 한계가 있음</li>
+<li><strong>initial_prompt</strong> 는 도메인 단어엔 좋지만 유사어 충돌 시 양날</li>
+</ul>
+
+<p>이 이상은 <strong>모델을 바꾸거나(유료·대형·파인튜닝), 인식 후 LLM으로 교정</strong>하는 별도의 큰 작업이 필요했어요. 무료 모델로 갈 수 있는 데까지는 온 거죠. <strong>한계를 명확히 아는 것</strong>도, 다음 결정을 위한 수확이었어요.</p>
+
+<h2>다음 편</h2>
+
+<p>이제 인식 싸움은 일단락. 다음은 <strong>매번 켜기 귀찮던 걸 자동화</strong>하고, 설정을 코드 수정 없이 바꾸는 이야기. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-8.html">8편 — 매번 켜기 귀찮아서: 자동화와 설정 철학</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-6.html">6편 — 한국어로 말했는데 영어로 알아듣는 이유</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Claude Code</li><li>faster-whisper</li><li>STT</li><li>VoxPlug</li><li>whisper</li><li>마이크 게인</li><li>무료 모델 한계</li><li>음성으로 코딩</li><li>음성인식</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-6.html">음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-8.html">음성으로 코딩하기 (8편) — 매번 켜기 귀찮아서: 자동화와 설정 철학</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

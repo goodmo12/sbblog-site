@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1인 사업자 실무 (1편) — 개인사업자 등록, 앱 개발자가 겪은 것들</title>
+<meta name="description" content="결론부터: 앱 하나 배포하려다 개인사업자까지 냈습니다. 홈택스로 온라인 등록했는데, 업종 코드에서 한 번, 과세 유형에서 또 한 번 막혔어요. 특히 소프트웨어 개발업은 간이과세가 안 됩니다 — 저는 그걸 등록하다가 알았습니다. 처음 사업자 내는 1인 개발자가 똑같이…">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/solo-biz-1.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/solo-biz-1.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="1인 사업자 실무 (1편) — 개인사업자 등록, 앱 개발자가 겪은 것들">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1인 사업자 실무 (1편) — 개인사업자 등록, 앱 개발자가 겪은 것들">
+<meta property="og:description" content="결론부터: 앱 하나 배포하려다 개인사업자까지 냈습니다. 홈택스로 온라인 등록했는데, 업종 코드에서 한 번, 과세 유형에서 또 한 번 막혔어요. 특히 소프트웨어 개발업은 간이과세가 안 됩니다 — 저는 그걸 등록하다가 알았습니다. 처음 사업자 내는 1인 개발자가 똑같이…">
+<meta name="twitter:description" content="결론부터: 앱 하나 배포하려다 개인사업자까지 냈습니다. 홈택스로 온라인 등록했는데, 업종 코드에서 한 번, 과세 유형에서 또 한 번 막혔어요. 특히 소프트웨어 개발업은 간이과세가 안 됩니다 — 저는 그걸 등록하다가 알았습니다. 처음 사업자 내는 1인 개발자가 똑같이…">
+<meta property="article:published_time" content="2026-08-09T12:52:07+09:00">
+<meta property="article:modified_time" content="2026-08-09T12:52:07+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "1인 사업자 실무 (1편) — 개인사업자 등록, 앱 개발자가 겪은 것들", "datePublished": "2026-08-09T12:52:07+09:00", "dateModified": "2026-08-09T12:52:07+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/solo-biz-1.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 앱 하나 배포하려다 개인사업자까지 냈습니다. 홈택스로 온라인 등록했는데, 업종 코드에서 한 번, 과세 유형에서 또 한 번 막혔어요. 특히 소프트웨어 개발업은 간이과세가 안 됩니다 — 저는 그걸 등록하다가 알았습니다. 처음 사업자 내는 1인 개발자가 똑같이…"}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-solo-biz">1인 사업자 실무</a></p>
+    <h1 class="post-title">1인 사업자 실무 (1편) — 개인사업자 등록, 앱 개발자가 겪은 것들</h1>
+    <p class="post-meta"><time datetime="2026-08-09T12:52:07+09:00">2026년 8월 9일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 앱 하나 배포하려다 개인사업자까지 냈습니다. 홈택스로 온라인 등록했는데, <strong>업종 코드에서 한 번, 과세 유형에서 또 한 번</strong> 막혔어요. 특히 <strong>소프트웨어 개발업은 간이과세가 안 됩니다</strong> — 저는 그걸 등록하다가 알았습니다. 처음 사업자 내는 1인 개발자가 똑같이 헤맬 지점들을 정리합니다.</p>
+
+<h2>앱 하나 내려다 사업자를 냈습니다</h2>
+
+<p>분리수거 앱을 만들어 구글 플레이에 올리려는데, <strong>개인 계정으로는 제약이 많았습니다.</strong> (계정 관련 자세한 얘기는 분리수거 앱 개발기에서 다뤘으니 여기선 넘어갑니다.) 결국 "사업자를 내자"는 결론에 도달했어요. 앱 하나 만들었을 뿐인데 사업자 등록까지 오게 된 거죠. 1인 개발자로 뭔가를 세상에 내놓으면, 생각보다 빨리 이 단계를 마주합니다.</p>
+
+<h2>홈택스로 온라인 등록</h2>
+
+<p>세무서에 갈 필요 없이 <strong>홈택스에서 온라인으로</strong> 다 됩니다. 공동인증서로 로그인하고, 사업자등록 신청 메뉴를 따라가면 됩니다. 절차 자체는 생각보다 간단했어요. 문제는 절차가 아니라 <strong>중간중간 골라야 하는 것들</strong>이었습니다.</p>
+
+<h2>첫 번째 삽질 — 업종 코드</h2>
+
+<p>사업자등록에는 <strong>업종·업태</strong>를 골라야 합니다. 저는 이렇게 잡았어요:</p>
+<ul>
+<li><strong>정보통신업 — 응용소프트웨어 개발 및 공급업</strong></li>
+<li><strong>광고 대행업</strong> (앱 광고 수익을 고려)</li>
+</ul>
+
+<p>그런데 여기서 막혔습니다. <strong>LLM에게 물어서 안내받은 업종 코드가, 실제 홈택스의 코드와 달랐던</strong> 겁니다. AI가 알려준 코드를 그대로 넣으려다 안 맞아서, 결국 직접 찾아봤어요. 이건 AI를 탓할 게 아니라 — <strong>업종 코드는 개정되거나 세분화되기 때문에</strong>, AI가 학습한 시점과 현재가 다를 수 있습니다. 그래서 <strong>최종 코드는 홈택스에서 직접 확인</strong>하는 게 맞습니다. AI로 방향을 잡되, 확정은 공식 사이트에서. 이건 세금 정보 전반에 적용되는 원칙이에요.</p>
+
+<h2>두 번째 삽질 — 간이과세로 하려다 막혔습니다</h2>
+
+<p>여기가 이 편에서 제일 중요한 부분입니다. 저는 처음에 <strong>간이과세</strong>로 하려 했어요. 매출이 적을 땐 간이가 세부담이 적다고 들었거든요. 그런데 <strong>안 되더군요.</strong></p>
+
+<p>이유를 찾아보니 명확했습니다 — <strong>소프트웨어 개발업(응용소프트웨어 개발 및 공급업)은 국세청이 정한 "간이과세 배제 업종"</strong>입니다. 여기에 사업장이 수도권·대도시 같은 지역요건까지 겹치면, <strong>매출이 아무리 적어도 간이과세를 못 하고 일반과세자가 됩니다.</strong> 저는 이 두 조건에 다 걸려서, 선택의 여지 없이 일반과세로 등록됐어요.</p>
+
+<p>즉 <strong>"매출 없으니 간이로 시작해야지"가 소프트웨어 개발자에겐 안 통합니다.</strong> 이걸 모르고 간이로 신청하려다 막히는 사람이 저 말고도 많을 거예요.</p>
+
+<h2>그래서 — 일반과세 vs 간이과세, 뭐가 다른가</h2>
+
+<p>간이가 안 된다는 걸 알고 나서, 둘의 차이를 제대로 조사했습니다(이것도 LLM에게 정리시킨 뒤 확인했어요). 핵심만 추리면:</p>
+
+<table>
+<tr><th></th><th>간이과세</th><th>일반과세</th></tr>
+<tr><td>대상</td><td>소규모(연 매출 기준 이하) + 배제업종·지역 아닐 것</td><td>그 외 전부</td></tr>
+<tr><td>매입세액</td><td><strong>환급 안 됨</strong></td><td><strong>환급 가능</strong></td></tr>
+<tr><td>세금계산서</td><td>발급 제한적</td><td>정상 발급</td></tr>
+</table>
+
+<p>여기서 소프트웨어 개발자에게 중요한 게 하나 있어요 — <strong>일반과세는 매입세액을 환급받을 수 있습니다.</strong> 간이과세였다면 못 받았을 거예요. 사업 초기에 매출은 없어도 장비·소프트웨어·수수료로 나가는 매입은 있는데, 일반과세라야 그걸 돌려받습니다. <strong>"간이가 안 돼서 아쉽다"가 아니라, 오히려 초기엔 일반과세가 득이 될 수 있다</strong>는 거죠. (이 이야기는 이 시리즈 4편, 실제로 환급받은 부가세 신고 편에서 자세히 다룹니다.)</p>
+
+<h2>정리</h2>
+
+<p>첫 사업자 등록에서 1인 개발자가 걸리는 지점은 이렇습니다:</p>
+<ul>
+<li><strong>업종 코드는 AI로 방향만 잡고, 최종은 홈택스에서 확인</strong> (코드는 바뀐다)</li>
+<li><strong>소프트웨어 개발업은 간이과세 배제 업종</strong> — 매출 적어도 일반과세일 수 있다</li>
+<li><strong>일반과세는 매입세액 환급 가능</strong> — 초기엔 오히려 유리할 수 있다</li>
+</ul>
+
+<p>앱 하나 내려다 사업자까지 왔지만, 이 과정을 한 번 겪고 나니 "사업자"라는 게 그렇게 멀고 어려운 게 아니었어요. 다음 편에서는 <strong>사업장 주소를 어떻게 확보했는지</strong>(자택 대신 공유오피스를 쓴 이야기)를 풀어보겠습니다.</p>
+
+<h2>다음 편</h2>
+
+<p>→ <a href="https://blog.secondbranch.kr/2026/08/solo-biz-2.html">2편 — 공유오피스로 사업장 주소 확보하기</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>1인사업자</li><li>간이과세</li><li>개인사업자 등록</li><li>앱 개발</li><li>일반과세</li><li>홈택스</li></ul>
+<nav class="series-nav">
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/solo-biz-2.html">1인 사업자 실무 (2편) — 공유오피스로 사업장 주소 확보하기</a></p>
+<p><a href="/#series-solo-biz">1인 사업자 실무 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

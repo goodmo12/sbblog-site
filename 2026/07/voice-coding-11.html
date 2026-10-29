@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (11편) — 어느 창에 넣지? 목소리로 창 고르기</title>
+<meta name="description" content="2편에서 &quot;음성을 텍스트로 바꿔 창에 붙여넣는다&quot;는 우회로를 만들었다고 했죠. 그런데 막상 쓰다 보니 새 문제가 생겼어요. 창이 여러 개 열려 있으면, 도대체 어디에 넣어야 하지?">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-11.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-11.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (11편) — 어느 창에 넣지? 목소리로 창 고르기">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (11편) — 어느 창에 넣지? 목소리로 창 고르기">
+<meta property="og:description" content="2편에서 &quot;음성을 텍스트로 바꿔 창에 붙여넣는다&quot;는 우회로를 만들었다고 했죠. 그런데 막상 쓰다 보니 새 문제가 생겼어요. 창이 여러 개 열려 있으면, 도대체 어디에 넣어야 하지?">
+<meta name="twitter:description" content="2편에서 &quot;음성을 텍스트로 바꿔 창에 붙여넣는다&quot;는 우회로를 만들었다고 했죠. 그런데 막상 쓰다 보니 새 문제가 생겼어요. 창이 여러 개 열려 있으면, 도대체 어디에 넣어야 하지?">
+<meta property="article:published_time" content="2026-07-29T20:41:34+09:00">
+<meta property="article:modified_time" content="2026-07-29T20:50:31+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (11편) — 어느 창에 넣지? 목소리로 창 고르기", "datePublished": "2026-07-29T20:41:34+09:00", "dateModified": "2026-07-29T20:50:31+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-11.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "2편에서 \"음성을 텍스트로 바꿔 창에 붙여넣는다\"는 우회로를 만들었다고 했죠. 그런데 막상 쓰다 보니 새 문제가 생겼어요. 창이 여러 개 열려 있으면, 도대체 어디에 넣어야 하지?"}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (11편) — 어느 창에 넣지? 목소리로 창 고르기</h1>
+    <p class="post-meta"><time datetime="2026-07-29T20:41:34+09:00">2026년 7월 29일</time></p>
+  </header>
+  <div class="post-body">
+<p>2편에서 "음성을 텍스트로 바꿔 창에 붙여넣는다"는 우회로를 만들었다고 했죠. 그런데 막상 쓰다 보니 새 문제가 생겼어요. <strong>창이 여러 개 열려 있으면, 도대체 어디에 넣어야 하지?</strong></p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-10.html">10편 — 최신 그래픽카드가 오히려 발목을 잡았다</a></blockquote>
+
+<h2>엉뚱한 창에 들어가더라고요</h2>
+
+<p>VS Code, 브라우저, 다른 편집기… 화면엔 늘 창이 여러 개 떠 있잖아요. 그런데 음성으로 만든 텍스트가 <strong>내가 원한 창이 아니라 엉뚱한 데</strong> 붙어버리면 낭패예요. 특히 명령이 잘못된 창에 엔터까지 눌리면 사고가 나죠.</p>
+
+<h2>처음엔 화면을 "보고" 찾으려 했어요</h2>
+
+<p>처음 떠올린 건 <strong>이미지 매칭</strong>이었어요. 입력창 생김새를 스크린샷으로 저장해두고, 화면에서 그 모양을 찾아 클릭하는 방식이죠.</p>
+
+<p>그런데 이게 영 불안정했어요. <strong>입력창은 포커스가 있을 때와 없을 때 색이 미묘하게 달라져요.</strong> 그러니 "저장해둔 그림"과 안 맞아서 못 찾는 일이 잦았죠. 화면 상태에 따라 됐다 안 됐다 하니 믿을 수가 없었어요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>방식</th><th>문제</th></tr>
+</thead>
+<tbody>
+<tr><td>이미지(생김새) 매칭</td><td>포커스에 따라 입력창 색이 변해 못 찾음</td></tr>
+<tr><td>창 제목 기반</td><td>제목은 안 변하니 안정적</td></tr>
+</tbody>
+</table>
+
+<h2>그래서 "창 제목"으로 찾기로 했어요</h2>
+
+<p>생김새 대신 <strong>창 제목</strong>으로 찾기로 했어요. 창마다 제목(예: "○○ - Visual Studio Code")이 있으니, 그걸로 원하는 창을 특정하고 → 마우스로 클릭해 포커스를 준 뒤 → 붙여넣는 거죠. 제목은 색처럼 변하지 않으니 훨씬 안정적이었어요.</p>
+
+<h2>목소리로 창을 고르게 했어요</h2>
+
+<p>여기에 사용성을 얹었어요.</p>
+
+<ul>
+<li><strong>평소엔 기본 창에 자동으로</strong> 넣어요 (제일 자주 쓰는 창).</li>
+<li>다른 데 넣고 싶으면 <strong>"창" 또는 "윈도우"라고 말하면</strong> 열린 창 목록이 팝업으로 떠요. 거기서 <strong>번호나 창 이름을 말해서</strong>(또는 클릭해서) 고르면 그 창으로 들어가죠.</li>
+</ul>
+
+<p>이러면 손 하나 안 대고 <strong>"이건 저 창에"</strong> 를 목소리로 지정할 수 있어요.</p>
+
+<h2>영어 창을 한글로 부르기 — 별칭</h2>
+
+<p>한 가지 더. 창 제목이 영어인 경우가 많잖아요. 영어 제목을 매번 영어로 말하긴 번거로워서, <strong>한글 별명(별칭)</strong> 을 붙였어요. 예를 들어 특정 창을 "복스플러그"라고 부르면 그 창으로 가게요. 말하기 편한 한국어로 창을 호출하는 거죠.</p>
+
+<h2>정리 — 마지막 관문</h2>
+
+<p>돌아보면 창 타겟팅은 <strong>"음성 → 텍스트 → 주입"</strong> 우회로의 <strong>마지막 관문</strong>이었어요. 화면을 눈으로 찾으려던 접근(이미지 매칭)을 버리고 <strong>제목이라는 안정적인 단서</strong>로 바꾼 게 핵심이었죠. 보이는 걸 흉내 내기보다, <strong>변하지 않는 정보</strong>를 잡는 게 자동화에선 훨씬 튼튼하더라고요.</p>
+
+<h2>다음 편</h2>
+
+<p>드디어 마지막 편이에요. 여기까지 오며 <strong>배운 것들, 그리고 지금 실제로 쓰고 있는 완성된 모습</strong>을 정리하는 회고. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-12.html">12편·완결 — 삽질 끝에 배운 것들, 그리고 지금</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-10.html">10편 — 최신 그래픽카드가 오히려 발목을 잡았다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Claude Code</li><li>GUI 자동화</li><li>pygetwindow</li><li>VoxPlug</li><li>윈도우 자동화</li><li>음성으로 코딩</li><li>창 전환</li><li>파이썬 자동화</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-10.html">음성으로 코딩하기 (10편) — 최신 그래픽카드가 오히려 발목을 잡았다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-12.html">음성으로 코딩하기 (12편·완결) — 삽질 끝에 배운 것들, 그리고 지금</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

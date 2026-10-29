@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?</title>
+<meta name="description" content="Claude의 답은 화면에 잘 떴어요. 그런데 소리가 안 났습니다. 분명 음성으로 읽어주게 만들어놨는데 말이죠. 범인은 둘이었고, 그중 하나는 뜻밖에도… AI 자신이었어요.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-5.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-5.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?">
+<meta property="og:description" content="Claude의 답은 화면에 잘 떴어요. 그런데 소리가 안 났습니다. 분명 음성으로 읽어주게 만들어놨는데 말이죠. 범인은 둘이었고, 그중 하나는 뜻밖에도… AI 자신이었어요.">
+<meta name="twitter:description" content="Claude의 답은 화면에 잘 떴어요. 그런데 소리가 안 났습니다. 분명 음성으로 읽어주게 만들어놨는데 말이죠. 범인은 둘이었고, 그중 하나는 뜻밖에도… AI 자신이었어요.">
+<meta property="article:published_time" content="2026-07-26T12:27:04+09:00">
+<meta property="article:modified_time" content="2026-07-26T12:38:25+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?", "datePublished": "2026-07-26T12:27:04+09:00", "dateModified": "2026-07-26T12:38:25+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-5.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "Claude의 답은 화면에 잘 떴어요. 그런데 소리가 안 났습니다. 분명 음성으로 읽어주게 만들어놨는데 말이죠. 범인은 둘이었고, 그중 하나는 뜻밖에도… AI 자신이었어요."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?</h1>
+    <p class="post-meta"><time datetime="2026-07-26T12:27:04+09:00">2026년 7월 26일</time></p>
+  </header>
+  <div class="post-body">
+<p>Claude의 답은 화면에 잘 떴어요. 그런데 <strong>소리가 안 났습니다.</strong> 분명 음성으로 읽어주게 만들어놨는데 말이죠. 범인은 둘이었고, 그중 하나는 뜻밖에도… <strong>AI 자신</strong>이었어요.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-4.html">4편 — 멀쩡한 마이크를 죽었다고 오판한 이유</a></blockquote>
+
+<h2>TTS는 분명 깔끔하게 됐었는데</h2>
+
+<p>2편에서 얘기했듯, 출력(Claude→나)은 MCP로 우아하게 풀렸어요. Claude가 답할 때마다 speak라는 도구를 불러서 음성으로 읽어주는 방식이었죠. 잘 됐어요. <strong>가끔 조용해지기 전까지는요.</strong></p>
+
+<h2>미스터리 ① — 껐다 켰더니 영영 조용</h2>
+
+<p>TTS를 잠깐 껐다가 다시 켰는데, 그 뒤로 <strong>영영 소리가 안 났어요.</strong> "재생하는 프로그램(워커)이 어디서 멈췄나?" 싶어서 그쪽 코드를 한참 뒤졌죠.</p>
+
+<p>그런데 코드는 멀쩡했어요. 진짜 원인은 황당했습니다. <strong>Claude(AI)가 speak 도구를 아예 안 부르고 있었던 거예요.</strong></p>
+
+<p>TTS가 꺼져 있을 때 speak를 부르면 "지금 꺼져 있음(disabled)"이라고 응답해요. Claude가 그걸 한 번 받고는, <strong>"어차피 꺼졌겠지" 하고 그 뒤로 speak 부르기를 스스로 생략</strong>한 거였죠. 제가 다시 켰는데도 Claude가 안 부르니 계속 조용했던 겁니다.</p>
+
+<p><strong>도구가 고장 난 게 아니라, 도구를 안 부른 거였어요.</strong> 이 둘을 구분 못 해서 한참 헤맸죠.</p>
+
+<h2>미스터리 ② — 발성이 끝났는데 입력이 막힌다</h2>
+
+<p>또 하나. TTS가 말하는 동안엔 <strong>마이크 입력을 잠깐 무시</strong>하게 해뒀어요. 스피커에서 나오는 Claude 목소리를 마이크가 다시 주워듣는 걸 막으려고요. 이 "지금 재생 중" 상태를 작은 <strong>파일 플래그</strong>로 표시했죠.</p>
+
+<p>문제는, <strong>재생이 끝났는데도 그 플래그가 "재생 중"으로 박혀서</strong> 입력이 영영 막히는 거였어요. 말을 해도 무시당했죠.</p>
+
+<h2>범인은 파일 쓰기 경합이었어요 (WinError 5)</h2>
+
+<p>플래그를 "재생 끝(0)"으로 바꾸는 쓰기가 <strong>실패</strong>하고 있었어요. 로그를 보니 <strong>WinError 5(액세스 거부)</strong>. 이유는 이랬어요.</p>
+
+<ul>
+<li>플래그 파일을 <strong>안전하게 교체</strong>하려고 임시 파일에 쓴 뒤 바꿔치기(rename)를 하는데,</li>
+<li>그 순간 <strong>다른 프로세스가 같은 파일을 읽고 있으면</strong> 윈도우가 교체를 거부합니다.</li>
+<li>그런데 <strong>한 번 실패하면 재시도가 없어서</strong>, 플래그가 "재생 중"으로 영영 박혀버린 거죠.</li>
+</ul>
+
+<p>해결은 두 가지였어요. <strong>쓰기가 실패하면 잠깐 뒤 다시 시도</strong>하고, 혹시 그래도 박히면 <strong>너무 오래된 플래그는 자동으로 무시</strong>(재생이 그렇게 길 리 없으니)하게 안전장치를 뒀습니다.</p>
+
+<h2>교훈 — "안 되는 것"과 "안 부른 것", 그리고 파일 경합</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>증상</th><th>진짜 원인</th></tr>
+</thead>
+<tbody>
+<tr><td>껐다 켰더니 계속 조용</td><td>도구 고장이 아니라 <strong>AI가 도구를 안 부름</strong></td></tr>
+<tr><td>발성 끝났는데 입력 막힘</td><td>플래그 파일 <strong>쓰기 경합(WinError 5)</strong> → stuck</td></tr>
+</tbody>
+</table>
+
+<p>두 교훈이 남았어요. 하나는 <strong>"도구가 고장인지, 안 부른 건지"를 먼저 구분</strong>하라는 것. 다른 하나는 <strong>여러 프로세스가 같은 파일을 건드리면 경합과 재시도를 반드시 고려</strong>하라는 것.</p>
+
+<p>AI는 도구를 잘 만들어줬지만, <strong>"약속대로 그 도구를 부르고 있는지"</strong> 와 <strong>"동시 접근에서 안 깨지는지"</strong> 는 결국 제가 챙겨야 했어요.</p>
+
+<h2>다음 편</h2>
+
+<p>이번엔 인식 자체가 이상해집니다. <strong>한국어로 말했는데 영어로 알아듣는</strong> 현상, 그리고 노이즈 제거가 오히려 독이 된 이야기. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-6.html">6편 — 한국어로 말했는데 영어로 알아듣는 이유</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-4.html">4편 — 멀쩡한 마이크를 죽었다고 오판한 이유</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>ClaudeCode</li><li>MCP</li><li>TTS</li><li>VoxPlug</li><li>디버깅</li><li>음성으로코딩</li><li>파일경합</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-4.html">음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-6.html">음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

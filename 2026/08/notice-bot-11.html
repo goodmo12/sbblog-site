@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (11편·완결) — 봇이 알려준 공고로 이사를 검토했습니다</title>
+<meta name="description" content="결론부터: 45일 동안 공고 2,756건을 수집해 필요한 것만 알림으로 받았습니다. 그중 한 건이 제 주거 계획을 실제로 검토하게 만들었고, 저는 그 공고에 신청하지 않기로 했습니다. 그런데도 이 봇은 제 값을 했습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/notice-bot-11.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/notice-bot-11.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (11편·완결) — 봇이 알려준 공고로 이사를 검토했습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (11편·완결) — 봇이 알려준 공고로 이사를 검토했습니다">
+<meta property="og:description" content="결론부터: 45일 동안 공고 2,756건을 수집해 필요한 것만 알림으로 받았습니다. 그중 한 건이 제 주거 계획을 실제로 검토하게 만들었고, 저는 그 공고에 신청하지 않기로 했습니다. 그런데도 이 봇은 제 값을 했습니다.">
+<meta name="twitter:description" content="결론부터: 45일 동안 공고 2,756건을 수집해 필요한 것만 알림으로 받았습니다. 그중 한 건이 제 주거 계획을 실제로 검토하게 만들었고, 저는 그 공고에 신청하지 않기로 했습니다. 그런데도 이 봇은 제 값을 했습니다.">
+<meta property="article:published_time" content="2026-08-04T20:30:13+09:00">
+<meta property="article:modified_time" content="2026-08-04T20:30:13+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (11편·완결) — 봇이 알려준 공고로 이사를 검토했습니다", "datePublished": "2026-08-04T20:30:13+09:00", "dateModified": "2026-08-04T20:30:13+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/notice-bot-11.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 45일 동안 공고 2,756건을 수집해 필요한 것만 알림으로 받았습니다. 그중 한 건이 제 주거 계획을 실제로 검토하게 만들었고, 저는 그 공고에 신청하지 않기로 했습니다. 그런데도 이 봇은 제 값을 했습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (11편·완결) — 봇이 알려준 공고로 이사를 검토했습니다</h1>
+    <p class="post-meta"><time datetime="2026-08-04T20:30:13+09:00">2026년 8월 4일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 45일 동안 공고 <strong>2,756건</strong>을 수집해 필요한 것만 알림으로 받았습니다. 그중 한 건이 제 주거 계획을 실제로 검토하게 만들었고, <strong>저는 그 공고에 신청하지 않기로 했습니다.</strong> 그런데도 이 봇은 제 값을 했습니다.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-10.html">10편 — Reddit이 API를 막아서 RSS로 우회했습니다</a></blockquote>
+
+<h2>그날 폰이 울렸습니다</h2>
+
+<p>7월 29일 저녁 여섯 시 십팔 분. 봇이 LH 공고 목록을 가져와 신규 열 건을 알렸습니다. 그중 하나가 이거였어요.</p>
+
+<pre>[lh] 의정부지역 10년 공공임대주택 예비입주자모집 공고(무순위)</pre>
+
+<p>버튼을 눌러 공고 페이지로 들어갔고, 공고문 PDF 네 개를 받았습니다. 그리고 그걸 놓고 <strong>공공임대가 뭔지부터</strong> 따져봤어요. 저는 그때 10년 공공임대와 국민임대의 차이도 몰랐습니다.</p>
+
+<p>알림에서 분석 착수까지 <strong>36분</strong>이 걸렸습니다.</p>
+
+<h2>접수 13일 전이었습니다</h2>
+
+<p>여기가 중요합니다. 그 공고의 접수기간은 <strong>8월 11일부터 12일까지</strong>, 이틀뿐이었어요.</p>
+
+<p>제가 손으로 찾고 있었다면 어땠을까요. 1편에서 말한 대로 저는 사이트를 매주 순회했습니다. 잘해야 주 1회고, 바쁘면 건너뛰었어요. <strong>이틀짜리 접수 창을 놓칠 확률이 꽤 높았습니다.</strong></p>
+
+<p>봇은 그걸 접수 13일 전에 가져왔습니다. <strong>급하게 결정하지 않을 시간</strong>을 확보한 거죠.</p>
+
+<h2>그리고 신청하지 않기로 했습니다</h2>
+
+<p>며칠 더 들여다보고 나서, 저는 <strong>접수하지 않기로 결정했습니다.</strong></p>
+
+<p>이 글을 "봇 덕분에 집을 구했습니다"로 끝내면 좋았겠지만 사실이 아닙니다. 봇은 제게 집을 주지 않았어요.</p>
+
+<p>대신 이걸 줬습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th></th><th>봇이 없었다면</th><th>봇이 있었더니</th></tr>
+</thead>
+<tbody>
+<tr><td>그 공고를</td><td>몰랐을 수 있음</td><td><strong>접수 13일 전에 알았음</strong></td></tr>
+<tr><td>판단 시간</td><td>없거나 촉박</td><td>열흘 넘게</td></tr>
+<tr><td>결정</td><td>못 함</td><td><strong>안 하기로 결정</strong></td></tr>
+</tbody>
+</table>
+
+<p><strong>"모르고 지나간 것"과 "알고 안 한 것"은 다릅니다.</strong> 결과는 똑같이 "그 집에 안 살게 됐다"인데, 전자는 선택이 아니고 후자는 선택이에요.</p>
+
+<p>알림봇의 값어치가 여기 있었습니다. <strong>결정을 대신해주는 게 아니라, 결정할 재료를 제때 손에 쥐게 해주는 것.</strong></p>
+
+<h2>45일 동안 이만큼 돌았습니다</h2>
+
+<p>숫자로 정리하면 이렇습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>항목</th><th>값</th></tr>
+</thead>
+<tbody>
+<tr><td>가동 기간</td><td><strong>45일</strong> (6/20~8/4)</td></tr>
+<tr><td>수집 소스</td><td><strong>7종</strong></td></tr>
+<tr><td>누적 수집</td><td><strong>2,756건</strong></td></tr>
+<tr><td>중복 판별 키</td><td>2,757개 / 504KB</td></tr>
+<tr><td>로그</td><td>31만 줄</td></tr>
+<tr><td>재시작</td><td>48회 (PC 켤 때마다)</td></tr>
+</tbody>
+</table>
+
+<p>소스별로는 기업마당이 1,746건으로 압도적이고, LH·든든전세가 각 300건 안팎입니다.</p>
+
+<p><strong>지역 필터를 붙인 뒤</strong>로는 알림이 이렇게 줄었어요.</p>
+
+<pre>신규 139건 → 알림 57건 / 차단 82건</pre>
+
+<p>수집은 다 하고 <strong>알림만 거르는 구조</strong>입니다. 차단된 82건도 파일에 남아 있어서, 나중에 다른 지역을 찾고 싶으면 꺼내볼 수 있어요.</p>
+
+<h2>시리즈를 쓰면서 알게 된 것</h2>
+
+<p>열한 편을 쓰는 동안 예상 못 한 게 있었습니다. <strong>같은 종류의 고장이 세 번 나왔어요.</strong></p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>편</th><th>무엇이</th><th>어떻게</th></tr>
+</thead>
+<tbody>
+<tr><td>6편</td><td>든든전세 10건</td><td>제목이 겹쳐 조용히 사라짐</td></tr>
+<tr><td>9편</td><td>아이디어 76건</td><td>로컬 모델이 꺼져 있어 조용히 탈락</td></tr>
+<tr><td>10편</td><td>서브레딧 4개</td><td>호출 제한에 걸려 조용히 유실</td></tr>
+</tbody>
+</table>
+
+<p>셋 다 <strong>봇이 죽지 않았습니다.</strong> 계속 돌고, 알림은 오고, 로그엔 경고만 찍혔어요. 그래서 몰랐습니다.</p>
+
+<p><strong>고장은 시끄럽게 나야 고쳐집니다.</strong> 조용히 절반만 죽는 상태가 가장 위험했어요. 10편의 서브레딧 문제는 <strong>블로그를 쓰려고 로그를 세다가</strong> 처음 발견했습니다. 두 달 넘게 모르고 있었던 거죠.</p>
+
+<p>이게 이 시리즈를 쓴 부수 효과였습니다. <strong>글로 정리하려면 숫자를 세야 하고, 세면 실태가 드러납니다.</strong></p>
+
+<h2>아직 안 고친 것들</h2>
+
+<p>완성됐다고 쓰고 싶지만 그것도 사실이 아닙니다. 지금 알고도 안 고친 게 이만큼 남아 있어요.</p>
+
+<ul>
+<li>든든전세 필드명 오타 하나 때문에 <strong>10건이 계속 유실</strong> 중</li>
+<li>Reddit 서브레딧 <strong>4개가 여전히 막혀</strong> 있음</li>
+<li>LH API가 요즘 <strong>타임아웃을 자주</strong> 냅니다. 재시도 로직이 없어요</li>
+<li>클라우드에 안 올려서 <strong>PC를 끄면 멈춥니다</strong></li>
+</ul>
+
+<p>급한 것부터 하다 보니 밀렸습니다. 그런데 이게 나쁘지만은 않다고 생각해요. <strong>본업이 도는 동안 곁가지를 미루는 것</strong>은 1인 개발에서 어쩔 수 없는 선택이고, 적어놨으니 잊지는 않습니다.</p>
+
+<h2>정리 — 만들 만했나</h2>
+
+<p>돌아보면 이 봇은 <strong>작은 도구</strong>입니다. 새로운 기술은 하나도 없어요. API를 부르고, 본 것을 기억하고, 새 것만 알리는 게 전부입니다.</p>
+
+<p>그런데 45일 동안 하루도 안 빠지고 돌았고, 제가 몰랐을 선택지를 하나 손에 쥐게 해줬습니다. 그거면 충분히 남는 장사였어요.</p>
+
+<p>시작이 이랬습니다 — <strong>"공고를 손으로 찾다 지쳤다."</strong> 그 불편 하나가 열한 편짜리 삽질이 됐고, 지금은 폰이 알려줍니다.</p>
+
+<p><strong>내가 불편한 것을 내가 고친다.</strong> 이 시리즈가 결국 하고 싶었던 말은 그것뿐입니다. 읽어주셔서 고맙습니다.</p>
+
+<hr>
+
+<h2>이 시리즈 전체</h2>
+
+<ol>
+<li><a href="https://blog.secondbranch.kr/2026/07/notice-bot-1.html">손으로 찾다 지쳤습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/07/notice-bot-2.html">인증키가 필요 없는 공공 API도 있습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/07/notice-bot-3.html">목록에 없는 API를 직접 찾아냈습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/07/notice-bot-4.html">API마다 응답 구조가 달랐습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/08/notice-bot-5.html">같은 공고가 계속 왔습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/08/notice-bot-6.html">한 공고가 일곱 번 올 뻔했습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/08/notice-bot-7.html">텔레그램 봇 인라인 키보드로 버튼을 달았습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/08/notice-bot-8.html">윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/08/notice-bot-9.html">LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/08/notice-bot-10.html">Reddit이 API를 막아서 RSS로 우회했습니다</a></li>
+<li><strong>봇이 알려준 공고로 이사를 검토했습니다</strong> (이 글)</li>
+</ol>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/08/notice-bot-10.html">10편 — Reddit이 API를 막아서 RSS로 우회했습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>개발 회고</li><li>공고 알림봇</li><li>자동화</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/notice-bot-10.html">공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

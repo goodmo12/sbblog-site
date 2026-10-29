@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (4편) — 첫 수익과 LLM이 못 짚어준 사고 2건</title>
+<meta name="description" content="첫 광고 수익 40원. 그리고 며칠 뒤에 사고 두 개가 터졌어요. 이번 편은 그 이야기입니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-4-llm.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-4-llm.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (4편) — 첫 수익과 LLM이 못 짚어준 사고 2건">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (4편) — 첫 수익과 LLM이 못 짚어준 사고 2건">
+<meta property="og:description" content="첫 광고 수익 40원. 그리고 며칠 뒤에 사고 두 개가 터졌어요. 이번 편은 그 이야기입니다.">
+<meta name="twitter:description" content="첫 광고 수익 40원. 그리고 며칠 뒤에 사고 두 개가 터졌어요. 이번 편은 그 이야기입니다.">
+<meta property="article:published_time" content="2026-07-05T10:25:37+09:00">
+<meta property="article:modified_time" content="2026-07-18T19:57:17+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (4편) — 첫 수익과 LLM이 못 짚어준 사고 2건", "datePublished": "2026-07-05T10:25:37+09:00", "dateModified": "2026-07-18T19:57:17+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-4-llm.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "첫 광고 수익 40원. 그리고 며칠 뒤에 사고 두 개가 터졌어요. 이번 편은 그 이야기입니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-playstore_recycleapp">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지</a></p>
+    <h1 class="post-title">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (4편) — 첫 수익과 LLM이 못 짚어준 사고 2건</h1>
+    <p class="post-meta"><time datetime="2026-07-05T10:25:37+09:00">2026년 7월 5일</time></p>
+  </header>
+  <div class="post-body">
+<p>첫 광고 수익 40원. 그리고 며칠 뒤에 사고 두 개가 터졌어요. 이번 편은 그 이야기입니다.</p>
+
+<h2>AdMob 연동 자체는 LLM으로 금방 끝났어요</h2>
+
+<p>AdMob 콘솔에서 앱 등록 → 광고 단위(배너) 생성. 두 개의 ID를 받게 돼요.</p>
+
+<ul>
+<li><strong>앱 ID</strong>: <code>AndroidManifest.xml</code>에 넣습니다</li>
+<li><strong>배너 광고 단위 ID</strong>: 앱 코드 상수로 관리</li>
+</ul>
+
+<p>Claude에게 "Flutter에서 <code>google_mobile_ads</code> 패키지로 배너 광고 붙이는 법"이라고 물으니 코드 예시 즉시 제공. 그대로 붙이진 않고 프로젝트 구조에 맞게 손봤지만 <strong>초안 시간이 크게 줄었어요.</strong></p>
+
+<h2>필수인데 놓치기 딱 좋은 것: app-ads.txt</h2>
+
+<p>개발자 웹사이트 루트에 <strong><code>app-ads.txt</code></strong> 파일을 게시해야 해요. 없으면 광고 게재가 제한됩니다. Claude가 사전에 짚어주긴 했는데, "웹사이트 뭐 넣을 때 같이 하면 되지"라고 미뤄뒀다가 놓칠 뻔했어요. 초반에 확실히 챙기는 게 안전해요.</p>
+
+<h2>첫 수익 확인</h2>
+
+<p>출시 며칠 뒤 AdMob 대시보드:</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>지표</th><th>값</th></tr>
+</thead>
+<tbody>
+<tr><td>오늘 수입</td><td><strong>$0.03 (약 40원)</strong></td></tr>
+<tr><td>이번 달 누적</td><td>$0.07</td></tr>
+<tr><td>노출수</td><td>24회</td></tr>
+<tr><td>요청수</td><td>26회</td></tr>
+<tr><td>일치율</td><td>100%</td></tr>
+<tr><td><strong>eCPM</strong></td><td><strong>$1.17</strong> (1000회 노출당 예상 수익)</td></tr>
+</tbody>
+</table>
+
+<p>40원짜리 첫 수익. 이상하게 뿌듯했어요.</p>
+
+<blockquote>
+<p><strong>주의</strong>: 본인 폰에서 광고 클릭은 절대 금지. AdMob 정책상 계정 정지 사유입니다. 궁금해도 참으세요.</p>
+</blockquote>
+
+<h2>사고 1: 개인 휴대폰 번호가 앱 페이지에 노출</h2>
+
+<p>출시 후 앱 페이지를 확인하다가 등에 땀이 났어요. <strong>개발자 소개 섹션에 개인 휴대폰 번호가 그대로 노출</strong>되어 있었어요.</p>
+
+<p>원인은 <strong>조직 계정 투명성 정책</strong> — 소비자 보호 목적으로 연락처 공개가 의무예요. <strong>삭제 불가, 변경만 가능</strong>.</p>
+
+<p>출시 준비 때 Claude와 Gemini 양쪽에 이 정책을 미리 안내받지 못했어요. <strong>양쪽 LLM 공통으로 놓친 항목</strong>. 학습 데이터 시점 이후에 강화된 정책이라 그런 것 같아요.</p>
+
+<h3>해결</h3>
+
+<ul>
+<li>별도 알뜰유심 개통 → 업무용 번호로 교체</li>
+<li>Play Console → 개발자 프로필 → 전화번호 변경 → 인증</li>
+<li>스토어 반영까지 24~48시간 소요</li>
+</ul>
+
+<p><strong>교훈</strong>: 출시 후에 반드시 실제 스토어 listing을 육안으로 확인하세요. 이건 LLM이 대신 못 봅니다.</p>
+
+<h2>사고 2: Gemini API 크레딧 고갈 (제일 아이러니한 사고)</h2>
+
+<p>출시 후 얼마 안 지나서 지인이 써보다가 알려줬어요. "앱이 갑자기 작동을 안 한다"고. logcat 확인:</p>
+
+<pre><code>Your prepayment credits are depleted.
+Please go to AI Studio at https://ai.studio/projects</code></pre>
+
+<p><strong>여기서 진짜 놀랐어요</strong>. Gemini API는 일반 GCP 빌링과 <strong>완전히 별개 시스템</strong>이었어요.</p>
+
+<ul>
+<li>GCP 결제: 정상 ✓ (월 ₩17 청구)</li>
+<li><strong>AI Studio 크레딧: 미설정</strong> ✗ → 무료 한도 초과 시 자동 차단</li>
+</ul>
+
+<p><strong>Claude에게 Gemini API 붙이는 법을 처음 물었을 때, 이 이중 결제 구조가 미리 안내되지 않았어요.</strong> Gemini API 자체를 Claude가 소개해준 상황인데도, 그 결제 구조까지는 학습이 부족했던 것 같아요. <strong>LLM한테 LLM API의 결제 함정을 안내받지 못한 아이러니.</strong></p>
+
+<h3>대응</h3>
+
+<ul>
+<li>AI Studio → 결제 → <strong>Cloud Prepay ₩25,000 결제</strong></li>
+<li><strong>자동 충전 ON</strong> 설정 (잔액 ₩10,000 미만 시 자동 갱신)</li>
+<li>크레딧 1년 유효, 미사용분 소멸 (환불 불가)</li>
+</ul>
+
+<p>제 앱의 월 사용량은 ₩15 수준이라 ₩25,000은 사실 넘치는 금액이에요. 미사용분이 아까우면 같은 프로젝트에 다른 앱을 만들거나, 개인용도로 API를 나눠 쓰면 됩니다.</p>
+
+<h2>AI(LLM) 협업 총평</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>LLM이 잘한 것</th><th>LLM이 못한 것</th></tr>
+</thead>
+<tbody>
+<tr><td>코드 초안, 에러 진단, 문서 정리</td><td>정책 변화 사전 안내 (특히 최근에 강화된 것)</td></tr>
+<tr><td>트레이드오프 정리, 대안 나열</td><td>"당신 상황에서 지금 확인하라"는 실전 감각</td></tr>
+<tr><td>반복 삽질 압축</td><td>학습 데이터에 없는 최근 함정</td></tr>
+</tbody>
+</table>
+
+<p><strong>AI(LLM)는 강력한 협업 파트너지만 만능은 아니에요.</strong> 배포 후 실제 스토어 페이지 확인이나 결제 시스템 이중 구조 같은 부분은 사람이 직접 챙겨야 합니다.</p>
+
+<h2>시리즈 마무리</h2>
+
+<ul>
+<li><a href="https://blog.secondbranch.kr/2026/07/claude-code-flutter-google-play-1-vs.html">1편: 개인 vs 사업자 선택</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-2.html">2편: DUNS 발급 (반려 → 재신청)</a></li>
+<li><a href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-3-llm.html">3편: 멀티 LLM 협업으로 앱 심사 재제출</a></li>
+<li>4편: 첫 수익과 사고 2건 (현재)</li>
+</ul>
+
+<p><strong>첫 수익 40원 + 사고 2건 = 진짜 실전.</strong> 다음 앱은 이 체크리스트 위에서 시작합니다.</p>
+
+<p>이 시리즈의 결론은 이 한 문장으로 정리돼요.</p>
+
+<blockquote>
+<p><strong>"LLM이 다 해준다"가 아니라, "LLM과 어떻게 협업하느냐가 1인 개발자의 생산성 격차를 만든다."</strong></p>
+</blockquote>
+
+<hr>
+
+<p>이 시리즈에서 다루는 앱이 궁금하시면<br>
+👉 <a href="https://play.google.com/store/apps/details?id=com.recycleapp.recycle_app">찰칵분리수거 Google Play에서 받기</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>GooglePlay</li><li>앱개발기</li><li>찰칵분리수거</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/aiclaude-code-flutter-google-play-3-llm.html">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (3편) — 멀티 LLM 협업으로 개발·심사·재제출</a></p>
+<p><a href="/#series-playstore_recycleapp">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

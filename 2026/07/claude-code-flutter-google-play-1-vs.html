@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (1편) — 개인 vs 사업자 계정</title>
+<meta name="description" content="지인 12명한테 2주 동안 매일 앱 실행해달라고 부탁할 자신 있으세요? 저는 없었습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/claude-code-flutter-google-play-1-vs.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/claude-code-flutter-google-play-1-vs.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (1편) — 개인 vs 사업자 계정">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (1편) — 개인 vs 사업자 계정">
+<meta property="og:description" content="지인 12명한테 2주 동안 매일 앱 실행해달라고 부탁할 자신 있으세요? 저는 없었습니다.">
+<meta name="twitter:description" content="지인 12명한테 2주 동안 매일 앱 실행해달라고 부탁할 자신 있으세요? 저는 없었습니다.">
+<meta property="article:published_time" content="2026-07-01T21:32:04+09:00">
+<meta property="article:modified_time" content="2026-07-18T19:56:23+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (1편) — 개인 vs 사업자 계정", "datePublished": "2026-07-01T21:32:04+09:00", "dateModified": "2026-07-18T19:56:23+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/claude-code-flutter-google-play-1-vs.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "지인 12명한테 2주 동안 매일 앱 실행해달라고 부탁할 자신 있으세요? 저는 없었습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-playstore_recycleapp">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지</a></p>
+    <h1 class="post-title">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (1편) — 개인 vs 사업자 계정</h1>
+    <p class="post-meta"><time datetime="2026-07-01T21:32:04+09:00">2026년 7월 1일</time></p>
+  </header>
+  <div class="post-body">
+<p>지인 12명한테 2주 동안 매일 앱 실행해달라고 부탁할 자신 있으세요? 저는 없었습니다.</p>
+
+<h2>처음엔 그냥 개인 계정으로 가려고 했습니다</h2>
+
+<p>Google Play 개발자 계정 등록 페이지에 들어갔던 게 시작이었어요. 등록비 $25 결제하고 인증 몇 개 통과하면 앱 만들기 버튼이 바로 열리는 줄 알았죠.</p>
+
+<p>그런데 검색하다가 알게 됐습니다. 정책이 바뀌어서, 개인 계정으로 앱을 배포하려면 <strong>비공개 테스트 트랙에서 테스터 12명이 14일 이상 연속으로 테스트</strong>해야 프로덕션 출시 권한이 열린다는 거예요.</p>
+
+<p>이 문장을 처음 봤을 때 잠깐 멍했습니다.</p>
+
+<ul>
+<li>테스터 12명을 어디서 구하지?</li>
+<li>다들 폰에 낯선 앱 깔고 2주 매일 실행해줄 만큼 여유 있을까?</li>
+<li>중간에 몇 명 이탈하면 카운트가 리셋되는 건가?</li>
+</ul>
+
+<p>지인 리스트를 머릿속으로 돌려봤는데 12명은 안 나왔어요. 5~6명은 가능해도, 나머지는 부담을 얹는 셈이었죠. 그래서 시작도 하기 전부터 벽 하나를 만난 상태로 앉아 있었습니다.</p>
+
+<h2>AI(Claude)에게 트레이드오프 정리를 시켜봤습니다</h2>
+
+<p>"1인 개발자가 Google Play에 첫 앱 배포할 때 개인 계정 vs 사업자 계정 뭐가 나을까?"라고 물었어요. 나온 결과:</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>항목</th><th>개인</th><th>사업자</th></tr>
+</thead>
+<tbody>
+<tr><td>등록비</td><td>$25</td><td>$25 (동일)</td></tr>
+<tr><td>테스터 12명 요건</td><td>필수</td><td>면제</td></tr>
+<tr><td>DUNS 번호</td><td>불필요</td><td>필수</td></tr>
+<tr><td>신원 인증</td><td>여권/면허</td><td>사업자등록증 + DUNS</td></tr>
+<tr><td>수익 정산</td><td>개인 계좌</td><td>사업자 통장</td></tr>
+</tbody>
+</table>
+
+<p>이걸 보면서 든 생각은 "결국 사업자 계정 만드는 쪽이 시간을 벌겠구나"였어요.</p>
+
+<p>여기서 하나 짚어두고 싶은 게 있어요. <strong>AI(LLM)는 옵션을 나열하고 트레이드오프를 정리해주지만, "당신 상황에서 무엇을 골라야 한다"까지는 판단하지 않아요.</strong> 선택은 결국 여러분 몫입니다. 저는 이 지점에서 사업자 방향으로 마음이 기울었어요.</p>
+
+<h2>사업자 계정으로 방향 튼 이유 3가지</h2>
+
+<ol>
+<li><strong>테스터 12명 요건 자체가 사라진다</strong> — 조직 계정은 이 요건이 없어요</li>
+<li><strong>DUNS 번호를 발급받으면</strong> — Apple App Store 등 다른 스토어에서 재활용 가능</li>
+<li><strong>수익화 정산이 깔끔해진다</strong> — 사업자 통장·카드로 처리하면 매출과 경비 관리가 쉬워져요</li>
+</ol>
+
+<h2>실제로 준비한 것들</h2>
+
+<p>방향을 정하고 나서 순서를 짜봤습니다.</p>
+
+<ul>
+<li><strong>공유오피스 계약</strong> (12개월 264,000원) — 사업장 주소 확보. 자택으로 등록하기는 부담이 있었어요.</li>
+<li><strong>홈택스 사업자 등록</strong> → 접수 후 2일 이내에 처리 완료
+<ul>
+<li>업종: 응용소프트웨어 개발 및 공급업 (722000)</li>
+<li>과세유형: 일반과세자 (SW 개발업은 간이과세 배제업종이라 자동 전환됩니다)</li>
+</ul>
+</li>
+<li><strong>DUNS 발급</strong> — 여기서 삽질이 있었어요. 다음 편에서 상세히</li>
+<li><strong>Google Play Console 등록비 결제</strong>: $25 (환율 반영 ₩38,045)</li>
+<li><strong>조직 계정 인증 4가지 관문</strong>: 신원(DUNS + 영문 사업자등록증), 조직 웹사이트, 전화번호, 등록비 결제</li>
+</ul>
+
+<p><strong>사업자 등록 접수부터 계정 인증 완료까지 약 2주.</strong> 이 중 가장 큰 관문은 DUNS였어요.</p>
+
+<h2>정리하며</h2>
+
+<p>지금 돌이켜보면, 개인 계정으로 억지로 밀어붙였다면 테스터 모집하다가 지쳐서 앱 자체를 포기했을 것 같아요. 사업자 계정 방향은 초기 오버헤드가 더 크지만, 이 관문만 넘으면 이후 앱 등록 흐름이 훨씬 단순해집니다.</p>
+
+<p>앞으로 앱 하나 만들고 끝낼 게 아니라 계속 배포할 생각이라면, 초반에 사업자 세팅에 시간을 쓰는 게 나중에 회수돼요.</p>
+
+<h2>다음 편</h2>
+
+<p>DUNS 발급이 1차 반려됐던 실제 이야기. LLM이 어떻게 결정적으로 시간을 아껴줬는지 포함. → <a href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-2.html">2편 — DUNS 발급, 1차 반려된 이야기</a></p>
+
+<hr>
+
+<p>이 시리즈에서 다루는 앱이 궁금하시면<br>
+👉 <a href="https://play.google.com/store/apps/details?id=com.recycleapp.recycle_app">찰칵분리수거 Google Play에서 받기</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>GooglePlay</li><li>앱개발기</li><li>찰칵분리수거</li></ul>
+<nav class="series-nav">
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/aiclaude-code-flutter-google-play-2.html">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (2편) — DUNS 발급, 1차 반려된 이야기</a></p>
+<p><a href="/#series-playstore_recycleapp">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI로 만들어본 것들 (1편) — 유튜브 쇼츠를 하루 만에 만들었습니다</title>
+<meta name="description" content="결론부터: 완벽한 AI 영상을 만들려다 3주를 날렸습니다. 포기하고 있는 자산(사진 몇 장 + 화면 녹화)에 AI 도구(TTS·ffmpeg)를 엮었더니 채널 개설부터 첫 영상 공개까지 하루면 됐습니다. AI 시대의 제작은 &quot;AI가 다 만들어주는 것&quot;이 아니라 &quot;도구를…">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/ai-build-1.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/ai-build-1.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI로 만들어본 것들 (1편) — 유튜브 쇼츠를 하루 만에 만들었습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI로 만들어본 것들 (1편) — 유튜브 쇼츠를 하루 만에 만들었습니다">
+<meta property="og:description" content="결론부터: 완벽한 AI 영상을 만들려다 3주를 날렸습니다. 포기하고 있는 자산(사진 몇 장 + 화면 녹화)에 AI 도구(TTS·ffmpeg)를 엮었더니 채널 개설부터 첫 영상 공개까지 하루면 됐습니다. AI 시대의 제작은 &quot;AI가 다 만들어주는 것&quot;이 아니라 &quot;도구를…">
+<meta name="twitter:description" content="결론부터: 완벽한 AI 영상을 만들려다 3주를 날렸습니다. 포기하고 있는 자산(사진 몇 장 + 화면 녹화)에 AI 도구(TTS·ffmpeg)를 엮었더니 채널 개설부터 첫 영상 공개까지 하루면 됐습니다. AI 시대의 제작은 &quot;AI가 다 만들어주는 것&quot;이 아니라 &quot;도구를…">
+<meta property="article:published_time" content="2026-08-04T21:08:50+09:00">
+<meta property="article:modified_time" content="2026-08-05T20:28:54+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI로 만들어본 것들 (1편) — 유튜브 쇼츠를 하루 만에 만들었습니다", "datePublished": "2026-08-04T21:08:50+09:00", "dateModified": "2026-08-05T20:28:54+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/ai-build-1.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 완벽한 AI 영상을 만들려다 3주를 날렸습니다. 포기하고 있는 자산(사진 몇 장 + 화면 녹화)에 AI 도구(TTS·ffmpeg)를 엮었더니 채널 개설부터 첫 영상 공개까지 하루면 됐습니다. AI 시대의 제작은 \"AI가 다 만들어주는 것\"이 아니라 \"도구를…"}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-ai-build">AI로 만들어본 것들</a></p>
+    <h1 class="post-title">AI로 만들어본 것들 (1편) — 유튜브 쇼츠를 하루 만에 만들었습니다</h1>
+    <p class="post-meta"><time datetime="2026-08-04T21:08:50+09:00">2026년 8월 4일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 완벽한 AI 영상을 만들려다 3주를 날렸습니다. 포기하고 <strong>있는 자산(사진 몇 장 + 화면 녹화)에 AI 도구(TTS·ffmpeg)를 엮었더니</strong> 채널 개설부터 첫 영상 공개까지 하루면 됐습니다. AI 시대의 제작은 "AI가 다 만들어주는 것"이 아니라 <strong>"도구를 엮는 것"</strong>이었어요.</p>
+
+<h2>3주 동안 아무것도 못 올렸습니다</h2>
+
+<p>분리수거 앱을 만들고 나니 홍보가 필요했습니다. 유튜브 쇼츠가 좋겠다 싶었죠. 문제는 그다음이었어요.</p>
+
+<p>저는 <strong>"AI로 그럴듯한 영상을 통째로 뽑겠다"</strong>고 마음먹었습니다. 손 연기 장면을 AI로 생성하고, 배경음악 깔고, 자막도 예쁘게. 그런데 AI 영상 생성은 계속 어긋났어요. 정량이 초과되거나, 실제 촬영분과 결이 안 맞거나. <strong>3주 동안 완성본이 하나도 안 나왔습니다.</strong></p>
+
+<p>돌아보면 문제는 도구가 아니라 저였어요. <strong>"완벽한 한 방"을 노린 게 정체의 원인</strong>이었습니다.</p>
+
+<h2>"완벽 말고 완성"으로 문턱을 넘었어요</h2>
+
+<p>어느 순간 방향을 바꿨습니다. AI 손 연기는 버리고, <strong>이미 가진 것으로</strong> 만들기로요.</p>
+
+<ul>
+<li>제품 사진 몇 장</li>
+<li>앱 실행 화면 녹화</li>
+<li>배출 결과 화면 캡처</li>
+</ul>
+
+<p>여기에 AI 도구를 붙였습니다. 목소리는 <strong>구글 클라우드 TTS</strong>로, 조합은 <strong>ffmpeg</strong>로요. 화려한 AI 생성 영상은 없지만, <strong>돌아가는 완성본</strong>이 그날 나왔습니다. 채널 개설부터 첫 영상 공개까지 하루였어요.</p>
+
+<p>이게 첫 번째 교훈입니다. <strong>완벽을 노리면 0편이고, 완성을 노리면 1편이 나옵니다.</strong></p>
+
+<h2>상표를 피하는 법 — 제품 뒷면과 크롭</h2>
+
+<p>첫 번째 실무 함정은 <strong>상표</strong>였습니다. 특정 제품이 화면에 로고째 나오면 곤란하죠.</p>
+
+<p>해결은 단순했어요. <strong>제품을 뒷면(성분표)으로 촬영</strong>했습니다. 브랜드 로고가 안 보이니까요. 그리고 앱 결과 화면 하단에 깔린 <strong>광고 배너는 잘라냈습니다(크롭)</strong>.</p>
+
+<pre>ffmpeg -y -i rec.mp4 -t 11 -vf "crop=1080:1900:0:90" -an out.mp4</pre>
+
+<p>위아래를 잘라 광고와 상태바를 날린 겁니다. 별것 아닌 것 같아도, 이런 게 없으면 남의 상표나 광고가 내 영상에 박혀버립니다.</p>
+
+<h2>TTS가 403을 뱉었습니다</h2>
+
+<p>두 번째 함정은 목소리였어요. 구글 클라우드 TTS를 호출했는데 <strong>403 (권한 거부)</strong>이 왔습니다.</p>
+
+<p>한참 헤맸는데 원인은 <strong>quota project(과금 프로젝트)가 지정되지 않아서</strong>였어요. 요청에 <code>x-goog-user-project</code> 헤더로 프로젝트를 명시하니 그때야 음성이 왔습니다.</p>
+
+<p>이게 문서만 봐서는 안 나오는 종류예요. 실제로 던져보고 403을 받고, 에러 메시지를 뜯어보고 나서야 알았습니다. <strong>AI 도구도 결국 "붙여봐야" 아는 함정이 있습니다.</strong></p>
+
+<p>참고로 구글 TTS는 월 100만 자까지 무료라, 쇼츠 수십 편은 공짜로 만들 수 있었어요.</p>
+
+<h2>자막이 두 번 나왔습니다</h2>
+
+<p>세 번째 함정이 제일 뜻밖이었어요. 자막을 영상에 직접 새겨 넣었는데(번인), 업로드하고 보니 <strong>자막이 두 겹으로 겹쳐</strong> 있었습니다.</p>
+
+<p>범인은 유튜브였어요. 유튜브가 음성을 듣고 <strong>자동 자막(STT)</strong>을 만들어 붙였는데, 그게 제 번인 자막과 겹친 겁니다. 발행 후 스튜디오에서 <strong>한국어(자동) 자막을 삭제</strong>하니 해결됐어요.</p>
+
+<p>그리고 배출 결과 화면처럼 <strong>이미 화면에 글자가 있는 파트는 번인 자막을 아예 생략</strong>했습니다. 안 그러면 화면 텍스트와 자막이 또 겹치거든요.</p>
+
+<h2>도구를 엮으니 하루면 됐어요</h2>
+
+<p>정리하면 이런 흐름이었습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>단계</th><th>사람이</th><th>AI/도구가</th></tr>
+</thead>
+<tbody>
+<tr><td>자산 준비</td><td>촬영·캡처</td><td>—</td></tr>
+<tr><td>목소리</td><td>대본 작성</td><td><strong>구글 TTS 생성</strong></td></tr>
+<tr><td>자막·조합</td><td>대본 배치</td><td><strong>ffmpeg 번인·합성</strong></td></tr>
+<tr><td>업로드</td><td>제목·태그</td><td>유튜브 자동 분류</td></tr>
+</tbody>
+</table>
+
+<p>영상은 <strong>훅 → 문제 → 시연 → 결과 → CTA</strong>의 5파트로 짰고, ffmpeg로 각 파트를 만들어 이어붙였습니다. 사람이 한 건 촬영과 판단이고, 반복 작업은 도구가 했어요.</p>
+
+<h2>정리 — AI 제작은 "엮기"였습니다</h2>
+
+<p>3주간 저를 막은 건 <strong>"AI가 다 만들어줄 것"이라는 기대</strong>였습니다. 그 기대를 내려놓고 <strong>"AI 도구 여러 개를 내가 엮는다"</strong>로 생각을 바꾸니 그날 완성됐어요.</p>
+
+<p>AI는 손 연기 영상을 통째로 뽑아주진 못했지만, 목소리를 만들고 자막을 새기고 영상을 합치는 <strong>각각의 조각</strong>은 훌륭히 해냈습니다. 그 조각들을 엮는 판단과 순서를 정하는 게 제 몫이었고요.</p>
+
+<p><strong>완벽한 한 방을 기다리지 말고, 있는 도구를 엮어 완성부터 하세요.</strong> 3주를 날린 사람의 조언입니다.</p>
+
+<h2>다음 편</h2>
+
+<p>이번엔 콘텐츠였지만, 다음은 코드입니다. 수만 줄짜리 레거시 코드베이스를 <strong>Gemini와 Claude에게 역할을 나눠</strong> 지도로 만든 이야기를 해보겠습니다. → <a href="https://blog.secondbranch.kr/2026/08/ai-build-2.html">2편 — Gemini와 Claude로 레거시 코드베이스 지도 만들기</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>AI 활용</li><li>ffmpeg</li><li>TTS</li><li>유튜브 쇼츠</li><li>콘텐츠 제작</li></ul>
+<nav class="series-nav">
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/ai-build-2.html">AI로 만들어본 것들 (2편) — Gemini와 Claude로 레거시 코드베이스 지도 만들기</a></p>
+<p><a href="/#series-ai-build">AI로 만들어본 것들 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

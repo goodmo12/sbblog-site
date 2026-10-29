@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다</title>
+<meta name="description" content="결론부터: Reddit JSON API는 2023년부터 인증 없이 쓰면 403이 옵니다. 그런데 RSS 피드(/r/서브레딧/new.rss)는 아직 인증 없이 열려 있습니다. 단, User-Agent를 보내야 하고 호출 간격을 넉넉히 둬야 합니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/notice-bot-10.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/notice-bot-10.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다">
+<meta property="og:description" content="결론부터: Reddit JSON API는 2023년부터 인증 없이 쓰면 403이 옵니다. 그런데 RSS 피드(/r/서브레딧/new.rss)는 아직 인증 없이 열려 있습니다. 단, User-Agent를 보내야 하고 호출 간격을 넉넉히 둬야 합니다.">
+<meta name="twitter:description" content="결론부터: Reddit JSON API는 2023년부터 인증 없이 쓰면 403이 옵니다. 그런데 RSS 피드(/r/서브레딧/new.rss)는 아직 인증 없이 열려 있습니다. 단, User-Agent를 보내야 하고 호출 간격을 넉넉히 둬야 합니다.">
+<meta property="article:published_time" content="2026-08-03T21:07:40+09:00">
+<meta property="article:modified_time" content="2026-08-03T21:07:40+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다", "datePublished": "2026-08-03T21:07:40+09:00", "dateModified": "2026-08-03T21:07:40+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/notice-bot-10.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: Reddit JSON API는 2023년부터 인증 없이 쓰면 403이 옵니다. 그런데 RSS 피드(/r/서브레딧/new.rss)는 아직 인증 없이 열려 있습니다. 단, User-Agent를 보내야 하고 호출 간격을 넉넉히 둬야 합니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다</h1>
+    <p class="post-meta"><time datetime="2026-08-03T21:07:40+09:00">2026년 8월 3일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: Reddit JSON API는 2023년부터 인증 없이 쓰면 403이 옵니다. 그런데 <strong>RSS 피드(<code>/r/서브레딧/new.rss</code>)는 아직 인증 없이 열려 있습니다.</strong> 단, User-Agent를 보내야 하고 <strong>호출 간격을 넉넉히</strong> 둬야 합니다.</p>
+
+<p>9편에서 로컬 LLM으로 걸러내는 걸 붙였죠. 그런데 그 앞단, <strong>글을 가져오는 쪽</strong>에서 먼저 막혔던 얘기를 안 했네요.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-9.html">9편 — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</a></blockquote>
+
+<h2>문서대로 했는데 403이 왔습니다</h2>
+
+<p>Reddit에서 글 목록을 가져오는 방법은 검색하면 금방 나옵니다. 주소 끝에 <code>.json</code>을 붙이면 JSON으로 받을 수 있다는 거죠.</p>
+
+<p>옛날에는 그랬습니다. 지금은 <strong>403이 옵니다.</strong></p>
+
+<p>2023년에 Reddit이 API 정책을 바꾸면서 인증 없는 접근을 막았어요. 앱을 등록하고 OAuth 인증을 붙여야 합니다. 검색으로 나오는 예제 코드 상당수가 그 이전에 쓰인 것이라, <strong>그대로 따라 하면 안 됩니다.</strong></p>
+
+<p>여기서 선택지가 갈렸어요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>방법</th><th>비용</th></tr>
+</thead>
+<tbody>
+<tr><td>OAuth 인증 붙이기</td><td>앱 등록 + 토큰 갱신 로직</td></tr>
+<tr><td>스크래핑</td><td>HTML 구조 바뀌면 매번 깨짐</td></tr>
+<tr><td><strong>RSS 피드</strong></td><td><strong>인증 없음</strong></td></tr>
+</tbody>
+</table>
+
+<h2>RSS는 아직 열려 있었습니다</h2>
+
+<p>Reddit은 오래전부터 RSS를 제공해왔고, 그게 <strong>아직 살아 있습니다.</strong></p>
+
+<pre>https://www.reddit.com/r/서브레딧이름/new.rss</pre>
+
+<p>이걸 부르면 최신 글 목록이 Atom 형식 XML로 옵니다. 인증이 필요 없어요.</p>
+
+<p>4편에서 K-Startup이 XML을 준다고 했는데, 여기서 또 XML을 만났습니다. 다만 이쪽은 <strong>표준 Atom 형식</strong>이라 훨씬 다루기 쉬웠어요. 글마다 제목·링크·본문이 정해진 자리에 들어 있습니다.</p>
+
+<p><strong>막혔다고 포기하지 않고 다른 문을 찾은 게</strong> 이 편의 핵심입니다. 정문이 잠겼어도 옆문이 열려 있을 수 있어요.</p>
+
+<h2>사람인 척은 해야 합니다</h2>
+
+<p>인증은 필요 없지만 조건이 하나 있었어요. <strong>User-Agent를 보내야 합니다.</strong></p>
+
+<p>이건 "나는 어떤 프로그램입니다" 하고 알리는 값인데, 안 보내거나 기본값으로 두면 막힙니다. Reddit이 권장하는 형식이 있어서 그대로 맞췄어요.</p>
+
+<pre>python:SBNotifier:v1.0 (by /u/사용자명)</pre>
+
+<p>무엇을 만든 누구인지 밝히는 형식입니다. 차단하려면 차단하라는 뜻이기도 하죠. 숨기고 우회하는 것보다 이게 낫다고 봤습니다.</p>
+
+<h2>본문에 HTML이 섞여 있었습니다</h2>
+
+<p>RSS로 받은 본문은 <strong>HTML 태그가 그대로</strong> 들어 있습니다. 사람이 읽을 화면용이니 당연한데, 저는 텍스트만 필요했어요.</p>
+
+<p>그냥 넘기면 LLM이 태그까지 읽고 판단합니다. 그래서 태그를 지우고, <code>&amp;amp;</code> 같은 기호를 원래 글자로 되돌린 다음, <strong>300자로 잘라서</strong> 넘겼어요.</p>
+
+<p>자른 이유는 판단에 필요한 만큼만 주면 되기 때문입니다. 긴 글을 통째로 넣으면 로컬 모델이 느려지고, 정작 핵심은 앞부분에 있는 경우가 많았어요.</p>
+
+<h2>⚠️ 그런데 절반만 성공했습니다</h2>
+
+<p>여기가 이 편에서 가장 솔직해야 할 부분입니다. <strong>우회는 됐지만 완전히 풀리진 않았어요.</strong></p>
+
+<p>서브레딧 다섯 개를 순서대로 부르는데, 로그를 세어보니 이렇습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>서브레딧</th><th>429(과다호출) 발생</th></tr>
+</thead>
+<tbody>
+<tr><td>r/androidapps</td><td><strong>2회</strong></td></tr>
+<tr><td>r/iosapps</td><td>262회</td></tr>
+<tr><td>r/AppIdeas</td><td>325회</td></tr>
+<tr><td>r/startups</td><td>326회</td></tr>
+<tr><td>r/SideProject</td><td>325회</td></tr>
+</tbody>
+</table>
+
+<p><strong>첫 번째만 통과하고 나머지 넷은 거의 매번 막힙니다.</strong> 호출 사이에 2초를 쉬게 해뒀는데 그게 부족한 거예요.</p>
+
+<p>결과가 이렇게 나왔습니다.</p>
+
+<pre>r/androidapps  → 알림 46건
+r/iosapps      → 3건
+r/AppIdeas     → 2건
+r/startups     → 0건
+r/SideProject  → 0건</pre>
+
+<p><strong>다섯 개를 붙였는데 실질적으로 하나만 일하고 있습니다.</strong></p>
+
+<h2>왜 아직 안 고쳤나</h2>
+
+<p>이유는 두 가지예요.</p>
+
+<p><strong>① 봇이 죽지 않기 때문입니다.</strong> 429가 오면 그 서브레딧만 건너뛰고 다음으로 갑니다. 하나가 막혀도 전체가 멈추지 않게 짜뒀어요. 그래서 <strong>눈에 안 띄었습니다.</strong> 로그에 경고는 찍히는데, 알림은 계속 오니까 "돌아가고 있네" 하고 넘어갔죠.</p>
+
+<p><strong>② 아이디어 발굴은 급하지 않았습니다.</strong> 이 봇의 본업은 공고 알림이고, 아이디어 쪽은 덤이에요. 급한 것부터 하다 보니 밀렸습니다.</p>
+
+<p>고칠 방법은 어렵지 않습니다. 쉬는 시간을 늘리거나, 서브레딧을 사이클마다 하나씩 돌려가며 부르면 됩니다. <strong>한 시간에 한 번 도는 봇이니 5분씩 쉬어도 상관없어요.</strong></p>
+
+<p>이번에 글을 쓰면서 로그를 세어보고 처음 알았습니다. <strong>블로그를 쓰는 게 점검이 된 셈</strong>이에요.</p>
+
+<h2>정리 — 남의 서비스는 언제든 문을 닫는다</h2>
+
+<p>이 편의 교훈은 이렇습니다.</p>
+
+<p><strong>외부 API는 내 것이 아닙니다.</strong> 어제 되던 게 오늘 막힐 수 있어요. Reddit은 정책을 바꿨고, 제가 할 수 있는 건 다른 문을 찾는 것뿐이었습니다.</p>
+
+<p>그래서 소스마다 파일을 따로 둔 게 여기서 값을 했어요(4편). Reddit 쪽이 막혀도 공고 수집기들은 아무 영향이 없었습니다. <strong>한 소스가 죽어도 나머지가 도는 구조</strong>였던 거죠.</p>
+
+<p>그리고 하나 더 — <strong>조용히 절반만 성공하는 상태</strong>가 있다는 걸 알았습니다. 완전히 죽으면 알아채는데, 부분적으로 죽으면 모르고 넘어가요. 6편·9편에서도 같은 종류였습니다. 이 시리즈에서 세 번째로 만난 함정이네요.</p>
+
+<h2>다음 편</h2>
+
+<p>이제 마지막입니다. 두 달 넘게 돌린 이 봇이 <strong>실제로 제 결정을 바꾼 날</strong>의 이야기로 마무리하겠습니다. → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-11.html">11편·완결 — 봇이 알려준 공고로 이사를 검토했습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/08/notice-bot-9.html">9편 — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>API 차단</li><li>Reddit</li><li>RSS</li><li>공고 알림봇</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/notice-bot-9.html">공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/notice-bot-11.html">공고 알림봇 만들기 (11편·완결) — 봇이 알려준 공고로 이사를 검토했습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI로 만들어본 것들 (3편) — 문서 민감정보 자동 마스킹 도구 만들기</title>
+<meta name="description" content="결론부터: 문서에서 민감정보를 가리는 일을 매번 손으로 하면 번거롭습니다. 파이썬(PyMuPDF)으로 자동 마스킹 도구를 AI에게 짜달라고 해서 만들었어요. 다만 &quot;무엇을 가릴지&quot;는 사람이 판단해야 합니다 — 너무 많이 가리면 그 서류가 쓸모없어지거든요. (제가 그랬…">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/ai-build-3.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/ai-build-3.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI로 만들어본 것들 (3편) — 문서 민감정보 자동 마스킹 도구 만들기">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI로 만들어본 것들 (3편) — 문서 민감정보 자동 마스킹 도구 만들기">
+<meta property="og:description" content="결론부터: 문서에서 민감정보를 가리는 일을 매번 손으로 하면 번거롭습니다. 파이썬(PyMuPDF)으로 자동 마스킹 도구를 AI에게 짜달라고 해서 만들었어요. 다만 &quot;무엇을 가릴지&quot;는 사람이 판단해야 합니다 — 너무 많이 가리면 그 서류가 쓸모없어지거든요. (제가 그랬…">
+<meta name="twitter:description" content="결론부터: 문서에서 민감정보를 가리는 일을 매번 손으로 하면 번거롭습니다. 파이썬(PyMuPDF)으로 자동 마스킹 도구를 AI에게 짜달라고 해서 만들었어요. 다만 &quot;무엇을 가릴지&quot;는 사람이 판단해야 합니다 — 너무 많이 가리면 그 서류가 쓸모없어지거든요. (제가 그랬…">
+<meta property="article:published_time" content="2026-08-05T20:25:11+09:00">
+<meta property="article:modified_time" content="2026-08-12T22:01:25+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI로 만들어본 것들 (3편) — 문서 민감정보 자동 마스킹 도구 만들기", "datePublished": "2026-08-05T20:25:11+09:00", "dateModified": "2026-08-12T22:01:25+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/ai-build-3.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 문서에서 민감정보를 가리는 일을 매번 손으로 하면 번거롭습니다. 파이썬(PyMuPDF)으로 자동 마스킹 도구를 AI에게 짜달라고 해서 만들었어요. 다만 \"무엇을 가릴지\"는 사람이 판단해야 합니다 — 너무 많이 가리면 그 서류가 쓸모없어지거든요. (제가 그랬…"}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-ai-build">AI로 만들어본 것들</a></p>
+    <h1 class="post-title">AI로 만들어본 것들 (3편) — 문서 민감정보 자동 마스킹 도구 만들기</h1>
+    <p class="post-meta"><time datetime="2026-08-05T20:25:11+09:00">2026년 8월 5일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 문서에서 민감정보를 가리는 일을 매번 손으로 하면 번거롭습니다. 파이썬(PyMuPDF)으로 <strong>자동 마스킹 도구</strong>를 AI에게 짜달라고 해서 만들었어요. 다만 <strong>"무엇을 가릴지"는 사람이 판단</strong>해야 합니다 — 너무 많이 가리면 그 서류가 쓸모없어지거든요. (제가 그랬습니다.)</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/ai-build-2.html">2편 — Gemini와 Claude로 레거시 코드베이스 지도 만들기</a></blockquote>
+
+<h2>매번 손으로 가리는 게 귀찮았습니다</h2>
+
+<p>어떤 문서를 제출할 일이 생기면, 그 안의 민감정보(주소 일부, 번호 등)를 가려야 할 때가 있습니다. 캡처 떠서 그림판으로 검은 칠을 하거나, PDF 편집기를 여는 식이죠.</p>
+
+<p>한두 번이면 괜찮은데, 여러 장이거나 반복되면 일입니다. 위치도 매번 조금씩 어긋나고요. <strong>"이거 자동화하면 되잖아"</strong> 싶었습니다.</p>
+
+<h2>AI에게 마스킹 스크립트를 시켰습니다</h2>
+
+<p>직접 라이브러리를 찾아 헤매는 대신, AI(Claude Code)에게 요구사항을 줬습니다. "PDF를 이미지로 렌더링하고, 지정한 영역에 검은 사각형을 덮어씌우는 파이썬 스크립트를 만들어줘." 라이브러리는 <strong>PyMuPDF</strong>를 골라줬어요.</p>
+
+<p>핵심 흐름은 단순했습니다.</p>
+
+<ul>
+<li>PDF 페이지를 <strong>이미지로 렌더링</strong> (원본 PDF 텍스트를 남기지 않으려고 — 이미지로 만들면 검은 칠 밑의 글자가 복사되지 않습니다)</li>
+<li>가릴 <strong>영역을 좌표로 지정</strong>해서 검은 사각형을 덮음</li>
+<li>결과를 이미지 파일로 저장</li>
+</ul>
+
+<p>여기서 하나 배웠어요. <strong>PDF 위에 그냥 검은 박스를 얹으면 위험합니다.</strong> 박스 밑의 텍스트가 그대로 남아 있어서, 복사하거나 도구로 열면 가린 내용이 튀어나옵니다. 그래서 <strong>이미지로 굽는(rasterize)</strong> 게 확실합니다. 이건 AI가 알려준 게 아니라, "이렇게 하면 밑의 글자가 남지 않냐"고 되물으며 확인한 부분이었어요.</p>
+
+<h2>진짜 함정 — 너무 많이 가리면 서류가 무효가 됩니다</h2>
+
+<p>여기가 이 편에서 제일 솔직해야 할 부분입니다. 도구는 잘 만들었는데, <strong>제가 판단을 틀렸습니다.</strong></p>
+
+<p>"민감하니까 최대한 가리자"는 생각으로 넉넉하게 마스킹했어요. 그런데 그 문서를 받는 쪽에서 <strong>"가려진 부분이 우리가 꼭 확인해야 하는 항목"</strong>이라며 반려했습니다. 안전하게 가린다고 가린 게, 정작 그 서류의 존재 이유(확인)를 막아버린 거죠. 결국 <strong>덜 가린 버전으로 다시 만들어</strong> 냈습니다.</p>
+
+<p>교훈이 명확했어요. <strong>자동화 도구는 "어떻게 가릴지"를 해결하지, "무엇을 가릴지"는 해결하지 못합니다.</strong> 무엇을 가리고 무엇을 남길지는 그 서류의 목적을 아는 사람이 판단해야 합니다. 도구는 시키는 대로 정확히 가릴 뿐이고요.</p>
+
+<h2>정리 — 자동화는 도구, 판단은 사람</h2>
+
+<p>이 편의 교훈은 이렇습니다.</p>
+
+<ul>
+<li><strong>반복되는 편집은 자동화할 값이 있다.</strong> AI에게 요구사항만 주면 스크립트는 금방 나옵니다</li>
+<li><strong>가린 것이 진짜 가려졌는지 확인하라.</strong> 이미지로 굽지 않으면 밑의 글자가 남습니다 (AI 답을 그대로 믿지 말고 되물어 검증)</li>
+<li><strong>무엇을 가릴지는 도구가 아니라 사람의 판단이다.</strong> 너무 가리면 서류가 무효가 됩니다</li>
+</ul>
+
+<p>AI는 마스킹 도구를 몇 분 만에 만들어줬습니다. 그런데 그 도구를 <strong>어디에, 얼마나</strong> 쓸지를 잘못 판단한 건 저였어요. 1편·2편과 같은 결론에 또 닿습니다 — <strong>AI는 도구를 만들고, 판단은 사람이 한다.</strong></p>
+
+<h2>다음 편</h2>
+
+<p>AI를 도구로 엮어 만든 이야기를 세 편에 걸쳐 풀었습니다. 그리고 그 "이어서 기록하겠다"의 다음 편이 나왔습니다 → <a href="https://blog.secondbranch.kr/2026/08/ai-build-4.html">4편 — 간이과세 확인 도구, 판정의 69%를 포기했습니다</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>AI 활용</li><li>PyMuPDF</li><li>개인정보 마스킹</li><li>문서 처리</li><li>파이썬</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/ai-build-2.html">AI로 만들어본 것들 (2편) — Gemini와 Claude로 레거시 코드베이스 지도 만들기</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/ai-build-4.html">AI로 만들어본 것들 (4편) — 간이과세 확인 도구, 판정의 69%를 포기했습니다</a></p>
+<p><a href="/#series-ai-build">AI로 만들어본 것들 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

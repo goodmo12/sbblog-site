@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</title>
+<meta name="description" content="결론부터: 내 PC에서 도는 작은 언어 모델(LM Studio + Gemma)로 수집 결과를 1차 선별하면, 공짜로 무제한 돌릴 수 있습니다. 다만 모델이 꺼져 있으면 전부 조용히 탈락하니, 거절된 것까지 저장해두는 게 필수입니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/notice-bot-9.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/notice-bot-9.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다">
+<meta property="og:description" content="결론부터: 내 PC에서 도는 작은 언어 모델(LM Studio + Gemma)로 수집 결과를 1차 선별하면, 공짜로 무제한 돌릴 수 있습니다. 다만 모델이 꺼져 있으면 전부 조용히 탈락하니, 거절된 것까지 저장해두는 게 필수입니다.">
+<meta name="twitter:description" content="결론부터: 내 PC에서 도는 작은 언어 모델(LM Studio + Gemma)로 수집 결과를 1차 선별하면, 공짜로 무제한 돌릴 수 있습니다. 다만 모델이 꺼져 있으면 전부 조용히 탈락하니, 거절된 것까지 저장해두는 게 필수입니다.">
+<meta property="article:published_time" content="2026-08-03T20:58:14+09:00">
+<meta property="article:modified_time" content="2026-08-03T20:58:14+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다", "datePublished": "2026-08-03T20:58:14+09:00", "dateModified": "2026-08-03T20:58:14+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/notice-bot-9.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 내 PC에서 도는 작은 언어 모델(LM Studio + Gemma)로 수집 결과를 1차 선별하면, 공짜로 무제한 돌릴 수 있습니다. 다만 모델이 꺼져 있으면 전부 조용히 탈락하니, 거절된 것까지 저장해두는 게 필수입니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</h1>
+    <p class="post-meta"><time datetime="2026-08-03T20:58:14+09:00">2026년 8월 3일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 내 PC에서 도는 작은 언어 모델(LM Studio + Gemma)로 수집 결과를 1차 선별하면, <strong>공짜로 무제한</strong> 돌릴 수 있습니다. 다만 <strong>모델이 꺼져 있으면 전부 조용히 탈락</strong>하니, 거절된 것까지 저장해두는 게 필수입니다.</p>
+
+<p>8편까지 만든 봇은 공고를 잘 물어옵니다. 그래서 소스를 하나 더 붙여봤어요. <strong>사람들이 "이런 앱 없나요?" 하고 올린 글</strong>을 모으는 쪽으로요.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-8.html">8편 — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다</a></blockquote>
+
+<h2>키워드만으로는 걸러지지 않았어요</h2>
+
+<p>먼저 단어로 걸렀습니다. <code>없나요</code>, <code>wish there was</code>, <code>need an app</code> 같은 표현이 들어간 글만 남기는 식이죠.</p>
+
+<p>절반은 성공이었어요. 관계없는 글은 잘 빠집니다. 그런데 남은 것들이 이랬습니다.</p>
+
+<ul>
+<li>이미 있는 앱을 두고 불만을 말하는 글</li>
+<li>"없나요"가 앱과 무관한 문맥에 쓰인 글</li>
+<li>그냥 잡담</li>
+</ul>
+
+<p><strong>단어는 문맥을 모릅니다.</strong> <code>없나요</code>가 들어갔다고 앱 수요는 아니었어요.</p>
+
+<h2>클라우드 LLM은 안 쓰기로 했습니다</h2>
+
+<p>문맥 판단이니 언어 모델을 쓰면 됩니다. 그런데 여기서 계산이 필요했어요.</p>
+
+<p>이 봇은 <strong>한 시간에 한 번씩, 무한히</strong> 돕니다. 걸러야 할 글이 하루 수십 건이고 앞으로 소스를 더 붙일 생각이었어요. 유료 API를 붙이면 <strong>켜두는 것 자체가 비용</strong>이 됩니다.</p>
+
+<p>그래서 <strong>내 PC 안에서 돌리기로</strong> 했습니다. LM Studio를 띄우고 Gemma를 올렸어요. 이러면 이런 게 달라집니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th></th><th>클라우드 API</th><th>로컬 LLM</th></tr>
+</thead>
+<tbody>
+<tr><td>비용</td><td>호출당 과금</td><td><strong>0원</strong></td></tr>
+<tr><td>호출 한도</td><td>있음</td><td><strong>없음</strong></td></tr>
+<tr><td>데이터</td><td>외부로 나감</td><td>내 PC 안</td></tr>
+<tr><td>대신</td><td>—</td><td>PC가 켜져 있어야 함</td></tr>
+</tbody>
+</table>
+
+<p>LM Studio는 <strong>OpenAI와 같은 형식의 API</strong>를 열어줍니다. 그래서 코드 쪽에서는 주소만 내 PC로 바꾼 셈이고, 나중에 클라우드로 옮기고 싶으면 주소만 바꾸면 됩니다.</p>
+
+<h2>점수로 물어봤습니다</h2>
+
+<p>"이 글이 좋은가?"라고 물으면 답이 제각각으로 옵니다. 그래서 <strong>형식을 못 박았어요.</strong></p>
+
+<pre>SCORE: [0-10]
+SUMMARY: [한 줄 요약]</pre>
+
+<p>0~2점은 관계없음, 3~5점은 애매함, 6~8점은 분명한 수요, 9~10점은 강한 수요. 기준을 프롬프트에 적어주고 <strong>6점 이상만 알림</strong>으로 보냅니다.</p>
+
+<p>점수를 쓴 이유는 <strong>임계값을 나중에 조절할 수 있어서</strong>입니다. 알림이 너무 많으면 7점으로 올리고, 적으면 5점으로 내리면 되죠. 판단 기준을 코드가 아니라 설정에 두는 겁니다.</p>
+
+<h2>실제로 얼마나 걸러졌나</h2>
+
+<p>두 달 반 돌린 결과입니다. <strong>288건을 평가해서 61건만 통과</strong>했어요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>점수</th><th>건수</th><th>결과</th></tr>
+</thead>
+<tbody>
+<tr><td>9</td><td>27</td><td>✅ 알림</td></tr>
+<tr><td>8</td><td>22</td><td>✅ 알림</td></tr>
+<tr><td>7</td><td>11</td><td>✅ 알림</td></tr>
+<tr><td>6</td><td>1</td><td>✅ 알림</td></tr>
+<tr><td>5</td><td><strong>0</strong></td><td>⛔</td></tr>
+<tr><td>4</td><td>6</td><td>⛔</td></tr>
+<tr><td>3</td><td>2</td><td>⛔</td></tr>
+<tr><td>0~2</td><td>143</td><td>⛔</td></tr>
+</tbody>
+</table>
+
+<p>여기서 눈에 띈 게 있어요. <strong>3~5점이 여덟 건뿐입니다.</strong> 0~2점에 143건, 7~9점에 60건이 몰려 있고 중간이 텅 비었어요.</p>
+
+<p>모델이 애매하게 답하지 않았다는 뜻입니다. <strong>"관계없음"과 "이건 진짜다"로 명확히 갈렸어요.</strong> 걱정했던 "애매한 5점짜리가 잔뜩 와서 판단이 더 힘들어지는" 상황은 안 벌어졌습니다.</p>
+
+<h2>조용한 실패 — 평가 자체가 안 된 76건</h2>
+
+<p>문제는 다른 데서 나왔습니다. 거절된 227건 중 <strong>76건은 점수가 아예 없었어요.</strong> 평가에 실패한 겁니다.</p>
+
+<p>원인은 대체로 하나예요. <strong>LM Studio가 안 떠 있었습니다.</strong> 제가 PC를 켜도 LM Studio는 수동으로 실행해야 하는데, 그걸 잊으면 봇은 계속 돌지만 판단만 못 합니다.</p>
+
+<p>그리고 이게 6편에서 겪은 것과 같은 종류의 함정이었어요. 평가에 실패하면 점수가 안 나오고, 점수가 없으면 임계값을 못 넘고, <strong>결국 조용히 탈락합니다.</strong> 에러도 안 나고 알림도 안 옵니다.</p>
+
+<h2>그래서 거절된 것까지 저장했습니다</h2>
+
+<p>이걸 알고 나서 넣은 게 있어요. <strong>떨어진 것도 전부 파일로 남깁니다.</strong></p>
+
+<pre>data/raw/2026-08-03.jsonl.gz   ← 날짜별로 압축 저장</pre>
+
+<p>지금 36개 파일에 227건이 들어 있습니다. 압축해서 넣으니 전부 합쳐도 몇십 KB예요.</p>
+
+<p>덕분에 두 가지가 가능해집니다.</p>
+
+<ul>
+<li><strong>모델이 꺼져 있어서 놓친 것</strong>을 나중에 다시 평가할 수 있어요</li>
+<li><strong>판단 기준이 맞았는지</strong> 되짚어볼 수 있어요. 0점 받은 글을 열어보고 "이건 걸렀어야 했나?" 확인하는 거죠</li>
+</ul>
+
+<p><strong>버리지 않고 옆으로 치워두는 것</strong>이 핵심이었습니다. 자동 판단을 붙일 때는 그 판단이 틀렸을 경우를 대비해둬야 해요.</p>
+
+<h2>겪은 함정 하나 — 답이 빈 채로 옵니다</h2>
+
+<p>Gemma를 붙이면서 한참 헤맨 게 있어요. <strong>응답은 오는데 내용이 비어 있었습니다.</strong></p>
+
+<p>원인은 이 모델이 <strong>추론 과정을 먼저 쓰는 종류</strong>라서였어요. 출력 길이 제한을 걸어두면, 추론하다가 그 한도를 다 쓰고 <strong>정작 답변 자리가 남지 않습니다.</strong></p>
+
+<p>해결은 <strong>길이 제한을 아예 걸지 않는 것</strong>이었어요. 값을 크게 늘리는 게 아니라 그 항목을 요청에서 빼버렸습니다. 그리고 응답에서 추론 부분은 무시하고 최종 답변만 읽게 했죠.</p>
+
+<p>문서를 아무리 봐도 안 나오는 종류의 문제입니다. 3편에서 말한 것과 같아요 — <strong>결국 실제로 던져보고 돌아온 걸 봐야</strong> 알게 됩니다.</p>
+
+<h2>정리 — 판단을 붙일 때 필요한 것</h2>
+
+<p>이 편에서 배운 걸 세 줄로 줄이면 이렇습니다.</p>
+
+<ul>
+<li><strong>비용이 0이면 판단을 아낄 필요가 없다.</strong> 무한히 돌아가는 봇에는 이게 결정적이었어요</li>
+<li><strong>자동 판단은 조용히 실패한다.</strong> 틀린 판단은 눈에 띄는데, 판단을 못 한 건 안 띕니다</li>
+<li><strong>떨어진 것을 남겨둬야 판단을 고칠 수 있다.</strong> 버리면 되돌릴 방법이 없어요</li>
+</ul>
+
+<p>지금은 아침에 PC를 켤 때 LM Studio도 같이 띄우는 게 습관이 됐습니다. 그게 근본 해결은 아니지만, 놓친 것들이 파일에 남아 있으니 급하지 않습니다.</p>
+
+<h2>다음 편</h2>
+
+<p>붙여둔 소스 하나가 갑자기 아무것도 안 가져오기 시작했어요. 코드는 그대로인데요. <strong>상대방이 문을 닫은 것</strong>이었습니다. → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-10.html">10편 — Reddit이 API를 막아서 RSS로 우회했습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/08/notice-bot-8.html">8편 — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>gemma</li><li>LM Studio</li><li>공고 알림봇</li><li>로컬 LLM</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/notice-bot-8.html">공고 알림봇 만들기 (8편) — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/notice-bot-10.html">공고 알림봇 만들기 (10편) — Reddit이 API를 막아서 RSS로 우회했습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

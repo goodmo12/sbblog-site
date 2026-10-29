@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (10편) — 최신 그래픽카드가 오히려 발목을 잡았다</title>
+<meta name="description" content="9편에서 번역용 로컬 AI를 돌리려다 GPU가 말썽이라고 했죠. 사실 성능을 위해 일부러 최신 그래픽카드를 들였는데, 아이러니하게도 너무 최신이라 안 되는 것들이 있었어요.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-10.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-10.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (10편) — 최신 그래픽카드가 오히려 발목을 잡았다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (10편) — 최신 그래픽카드가 오히려 발목을 잡았다">
+<meta property="og:description" content="9편에서 번역용 로컬 AI를 돌리려다 GPU가 말썽이라고 했죠. 사실 성능을 위해 일부러 최신 그래픽카드를 들였는데, 아이러니하게도 너무 최신이라 안 되는 것들이 있었어요.">
+<meta name="twitter:description" content="9편에서 번역용 로컬 AI를 돌리려다 GPU가 말썽이라고 했죠. 사실 성능을 위해 일부러 최신 그래픽카드를 들였는데, 아이러니하게도 너무 최신이라 안 되는 것들이 있었어요.">
+<meta property="article:published_time" content="2026-07-28T21:44:31+09:00">
+<meta property="article:modified_time" content="2026-07-29T20:49:17+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (10편) — 최신 그래픽카드가 오히려 발목을 잡았다", "datePublished": "2026-07-28T21:44:31+09:00", "dateModified": "2026-07-29T20:49:17+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-10.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "9편에서 번역용 로컬 AI를 돌리려다 GPU가 말썽이라고 했죠. 사실 성능을 위해 일부러 최신 그래픽카드를 들였는데, 아이러니하게도 너무 최신이라 안 되는 것들이 있었어요."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (10편) — 최신 그래픽카드가 오히려 발목을 잡았다</h1>
+    <p class="post-meta"><time datetime="2026-07-28T21:44:31+09:00">2026년 7월 28일</time></p>
+  </header>
+  <div class="post-body">
+<p>9편에서 번역용 로컬 AI를 돌리려다 GPU가 말썽이라고 했죠. 사실 성능을 위해 <strong>일부러 최신 그래픽카드</strong>를 들였는데, 아이러니하게도 <strong>너무 최신이라 안 되는 것들</strong>이 있었어요.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-9.html">9편 — 한국어로 말하면 영어로: 코딩하며 영어 배우기</a></blockquote>
+
+<h2>처음엔 CPU로 버텼어요</h2>
+
+<p>초기엔 그래픽카드 없이 <strong>CPU만으로 음성 인식(whisper)</strong> 을 돌렸어요. 되긴 됐는데, 정확한 큰 모델을 쓰면 <strong>느리고 버벅였죠.</strong> hands-free로 대화하듯 쓰려는데 인식이 굼뜨면 흐름이 끊겨요.</p>
+
+<p>그래서 "이건 GPU가 있어야겠다" 결론을 내렸어요. 검증부터 했죠 — CPU로 작은 모델을 돌려보며 "GPU만 있으면 큰 모델도 실시간이겠다"를 확인하고, 메인보드·CPU 호환까지 따진 뒤 <strong>RTX 5060 Ti(16GB)</strong> 를 들였습니다.</p>
+
+<h2>그런데 "너무 최신"이 문제였어요</h2>
+
+<p>카드를 꽂고 신나서 로컬 AI들을 돌렸는데, 일부가 <strong>아예 실행이 안 됐어요.</strong> 대표적으로 번역에 쓰려던 Ollama가 그랬죠.</p>
+
+<p>이유는 이랬어요. 이 카드는 <strong>너무 최신 세대(Blackwell)</strong> 라서, 소프트웨어들이 아직 <strong>이 칩에 맞는 코드를 준비 못 한</strong> 상태였어요. "가장 좋은 걸 샀는데 생태계가 아직 못 따라온" 상황이었죠.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>소프트웨어</th><th>최신 GPU에서</th></tr>
+</thead>
+<tbody>
+<tr><td>Ollama (번역용으로 시도)</td><td>❌ 실행 크래시 (아직 미지원)</td></tr>
+<tr><td>LM Studio</td><td>✅ 정상</td></tr>
+<tr><td>faster-whisper (음성 인식)</td><td>✅ 정상 (GPU 가속)</td></tr>
+</tbody>
+</table>
+
+<h2>되는 걸로 갈아타니 날아다녔어요</h2>
+
+<p>안 되는 Ollama는 접고, <strong>LM Studio</strong>로 번역을 돌리니 잘 됐어요. 그리고 정작 핵심인 <strong>음성 인식(faster-whisper)은 GPU에서 문제없이 가속</strong>돼서, 큰 모델도 실시간으로 착착 인식됐죠. 애초에 GPU를 산 목적은 완벽히 달성한 거예요.</p>
+
+<h2>교훈 — 최신 하드웨어는 양날의 검</h2>
+
+<p>성능은 최고인데, <strong>소프트웨어 생태계가 따라오는 데 시간이 걸린다</strong> — 이게 최신 하드웨어의 함정이에요. "제일 좋은 걸 사면 다 잘 되겠지"가 항상 맞진 않더라고요. 안 되는 걸 붙잡고 씨름하기보다, <strong>되는 대안으로 빠르게 갈아타는</strong> 게 시간을 아꼈어요.</p>
+
+<h2>다음 편</h2>
+
+<p>이제 거의 다 왔어요. 마지막 삽질은 <strong>"어느 창에 넣지?"</strong> — 여러 개 열린 창 중에 목소리로 골라 넣는 창 타겟팅 이야기. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-11.html">11편 — 어느 창에 넣지? 목소리로 창 고르기</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-9.html">9편 — 한국어로 말하면 영어로: 코딩하며 영어 배우기</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Blackwell</li><li>Claude Code</li><li>GPU</li><li>LM Studio</li><li>Ollama</li><li>RTX 5060 Ti</li><li>VoxPlug</li><li>로컬 AI</li><li>음성으로 코딩</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-9.html">음성으로 코딩하기 (9편) — 한국어로 말하면 영어로: 코딩하며 영어 배우기</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-11.html">음성으로 코딩하기 (11편) — 어느 창에 넣지? 목소리로 창 고르기</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

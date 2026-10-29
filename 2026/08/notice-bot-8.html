@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (8편) — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다</title>
+<meta name="description" content="결론부터: 파이썬 스크립트를 PC 켤 때마다 자동으로 돌리려면 윈도우 작업 스케줄러 + 로그온 시 실행이면 충분합니다. 단, 환경변수가 전달되지 않는 함정이 있어 런처 스크립트를 한 겹 씌워야 합니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/08/notice-bot-8.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/08/notice-bot-8.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (8편) — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (8편) — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다">
+<meta property="og:description" content="결론부터: 파이썬 스크립트를 PC 켤 때마다 자동으로 돌리려면 윈도우 작업 스케줄러 + 로그온 시 실행이면 충분합니다. 단, 환경변수가 전달되지 않는 함정이 있어 런처 스크립트를 한 겹 씌워야 합니다.">
+<meta name="twitter:description" content="결론부터: 파이썬 스크립트를 PC 켤 때마다 자동으로 돌리려면 윈도우 작업 스케줄러 + 로그온 시 실행이면 충분합니다. 단, 환경변수가 전달되지 않는 함정이 있어 런처 스크립트를 한 겹 씌워야 합니다.">
+<meta property="article:published_time" content="2026-08-02T19:50:35+09:00">
+<meta property="article:modified_time" content="2026-08-03T21:00:07+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (8편) — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다", "datePublished": "2026-08-02T19:50:35+09:00", "dateModified": "2026-08-03T21:00:07+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/08/notice-bot-8.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "결론부터: 파이썬 스크립트를 PC 켤 때마다 자동으로 돌리려면 윈도우 작업 스케줄러 + 로그온 시 실행이면 충분합니다. 단, 환경변수가 전달되지 않는 함정이 있어 런처 스크립트를 한 겹 씌워야 합니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (8편) — 윈도우 작업 스케줄러로 파이썬 봇을 자동 실행했습니다</h1>
+    <p class="post-meta"><time datetime="2026-08-02T19:50:35+09:00">2026년 8월 2일</time></p>
+  </header>
+  <div class="post-body">
+<p><strong>결론부터</strong>: 파이썬 스크립트를 PC 켤 때마다 자동으로 돌리려면 <strong>윈도우 작업 스케줄러 + 로그온 시 실행</strong>이면 충분합니다. 단, 환경변수가 전달되지 않는 함정이 있어 <strong>런처 스크립트를 한 겹 씌워야</strong> 합니다.</p>
+
+<p>7편까지 만들고 나니 알림은 쓸 만해졌어요. 그런데 정작 <strong>제가 직접 켜야</strong> 돌아갔습니다.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-7.html">7편 — 텔레그램 봇 인라인 키보드로 버튼을 달았습니다</a></blockquote>
+
+<h2>켜는 걸 잊으면 소용이 없어요</h2>
+
+<p>터미널을 열고 실행하면 잘 돌아갑니다. 문제는 <strong>그 창을 닫으면 멈춘다</strong>는 거죠.</p>
+
+<p>공고는 제가 컴퓨터를 안 볼 때도 올라옵니다. 알림봇을 만든 이유가 "놓치지 않으려고"인데, 제가 켜는 걸 잊으면 그 순간 의미가 없어져요. <strong>켜두는 것까지가 기능</strong>이었습니다.</p>
+
+<p>클라우드에 올리는 방법도 있지만, 그건 나중 일로 미뤘어요. 일단 <strong>집 PC에서 확실히 돌아가는 것</strong>이 먼저였습니다.</p>
+
+<h2>작업 스케줄러 + 로그온 시 실행</h2>
+
+<p>윈도우에는 작업 스케줄러가 기본으로 들어 있어요. 여기에 등록하면서 트리거를 <strong>"로그온할 때"</strong> 로 잡았습니다.</p>
+
+<p>이러면 PC를 켜고 로그인하는 순간 봇이 자동으로 뜹니다. 제가 할 일이 없어요.</p>
+
+<p>부팅 시 실행하는 방법도 있는데 <strong>로그온 시 실행을 골랐습니다.</strong> 이 봇은 제 계정의 환경변수를 쓰기 때문에, 로그인 전에는 필요한 값이 준비되지 않거든요.</p>
+
+<h2>함정 — 환경변수가 안 넘어갑니다</h2>
+
+<p>여기서 막혔어요. 손으로 실행하면 잘 되는데, <strong>작업 스케줄러로 띄우면 API 키를 못 읽습니다.</strong></p>
+
+<p>원인은 이거였어요. 제 토큰과 API 키는 코드에 안 박고 <strong>윈도우 사용자 환경변수</strong>에 넣어뒀는데, 작업 스케줄러가 띄우는 프로세스에는 그게 그대로 전달되지 않았습니다.</p>
+
+<p>그래서 <strong>런처 스크립트를 한 겹 씌웠어요.</strong></p>
+
+<pre>사용자 환경변수를 읽어서 → 프로세스 환경변수로 넣고 → 파이썬 실행</pre>
+
+<p>파워셸로 열 줄 남짓입니다. 작업 스케줄러는 이 런처를 부르고, 런처가 키를 챙겨서 봇을 띄우는 구조죠.</p>
+
+<p>이렇게 하니 <strong>키가 코드에도, 설정 파일에도 안 남습니다.</strong> 설정 파일엔 <code>${환경변수이름}</code> 같은 자리표시자만 있고, 실제 값은 실행할 때 채워집니다. 저장소에 올려도 안전해요.</p>
+
+<h2>30초마다 깨어나되, 매번 조회하진 않아요</h2>
+
+<p>봇은 30초마다 한 번씩 깨어납니다. 그런데 그때마다 API를 부르진 않아요.</p>
+
+<p>소스별로 <strong>얼마 만에 다시 볼지</strong>를 따로 정해뒀습니다. 대부분 한 시간이고, 유튜브는 두 시간이에요. 30초 주기는 "지금 부를 때가 됐나"만 확인하는 용도입니다.</p>
+
+<p>이렇게 나눈 이유는 두 가지예요.</p>
+
+<ul>
+<li><strong>API 호출량을 아끼려고</strong> — 공공 API는 하루 호출 한도가 있습니다</li>
+<li><strong>소스마다 갱신 속도가 다르니까</strong> — 공고는 하루에 몇 번, 유튜브 댓글은 더 느리게 쌓입니다</li>
+</ul>
+
+<h2>설정만 바꾸면 재시작 없이 반영돼요</h2>
+
+<p>돌려보니 또 불편한 게 생겼습니다. 폴링 주기를 조금 바꾸고 싶은데, 그때마다 봇을 껐다 켜야 했어요.</p>
+
+<p>그래서 <strong>설정 파일이 바뀌면 알아서 다시 읽도록</strong> 했습니다. 원리는 단순해요. 파일의 <strong>수정 시각</strong>을 기억해뒀다가, 매번 확인해서 달라졌을 때만 다시 읽습니다. 안 바뀌었으면 그냥 넘어가고요.</p>
+
+<p>여기에 안전장치를 하나 넣었어요. <strong>설정 파일을 잘못 고쳐서 읽기에 실패하면, 이전 설정을 그대로 유지</strong>합니다. 오타 하나로 봇이 죽으면 곤란하니까요.</p>
+
+<p>덕분에 지역 필터 같은 걸 켜고 끄는 데 재시작이 필요 없습니다. 파일 저장하면 30초 안에 반영돼요.</p>
+
+<h2>여기서 제가 착각한 것</h2>
+
+<p><strong>설정은 다시 읽지만, 코드는 다시 읽지 않습니다.</strong></p>
+
+<p>당연한 얘기인데 실제로 당했어요. 얼마 전 필터 기능을 새로 만들고 설정까지 켰는데 <strong>아무 일도 안 일어났습니다.</strong> 한참 들여다보고 나서야 알았죠 — 돌고 있던 프로세스는 <strong>열두 시간 전에 올라온 옛날 코드</strong>를 메모리에 들고 있었던 겁니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>바꾼 것</th><th>반영되나</th></tr>
+</thead>
+<tbody>
+<tr><td>설정 파일</td><td>✅ 30초 안에</td></tr>
+<tr><td><strong>파이썬 코드</strong></td><td>❌ <strong>재시작 필요</strong></td></tr>
+</tbody>
+</table>
+
+<p>"핫 리로드가 되니까 알아서 반영되겠지" 하고 넘어간 게 화근이었어요. <strong>어디까지 자동이고 어디부터 수동인지</strong>를 헷갈리면 이런 일이 생깁니다.</p>
+
+<h2>정리 — 자동화의 마지막 한 칸</h2>
+
+<p>돌아보면 이 편에서 한 일은 <strong>기능이 아니라 지속성</strong>이었어요.</p>
+
+<p>아무리 잘 만들어도 사람이 매번 켜야 하면 그건 반쯤 완성된 도구입니다. 제가 잊어버리는 순간 멈추니까요. <strong>켜두는 것까지 자동화해야 비로소 도구가 됩니다.</strong></p>
+
+<p>지금은 PC를 켜면 알아서 뜨고, 텔레그램으로 "시작했습니다" 메시지가 한 번 옵니다. 그 메시지를 보면 오늘도 돌고 있구나 하고 넘어가요. 그거면 충분합니다.</p>
+
+<h2>다음 편</h2>
+
+<p>수집한 게 많아지니 이번엔 <strong>읽을 가치가 있는지</strong>가 문제였어요. 그래서 제 PC 안에서 도는 작은 언어 모델에게 1차 판단을 맡겼습니다. → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-9.html">9편 — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/08/notice-bot-7.html">7편 — 텔레그램 봇 인라인 키보드로 버튼을 달았습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>공고 알림봇</li><li>윈도우 자동화</li><li>자동화</li><li>작업 스케줄러</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/08/notice-bot-7.html">공고 알림봇 만들기 (7편) — 텔레그램 봇 인라인 키보드로 버튼을 달았습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/notice-bot-9.html">공고 알림봇 만들기 (9편) — LM Studio 로컬 LLM으로 수집 결과를 걸렀습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

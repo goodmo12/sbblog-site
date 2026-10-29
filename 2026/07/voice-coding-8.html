@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (8편) — 매번 켜기 귀찮아서: 자동화와 설정 철학</title>
+<meta name="description" content="여기까지 만들고 나니 새로운 게으름이 생겼어요. 매번 손으로 켜기가 귀찮았죠. 그래서 자동화를 붙였는데, 여기서도 예상 못 한 함정이 하나 있었어요.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-8.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-8.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (8편) — 매번 켜기 귀찮아서: 자동화와 설정 철학">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (8편) — 매번 켜기 귀찮아서: 자동화와 설정 철학">
+<meta property="og:description" content="여기까지 만들고 나니 새로운 게으름이 생겼어요. 매번 손으로 켜기가 귀찮았죠. 그래서 자동화를 붙였는데, 여기서도 예상 못 한 함정이 하나 있었어요.">
+<meta name="twitter:description" content="여기까지 만들고 나니 새로운 게으름이 생겼어요. 매번 손으로 켜기가 귀찮았죠. 그래서 자동화를 붙였는데, 여기서도 예상 못 한 함정이 하나 있었어요.">
+<meta property="article:published_time" content="2026-07-27T20:58:00+09:00">
+<meta property="article:modified_time" content="2026-07-28T21:48:26+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (8편) — 매번 켜기 귀찮아서: 자동화와 설정 철학", "datePublished": "2026-07-27T20:58:00+09:00", "dateModified": "2026-07-28T21:48:26+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-8.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "여기까지 만들고 나니 새로운 게으름이 생겼어요. 매번 손으로 켜기가 귀찮았죠. 그래서 자동화를 붙였는데, 여기서도 예상 못 한 함정이 하나 있었어요."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (8편) — 매번 켜기 귀찮아서: 자동화와 설정 철학</h1>
+    <p class="post-meta"><time datetime="2026-07-27T20:58:00+09:00">2026년 7월 27일</time></p>
+  </header>
+  <div class="post-body">
+<p>여기까지 만들고 나니 새로운 게으름이 생겼어요. <strong>매번 손으로 켜기가 귀찮았죠.</strong> 그래서 자동화를 붙였는데, 여기서도 예상 못 한 함정이 하나 있었어요.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-7.html">7편 — 소리를 키워도 안 됐다: 무료 모델의 벽</a></blockquote>
+
+<h2>윈도우 켜면 알아서 떠 있게</h2>
+
+<p>VoxPlug를 쓰려면 매번 실행 스크립트를 손으로 눌러야 했어요. hands-free를 지향하는 도구인데 시작부터 손이 필요하다니 좀 우스웠죠. 그래서 <strong>윈도우에 로그인하면 자동으로 실행</strong>되게 작업 스케줄러에 등록했어요.</p>
+
+<h2>그런데 자동 실행이 멈춰 있었어요</h2>
+
+<p>재부팅하고 봤더니, VoxPlug가 <strong>마이크 선택 화면에서 멈춰</strong> 있더라고요. "어느 마이크 쓸래?" 하고 입력을 기다리면서요. 자동으로 뜨라고 했더니 정작 사람 입력을 기다리는 아이러니.</p>
+
+<p>원인은 이랬어요. VoxPlug는 <strong>콘솔(터미널) 프로그램</strong>이라, 자동 실행돼도 콘솔과 입력이 붙어버려요. 그러니 "대화형(사람이 있는) 환경"으로 착각하고 마이크를 고르라고 물어본 거죠.</p>
+
+<p>해결은 <strong>"지금은 자동 실행이니 묻지 말고 설정값 그대로 써"</strong> 라는 옵션(<code>--non-interactive</code>)을 하나 만들어서, 자동 실행 명령에 붙이는 거였어요. 그러니 프롬프트 없이 핀마이크로 바로 떴습니다.</p>
+
+<h2>사실 이 시리즈를 버티게 한 건 "설정 철학"이었어요</h2>
+
+<p>돌아보면, 3편부터 7편까지 삽질을 견딜 수 있었던 비결이 하나 있었어요. <strong>모든 값을 코드가 아니라 설정 파일로 빼둔 것.</strong> 그리고 대부분은 <strong>앱을 껐다 켜지 않아도 저장하는 순간 바로 반영(핫리로드)</strong> 되게 했죠.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>문제 (편)</th><th>코드 수정 없이 설정으로 바꾼 값</th></tr>
+</thead>
+<tbody>
+<tr><td>4편 끊김 오판</td><td>"살아있는 소리" 판정 임계값</td></tr>
+<tr><td>6편 노이즈 제거 역설</td><td>경로별 노이즈 제거 on/off</td></tr>
+<tr><td>7편 게인</td><td>음량 증폭 배수</td></tr>
+</tbody>
+</table>
+
+<p>덕분에 <strong>"값 하나 바꾸고 → 바로 말해보고 → 데이터 확인"</strong> 을 수십 번 반복할 수 있었어요. 코드를 고치고 재시작했다면 이 튜닝은 며칠이 아니라 몇 주가 걸렸을 거예요.</p>
+
+<h2>틀린 것도 데이터로 모았어요</h2>
+
+<p>여기에 하나 더. 인식이 틀렸을 때 <strong>핫키 한 번으로 그 발화를 파일에 기록</strong>하게 해뒀어요. 나중에 그 기록들을 모아 "어떤 단어가 자주 틀리나"를 분석하고 설정을 손봤죠. 6·7편의 "긁어온" 이야기도 이렇게 모은 데이터에서 나온 거예요.</p>
+
+<h2>정리 — 자동화는 편의, 설정은 생존</h2>
+
+<p>자동화(자동 실행)는 <strong>편하려고</strong> 붙인 거였고, 설정 철학(config-driven)은 <strong>삽질을 버티려고</strong> 세운 거였어요. AI(Claude)와 빠르게 만들다 보면 값이 코드 여기저기 박히기 쉬운데, <strong>"이건 나중에 바꿀 값인가?"</strong> 를 계속 물으면서 설정으로 빼둔 게 이 프로젝트를 끝까지 끌고 온 힘이었어요.</p>
+
+<h2>다음 편</h2>
+
+<p>이제 도구가 안정됐으니, 부가 기능 하나를 붙입니다. <strong>한국어로 말하면 영어로 바꿔 넣어주는</strong> 번역 모드 — 코딩하면서 영어까지 익히는 이야기. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-9.html">9편 — 한국어로 말하면 영어로: 코딩하며 영어 배우기</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-7.html">7편 — 소리를 키워도 안 됐다: 무료 모델의 벽</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Claude Code</li><li>config</li><li>VoxPlug</li><li>개발 생산성</li><li>윈도우 자동시작</li><li>음성으로 코딩</li><li>자동화</li><li>작업 스케줄러</li><li>핫리로드</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-7.html">음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-9.html">음성으로 코딩하기 (9편) — 한국어로 말하면 영어로: 코딩하며 영어 배우기</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

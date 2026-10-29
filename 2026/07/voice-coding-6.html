@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유</title>
+<meta name="description" content="&quot;취소해&quot;라고 말했는데 화면엔 &quot;This way&quot; 가 떴어요. 분명 한국어로 말했는데 영어로 알아듣다니. 이 황당한 현상의 범인은, 뜻밖에도 좋으라고 켜둔 기능이었습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-6.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-6.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유">
+<meta property="og:description" content="&quot;취소해&quot;라고 말했는데 화면엔 &quot;This way&quot; 가 떴어요. 분명 한국어로 말했는데 영어로 알아듣다니. 이 황당한 현상의 범인은, 뜻밖에도 좋으라고 켜둔 기능이었습니다.">
+<meta name="twitter:description" content="&quot;취소해&quot;라고 말했는데 화면엔 &quot;This way&quot; 가 떴어요. 분명 한국어로 말했는데 영어로 알아듣다니. 이 황당한 현상의 범인은, 뜻밖에도 좋으라고 켜둔 기능이었습니다.">
+<meta property="article:published_time" content="2026-07-26T12:36:25+09:00">
+<meta property="article:modified_time" content="2026-07-27T20:59:00+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유", "datePublished": "2026-07-26T12:36:25+09:00", "dateModified": "2026-07-27T20:59:00+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-6.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "\"취소해\"라고 말했는데 화면엔 \"This way\" 가 떴어요. 분명 한국어로 말했는데 영어로 알아듣다니. 이 황당한 현상의 범인은, 뜻밖에도 좋으라고 켜둔 기능이었습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (6편) — 한국어로 말했는데 영어로 알아듣는 이유</h1>
+    <p class="post-meta"><time datetime="2026-07-26T12:36:25+09:00">2026년 7월 26일</time></p>
+  </header>
+  <div class="post-body">
+<p>"취소해"라고 말했는데 화면엔 <strong>"This way"</strong> 가 떴어요. 분명 한국어로 말했는데 영어로 알아듣다니. 이 황당한 현상의 범인은, 뜻밖에도 <strong>좋으라고 켜둔 기능</strong>이었습니다.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-5.html">5편 — Claude가 답했는데 왜 조용하지?</a></blockquote>
+
+<h2>짧은 명령어가 자꾸 이상하게 들렸어요</h2>
+
+<p>긴 문장은 그럭저럭 인식됐는데, <strong>"취소"·"전송" 같은 짧은 명령어</strong>가 유독 자주 틀렸어요. "취소해"가 엉뚱한 한국어로 들리는 건 그렇다 쳐도, 가끔은 <strong>아예 영어("This way", "async")로</strong> 알아듣더라고요.</p>
+
+<p>한국어로 쓰라고 설정도 해뒀는데 영어라니. 처음엔 "모델이 이상한가?" 했죠.</p>
+
+<h2>모델도 프롬프트도 아니었어요</h2>
+
+<p>whisper large-v3에 한국어(<code>ko</code>)로 고정해뒀고, 자주 쓰는 단어를 미리 알려주는 힌트(initial_prompt)도 넣어봤어요. 그런데도 짧은 명령어의 영어 오인식은 안 사라졌죠. 원인은 인식기 앞단, <strong>소리를 다듬는 단계</strong>에 있었어요.</p>
+
+<h2>진짜 범인은 노이즈 제거였어요</h2>
+
+<p>저는 <strong>노이즈 제거(denoise)</strong> 를 켜두고 있었어요. 팬 소리나 잡음을 걷어내라고요. 긴 문장에서는 이게 도움이 됐어요.</p>
+
+<p>그런데 <strong>짧은 키워드</strong>에서는 정반대였습니다. "취소"는 0.5초짜리 약한 신호예요. 노이즈 제거가 그 <strong>약한 신호까지 과하게 깎아버리니</strong>, whisper 입장에선 뭉개진 소리를 받고 <strong>"그럴듯한 무언가"로 채워 넣다가 영어를 뱉은</strong> 거였죠.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>발화 종류</th><th>노이즈 제거 효과</th></tr>
+</thead>
+<tbody>
+<tr><td>긴 문장</td><td>✅ 도움 (잡음만 걷어냄)</td></tr>
+<tr><td>짧은 키워드(0.5초)</td><td>❌ 독 (약한 신호까지 깎아 영어·환각 오인식)</td></tr>
+</tbody>
+</table>
+
+<p><strong>같은 기능이 발화 길이에 따라 정반대로 작동</strong>한 거예요.</p>
+
+<h2>키워드 전용 엔진도 써봤지만 접었어요</h2>
+
+<p>"그럼 키워드는 아예 다른 방식으로 인식하면?" 싶어서 <strong>Vosk</strong>라는 엔진을 시도했어요. 인식 후보를 "취소·전송·다시" 같은 키워드로만 한정하면 정확할 줄 알았죠.</p>
+
+<p>그런데 이게 <strong>더 위험했어요.</strong> 키워드가 아닌 말(잡음이나 창 이름)까지 <strong>억지로 "전송"·"취소"로 매핑</strong>해버리더라고요. 심지어 "취소"를 "전송"으로 알아듣기도 했고요. <strong>취소하려다 전송되면</strong> 큰일이잖아요. 그래서 접었습니다.</p>
+
+<h2>해결 — 경로마다 노이즈 제거를 다르게</h2>
+
+<p>결론은 단순했어요. <strong>긴 문장(일반 발화)은 노이즈 제거를 켜두고, 짧은 키워드만 노이즈 제거를 끄는</strong> 거였죠. 발화 종류에 따라 정반대로 처리하니 영어 오인식이 확 줄었어요.</p>
+
+<h2>교훈 — 좋은 도구도 상황 따라 독이 된다</h2>
+
+<p>노이즈 제거는 분명 좋은 기능이에요. 하지만 <strong>"항상 켜두면 좋다"는 건 없었어요.</strong> 짧고 약한 신호에는 오히려 독이었죠.</p>
+
+<p>AI(Claude)는 "노이즈 제거를 켜라"까진 제안했지만, <strong>"짧은 키워드에선 그게 역효과"</strong> 라는 건 결국 제가 데이터를 뽑아 직접 확인해야 했어요. 도구의 좋고 나쁨은 <strong>상황에 달렸더라고요.</strong></p>
+
+<h2>다음 편</h2>
+
+<p>이번엔 음량이 문제였어요. 소리를 키우면 인식이 좋아질까? 그리고 마주한 <strong>무료 모델의 벽</strong> 이야기. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-7.html">7편 — 소리를 키워도 안 됐다: 무료 모델의 벽</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-5.html">5편 — Claude가 답했는데 왜 조용하지?</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Claude Code</li><li>STT</li><li>Vosk</li><li>VoxPlug</li><li>whisper</li><li>노이즈 제거</li><li>오인식</li><li>음성으로 코딩</li><li>음성인식</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-5.html">음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-7.html">음성으로 코딩하기 (7편) — 소리를 키워도 안 됐다: 무료 모델의 벽</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

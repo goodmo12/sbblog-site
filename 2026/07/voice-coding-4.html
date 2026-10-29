@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유</title>
+<meta name="description" content="3편에서 핀마이크로 음질 문제를 잡았다고 좋아했는데, 바로 다음 지옥이 열렸어요. 이번엔 멀쩡한 마이크를 자꾸 &quot;죽었다&quot;고 우기는 문제였습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-4.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-4.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유">
+<meta property="og:description" content="3편에서 핀마이크로 음질 문제를 잡았다고 좋아했는데, 바로 다음 지옥이 열렸어요. 이번엔 멀쩡한 마이크를 자꾸 &quot;죽었다&quot;고 우기는 문제였습니다.">
+<meta name="twitter:description" content="3편에서 핀마이크로 음질 문제를 잡았다고 좋아했는데, 바로 다음 지옥이 열렸어요. 이번엔 멀쩡한 마이크를 자꾸 &quot;죽었다&quot;고 우기는 문제였습니다.">
+<meta property="article:published_time" content="2026-07-25T16:36:19+09:00">
+<meta property="article:modified_time" content="2026-07-26T12:29:03+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유", "datePublished": "2026-07-25T16:36:19+09:00", "dateModified": "2026-07-26T12:29:03+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-4.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "3편에서 핀마이크로 음질 문제를 잡았다고 좋아했는데, 바로 다음 지옥이 열렸어요. 이번엔 멀쩡한 마이크를 자꾸 \"죽었다\"고 우기는 문제였습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유</h1>
+    <p class="post-meta"><time datetime="2026-07-25T16:36:19+09:00">2026년 7월 25일</time></p>
+  </header>
+  <div class="post-body">
+<p>3편에서 핀마이크로 음질 문제를 잡았다고 좋아했는데, 바로 다음 지옥이 열렸어요. 이번엔 <strong>멀쩡한 마이크를 자꾸 "죽었다"고 우기는</strong> 문제였습니다.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-3.html">3편 — 인식이 안 되던 진짜 범인은 마이크였다</a></blockquote>
+
+<h2>음질을 잡았더니 이번엔 "끊김"이었어요</h2>
+
+<p>핀마이크가 잘 되나 싶었는데, 화면에 자꾸 <strong>"⚠ 마이크 입력 없음"</strong> 경고가 떴어요. 5초쯤 조용히 있으면 "끊겼다"고 판단하고 마이크를 다시 여는 동작을 무한 반복했죠. 정작 마이크는 멀쩡히 꽂혀 있는데도요.</p>
+
+<p>hands-free로 쓰려면 잠깐씩 말을 멈추는 게 당연한데, 그 침묵을 "장치가 죽었다"고 오해하니 쓸 수가 없었어요.</p>
+
+<h2>진폭으로 살아있는지 판단했는데…</h2>
+
+<p>끊김을 감지하는 방식은 이랬어요. <strong>마이크에서 들어오는 소리의 크기(진폭)를 보고, "의미 있는 소리"가 일정 시간 안 들어오면 끊긴 걸로 판단</strong>한다.</p>
+
+<p>문제는 여기 있었어요. 핀마이크는 조용할 때도 아주 작은 신호(진폭 레벨 1)를 흘리는데, 제가 "이 정도(레벨 2) 이상은 돼야 살아있는 소리로 친다"고 임계값을 잡아둔 거예요. 그래서 <strong>정상적인 침묵을 "소리 없음 = 끊김"으로 오판</strong>한 거죠.</p>
+
+<h2>임계값을 낮췄더니 해결… 인 줄 알았죠</h2>
+
+<p>원인을 알았으니 간단해 보였어요. 임계값을 2에서 <strong>0으로</strong> 낮췄죠. 레벨 1도 살아있는 걸로 쳐주도록. <strong>설정을 바꾸자마자(핫리로드) 끊김 경고가 사라졌어요.</strong> "해결!" 하고 넘어갔죠.</p>
+
+<p>그런데 며칠 뒤, 앱을 <strong>재시작</strong>했더니 끊김 지옥이 <strong>그대로 돌아왔습니다.</strong></p>
+
+<h2>어제는 되고 오늘은 안 되는 미스터리</h2>
+
+<p>설정 파일엔 분명 <strong>0</strong>이 그대로 있었어요. 그런데 어제는 되고 오늘은 안 됐죠. 이게 제일 헷갈렸어요.</p>
+
+<p>범인은 <strong>설정값을 읽는 코드가 두 군데</strong>였고, 둘의 동작이 달랐다는 거예요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>언제</th><th>0을 어떻게 처리?</th></tr>
+</thead>
+<tbody>
+<tr><td>설정을 바꿔 즉시 반영할 때(핫리로드)</td><td><strong>0 허용</strong> ✅</td></tr>
+<tr><td>앱을 껐다 켤 때(재시작)</td><td><strong>0 → 2로 덮어씀</strong> ❌</td></tr>
+</tbody>
+</table>
+
+<p>어제 "해결"됐던 건 핫리로드 경로였고, 오늘 재시작하니 다른 경로가 0을 무시한 거였어요.</p>
+
+<h2>범인은 <code>or 2</code> 한 줄이었어요</h2>
+
+<p>재시작 경로의 코드는 대략 이랬어요.</p>
+
+<pre>alive_min_level = int(설정에서_읽기("...", 기본값 2) or 2)</pre>
+
+<p>파이썬에서 <strong><code>0</code>은 falsy(거짓 취급)</strong> 예요. 그래서 <code>0 or 2</code>는 <strong>2</strong>가 됩니다. 즉 <strong>설정에 0을 넣어도, 재시작할 때 코드가 "0은 빈 값이네" 하고 2로 덮어쓴</strong> 거였죠. 핫리로드 경로는 <code>if 값 &gt;= 0</code>으로 검사해서 0을 제대로 받았고요.</p>
+
+<p><code>or 2</code> 한 줄을 빼서 0을 유효값으로 받게 고치니, 재시작해도 멀쩡했습니다.</p>
+
+<h2>교훈 — 0은 falsy다, 그리고 두 경로를 다 봐라</h2>
+
+<p>며칠을 잡아먹은 버그의 교훈은 두 개예요.</p>
+
+<ol>
+<li><strong>0을 유효값으로 다룰 땐 <code>or</code>·falsy 검사를 조심하라.</strong> <code>값 or 기본값</code>은 0을 삼켜버립니다.</li>
+<li><strong>같은 설정을 읽는 경로가 여러 개면 전부 확인하라.</strong> 핫리로드로만 검증하고 재시작은 안 봤더니, 이 불일치가 숨어 있었죠.</li>
+</ol>
+
+<p>AI(Claude)가 코드는 빠르게 짜줬지만, <strong>"어제는 되고 오늘은 안 되는" 이 미묘한 불일치</strong>는 결국 제가 직접 재현하고 로그를 파야 잡혔어요.</p>
+
+<h2>다음 편</h2>
+
+<p>이번엔 소리가 아니라 <strong>침묵</strong>이 문제였어요. Claude가 분명 답했는데 <strong>TTS가 입을 꾹 다무는</strong> 미스터리. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-5.html">5편 — Claude가 답했는데 왜 조용하지?</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-3.html">3편 — 인식이 안 되던 진짜 범인은 마이크였다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Claude Code</li><li>Python</li><li>VoxPlug</li><li>디버깅</li><li>마이크 끊김</li><li>음성으로 코딩</li><li>음성인식</li><li>파이썬 falsy</li><li>핫리로드</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-3.html">음성으로 코딩하기 (3편) — 인식이 안 되던 진짜 범인은 마이크였다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-5.html">음성으로 코딩하기 (5편) — Claude가 답했는데 왜 조용하지?</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

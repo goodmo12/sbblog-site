@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (4편) — API마다 응답 구조가 달랐습니다</title>
+<meta name="description" content="3편에서 주소를 겨우 찾았다고 했죠. 그래서 다섯 곳에 다 요청을 보냈어요. 그랬더니 돌아온 것들이 서로 하나도 안 닮았습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/notice-bot-4.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/notice-bot-4.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (4편) — API마다 응답 구조가 달랐습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (4편) — API마다 응답 구조가 달랐습니다">
+<meta property="og:description" content="3편에서 주소를 겨우 찾았다고 했죠. 그래서 다섯 곳에 다 요청을 보냈어요. 그랬더니 돌아온 것들이 서로 하나도 안 닮았습니다.">
+<meta name="twitter:description" content="3편에서 주소를 겨우 찾았다고 했죠. 그래서 다섯 곳에 다 요청을 보냈어요. 그랬더니 돌아온 것들이 서로 하나도 안 닮았습니다.">
+<meta property="article:published_time" content="2026-07-31T18:15:13+09:00">
+<meta property="article:modified_time" content="2026-07-31T18:15:13+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (4편) — API마다 응답 구조가 달랐습니다", "datePublished": "2026-07-31T18:15:13+09:00", "dateModified": "2026-07-31T18:15:13+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/notice-bot-4.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "3편에서 주소를 겨우 찾았다고 했죠. 그래서 다섯 곳에 다 요청을 보냈어요. 그랬더니 돌아온 것들이 서로 하나도 안 닮았습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (4편) — API마다 응답 구조가 달랐습니다</h1>
+    <p class="post-meta"><time datetime="2026-07-31T18:15:13+09:00">2026년 7월 31일</time></p>
+  </header>
+  <div class="post-body">
+<p>3편에서 주소를 겨우 찾았다고 했죠. 그래서 다섯 곳에 다 요청을 보냈어요. 그랬더니 <strong>돌아온 것들이 서로 하나도 안 닮았습니다.</strong></p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/notice-bot-3.html">3편 — 목록에 없는 API를 직접 찾아냈습니다</a></blockquote>
+
+<h2>다섯 곳이 다섯 가지 모양이었어요</h2>
+
+<p>같은 "공고 목록"을 달라고 했는데 이렇게 왔어요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>소스</th><th>형식</th><th>목록이 어디 있나</th></tr>
+</thead>
+<tbody>
+<tr><td>K-Startup</td><td><strong>XML</strong></td><td><code>item</code> 태그들</td></tr>
+<tr><td>기업마당</td><td>JSON</td><td><code>jsonArray</code></td></tr>
+<tr><td>LH</td><td>JSON</td><td><strong>배열의 두 번째 칸</strong></td></tr>
+<tr><td>마이홈</td><td>JSON</td><td><code>response → body → item</code></td></tr>
+<tr><td>든든전세</td><td>JSON</td><td>그냥 최상위 배열</td></tr>
+</tbody>
+</table>
+
+<p>XML 하나에 JSON 넷인데, 그 JSON 넷도 목록 위치가 전부 달라요. 표준이 있는 줄 알았는데 <strong>아무도 같은 걸 안 쓰고 있었어요.</strong></p>
+
+<h2>XML인데 필드명이 태그가 아니었어요</h2>
+
+<p>제일 당황스러웠던 건 K-Startup이었어요. XML이면 보통 이런 모양을 기대하잖아요.</p>
+
+<pre>&lt;item&gt;
+  &lt;공고명&gt;청년창업 지원사업&lt;/공고명&gt;
+&lt;/item&gt;</pre>
+
+<p>그런데 실제로는 이랬어요.</p>
+
+<pre>&lt;item&gt;
+  &lt;col name="biz_pbanc_nm"&gt;청년창업 지원사업&lt;/col&gt;
+&lt;/item&gt;</pre>
+
+<p>전부 <code>col</code>이라는 똑같은 태그예요. <strong>필드 이름은 태그가 아니라 속성 안에 들어 있고요.</strong></p>
+
+<p>이러면 "공고명 태그를 찾아줘"가 안 통해요. <code>col</code>을 전부 훑으면서 <code>name</code> 속성을 읽어 이름표를 붙여줘야 합니다. 한 줄이면 되는 일이 두 단계가 된 거죠.</p>
+
+<h2><code>dsList</code>라는 복병</h2>
+
+<p>LH는 더 예상 밖이었어요. JSON을 열었더니 최상위가 객체가 아니라 <strong>배열</strong>이었고, 그 안에 두 덩어리가 들어 있었어요.</p>
+
+<pre>[ { "dsSch": [ ... ] },
+  { "dsList": [ ... ] } ]</pre>
+
+<p><code>dsSch</code>는 제가 보낸 검색 조건이 되돌아온 거고, 실제 공고 목록은 <code>dsList</code> 쪽에 있었어요. <strong>요청과 응답이 한 봉투에 같이 담겨 온 셈</strong>이죠.</p>
+
+<p><code>ds</code>가 뭘 줄인 건지는 어디에도 안 적혀 있어요. 내부 시스템에서 쓰던 이름이 그대로 밖으로 나온 것처럼 보이는데, 확인할 방법은 없었습니다.</p>
+
+<p>그래서 "배열의 두 번째 걸 꺼내라"고 짜지 않고, <strong>배열을 돌면서 <code>dsList</code> 키를 가진 덩어리를 찾도록</strong> 했어요. 순서가 언제 바뀔지 모르니까요.</p>
+
+<h2>한 건일 때만 모양이 바뀌어요</h2>
+
+<p>마이홈에서는 다른 종류의 함정을 만났어요. 평소엔 목록이 배열로 오는데, <strong>결과가 딱 한 건일 때는 배열이 아니라 그냥 객체 하나로</strong> 옵니다.</p>
+
+<ul>
+<li>여러 건: <code>[ {...}, {...} ]</code></li>
+<li>한 건: <code>{...}</code></li>
+</ul>
+
+<p>이게 고약한 이유는 <strong>평소엔 멀쩡하다가 어느 날 갑자기 터지기 때문</strong>이에요. 공고가 여러 개일 땐 잘 돌다가, 하필 한 건만 남은 날 목록으로 처리하려다 깨집니다. 그것도 새벽에요.</p>
+
+<p>그래서 받은 게 객체면 원소 하나짜리 배열로 감싸고 넘어가게 했어요. 몇 줄 안 되는데, 이런 게 없으면 어느 날 조용히 멈춰 있습니다.</p>
+
+<h2>같은 걸 부르는 이름이 네 가지였어요</h2>
+
+<p>구조를 통과해도 필드 이름이 또 제각각이었어요. 똑같이 "공고 제목"과 "상세 링크"인데 이렇습니다.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>소스</th><th>공고명</th><th>상세 링크</th></tr>
+</thead>
+<tbody>
+<tr><td>K-Startup</td><td><code>biz_pbanc_nm</code></td><td><code>detl_pg_url</code></td></tr>
+<tr><td>기업마당</td><td><code>pblancNm</code></td><td><code>pblancUrl</code></td></tr>
+<tr><td>LH</td><td><code>PAN_NM</code></td><td><code>DTL_URL</code></td></tr>
+<tr><td>마이홈</td><td><code>pblancNm</code></td><td><code>pcUrl</code></td></tr>
+<tr><td>든든전세</td><td><strong>없음</strong></td><td><strong>없음</strong></td></tr>
+</tbody>
+</table>
+
+<p>소문자에 밑줄, 낙타등, 전부 대문자가 다 섞여 있어요. 기업마당과 마이홈만 <code>pblancNm</code>으로 우연히 겹치고, 그마저 링크 이름은 다릅니다.</p>
+
+<p>든든전세는 아예 제목 필드가 없어서 <strong>지역·유형·면적을 조합해 제목을 만들어 붙였어요.</strong> 3편에서 상세 링크가 없다고 했는데, 제목도 없었던 거죠.</p>
+
+<h2>정리 — 그래서 소스마다 파일을 나눴어요</h2>
+
+<p>처음엔 파싱 코드를 하나로 합치려고 했어요. "어차피 다 공고 목록인데" 싶었거든요.</p>
+
+<p>금방 포기했습니다. <strong>공통점이 거의 없었어요.</strong> 형식도, 목록 위치도, 필드 이름도, 심지어 "없을 때 어떻게 주는지"까지 달랐으니까요.</p>
+
+<p>그래서 방향을 바꿨어요. <strong>소스 하나에 파일 하나.</strong> 각자 자기 API의 이상한 점을 자기 파일 안에서 처리하고, 밖으로는 똑같은 모양으로 내보내게 했죠. 제목, 링크, 기관, 기간, 지역. 이 다섯 가지로 통일해서요.</p>
+
+<p>이렇게 하니 새 소스를 붙일 때 <strong>다른 파일을 안 건드려도 됩니다.</strong> 나중에 알림 채널을 늘리거나 필터를 얹을 때도 이 구조가 계속 도움이 됐어요.</p>
+
+<h2>다음 편</h2>
+
+<p>구조를 다 맞췄더니 이번엔 같은 공고가 <strong>매시간</strong> 오기 시작했어요. 봇이 처음 본 것과 이미 본 것을 구분하지 못하면 벌어지는 일. → <a href="https://blog.secondbranch.kr/2026/08/notice-bot-5.html">5편 — 같은 공고가 계속 왔습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/notice-bot-3.html">3편 — 목록에 없는 API를 직접 찾아냈습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>JSON 파싱</li><li>XML</li><li>공고 알림봇</li><li>모듈 설계</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/notice-bot-3.html">공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/08/notice-bot-5.html">공고 알림봇 만들기 (5편) — 같은 공고가 계속 왔습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

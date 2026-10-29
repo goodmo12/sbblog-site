@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (1편) — 허리 때문에 마우스를 놓았다</title>
+<meta name="description" content="하루에 몇 시간이나 마우스를 쥐고 계세요? 저는 어느 날 허리가 먼저 항의를 하더군요.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/1.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/1.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (1편) — 허리 때문에 마우스를 놓았다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (1편) — 허리 때문에 마우스를 놓았다">
+<meta property="og:description" content="하루에 몇 시간이나 마우스를 쥐고 계세요? 저는 어느 날 허리가 먼저 항의를 하더군요.">
+<meta name="twitter:description" content="하루에 몇 시간이나 마우스를 쥐고 계세요? 저는 어느 날 허리가 먼저 항의를 하더군요.">
+<meta property="article:published_time" content="2026-07-18T19:49:02+09:00">
+<meta property="article:modified_time" content="2026-07-19T16:09:02+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (1편) — 허리 때문에 마우스를 놓았다", "datePublished": "2026-07-18T19:49:02+09:00", "dateModified": "2026-07-19T16:09:02+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/1.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "하루에 몇 시간이나 마우스를 쥐고 계세요? 저는 어느 날 허리가 먼저 항의를 하더군요."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (1편) — 허리 때문에 마우스를 놓았다</h1>
+    <p class="post-meta"><time datetime="2026-07-18T19:49:02+09:00">2026년 7월 18일</time></p>
+  </header>
+  <div class="post-body">
+<p>하루에 몇 시간이나 마우스를 쥐고 계세요? 저는 어느 날 허리가 먼저 항의를 하더군요.</p>
+
+<h2>오래 앉아 있는 게 진짜 문제였습니다</h2>
+
+<p>개발이라는 게 결국 하루 종일 의자에 앉아 키보드와 마우스에 손을 올려두는 일이잖아요. 몇 년 하다 보니 허리가 슬슬 신호를 보냈습니다. 스탠딩 데스크도 써봤는데, 서 있어도 손은 키보드·마우스에 묶여 있으니 자세가 크게 자유롭진 않았어요.</p>
+
+<p>그때 든 생각이 이거였습니다. <strong>"손과 마우스에서 자유로워지고, 모니터만 보면서 일할 수 없을까?"</strong></p>
+
+<h2>"그럼 말로 하면 되잖아?"</h2>
+
+<p>마침 요즘은 Claude Code 같은 AI와 <strong>대화하듯</strong> 코딩하는 시대예요. 명령을 타이핑하긴 하지만, 그 내용은 사실 "이거 이렇게 고쳐줘", "저 파일 좀 확인해봐" 같은 대화에 가깝죠.</p>
+
+<p>그러면 굳이 타이핑할 게 아니라 <strong>말로 하면 되지 않나?</strong> 음성으로 Claude Code에게 지시하고, Claude의 답을 음성으로 들으면 — 손도 자유롭고 시선도 모니터에만 두면 됩니다. 서서, 스트레칭하면서 일할 수도 있고요.</p>
+
+<p>이 한 문장에서 이 프로젝트가 시작됐습니다. 이름은 <strong>VoxPlug</strong>로 지었어요. '목소리'를 뜻하는 라틴어 <strong>Vox</strong>와, Claude Code에 기능을 '꽂아넣는' 플러그인이라는 뜻의 <strong>Plug</strong>를 합친 거예요 — <em>음성을 코딩에 꽂는 도구</em>라는 의미죠. (그리고 이게 몇 주간의 삽질로 이어질 줄은 그땐 몰랐어요.)</p>
+
+<h2>AI에게 실현 가능성부터 물어봤습니다</h2>
+
+<p>"음성으로 Claude Code와 대화하려면 뭐가 필요할까?"라고 물었어요. 기존 타이핑 방식과 비교해 정리해보면:</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>항목</th><th>키보드·마우스</th><th>음성</th></tr>
+</thead>
+<tbody>
+<tr><td>자세</td><td>앉아서 고정</td><td>서서·자유롭게</td></tr>
+<tr><td>손</td><td>계속 묶임</td><td>자유</td></tr>
+<tr><td>시선</td><td>화면·키보드 오감</td><td>모니터만</td></tr>
+<tr><td>LLM과 대화</td><td>타이핑</td><td>말하기 (더 자연스러움)</td></tr>
+<tr><td>구현 난이도</td><td>(기본)</td><td><strong>높음 ← 여기가 함정</strong></td></tr>
+</tbody>
+</table>
+
+<p>표만 보면 음성 쪽이 꽤 매력적이죠. 그런데 여기서 하나 짚어둘 게 있어요. <strong>AI는 "되는지, 뭐가 필요한지"는 잘 정리해주지만, 그 구현이 실제로 얼마나 험난할지까지는 미리 겪게 해주지 않아요.</strong> 그건 결국 직접 부딪혀야 알게 됩니다.</p>
+
+<h2>그런데 이미 음성 기능 있지 않나요?</h2>
+
+<p>맞아요. 최근엔 <strong>Claude Code도 공식 음성 모드(push-to-talk)</strong> 를 내놨고, GitHub Copilot에도 음성 입력이 있어요. "그럼 그거 쓰면 되잖아?" 싶으시죠. 그런데 실제로 써보면 결이 좀 다릅니다.</p>
+
+<ul>
+<li>대부분 <strong>push-to-talk</strong> 방식이에요 — 스페이스바나 키를 <strong>누르고 있는 동안</strong> 말하는 거죠. 근데 제 목표는 "손을 완전히 떼는 것"이라, 뭔가를 누르는 순간 그 목표가 깨져요.</li>
+<li>그리고 <strong>입력(받아쓰기)만</strong> 됩니다. Claude의 답은 여전히 화면을 봐야 읽어요.</li>
+</ul>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th></th><th>Claude Code·Copilot</th><th>VoxPlug</th></tr>
+</thead>
+<tbody>
+<tr><td>말하기</td><td>버튼·키를 누르고 (push-to-talk)</td><td>버튼 없이 그냥 말하면 됨 (hands-free)</td></tr>
+<tr><td>듣기</td><td>❌ 답은 화면으로</td><td>✅ 답을 음성으로</td></tr>
+<tr><td>명령·창 전환</td><td>❌</td><td>✅ 음성 한마디로</td></tr>
+</tbody>
+</table>
+
+<p>그래서 저한테 필요했던 건 두 가지였어요. <strong>버튼 없이 말하면 알아듣는 것(hands-free)</strong>, 그리고 <strong>답을 귀로 들려주는 것(양방향)</strong>.</p>
+
+<p>사실 지금 이 글도 그렇게 쓰고 있어요. 서서, 손은 스트레칭하면서, 마이크에 대고 말하면 자동으로 인식되고(버튼 안 눌러요), Claude 답은 귀로 듣습니다. "전송"·"취소" 같은 말로 명령하고, 여러 창을 목소리로 오가고, 상태는 화면 구석의 작은 오버레이로 확인해요. 윈도우를 켜면 알아서 떠 있고요. <strong>— 물론 이 형태까지 오는 데 정말 많은 삽질이 있었지만요.</strong></p>
+
+<h2>근데 만들기가 쉬운 게 아니었어요</h2>
+
+<p>가장 먼저 벽에 부딪힌 건 <strong>"입력"</strong> 이었습니다.</p>
+
+<ul>
+<li><strong>출력(Claude → 나)</strong> 은 의외로 깔끔했어요. Claude가 답할 때마다 그 내용을 음성으로 읽어주면 되니까요 (이건 MCP라는 방식으로 풀립니다 — 2편에서).</li>
+<li><strong>입력(나 → Claude)</strong> 이 문제였어요. 참고로 저는 CLI가 아니라 <strong>VS Code의 Claude Code 확장(extension)</strong> 을 씁니다. 내 말을 텍스트로 바꿔서(STT) 그 <strong>확장의 입력창</strong>에 넣어야 하는데, <strong>거기에 글자를 직접 꽂아넣을 방법이 없었습니다.</strong></li>
+</ul>
+
+<p>결국 음성을 텍스트로 바꾼 뒤 클립보드에 복사하고, 대상 창을 찾아 포커스를 준 다음, 붙여넣기+엔터를 자동으로 눌러주는 우회로를 만들어야 했어요. 말로 쓰면 한 줄인데, 여기에 얼마나 많은 함정이 숨어 있었는지는… 다음 편들에서 하나씩 풀겠습니다.</p>
+
+<h2>정리하며</h2>
+
+<p>돌이켜보면 "말로 코딩하자"는 아이디어 자체는 단순했어요. 하지만 마이크 하나 고르는 것부터, 소리가 안 나는 미스터리, 키워드가 영어로 들리는 현상까지 — <strong>실제로 쓸 만하게 만드는 과정은 삽질의 연속</strong>이었습니다. 그 여정을 이 시리즈에 하나씩 남겨보려 해요.</p>
+
+<h2>다음 편</h2>
+
+<p>출력은 쉬운데 입력은 왜 이렇게 어려운가 — STT·TTS·VAD 기술 선택과, MCP라는 "비대칭"의 정체. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-2.html">2편 — 듣기는 쉬운데 왜 말하기가 어려울까</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>Claude Code</li><li>VoxPlug</li><li>개발자 허리</li><li>마우스 없이 개발</li><li>말로 코딩</li><li>손목 건강</li><li>음성 코딩</li><li>음성으로 코딩</li><li>음성인식</li><li>핸즈프리 코딩</li></ul>
+<nav class="series-nav">
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-2.html">음성으로 코딩하기 (2편) — 듣기는 쉬운데 왜 말하기가 어려울까</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

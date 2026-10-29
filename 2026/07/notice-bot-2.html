@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (2편) — 인증키가 필요 없는 공공 API도 있습니다</title>
+<meta name="description" content="1편에서 &quot;봇은 10분인데 보낼 내용을 가져오는 게 본체&quot;라고 했죠. 그 첫 관문이 인증키였어요. 그런데 여기서부터 예상이 빗나갔습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/notice-bot-2.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/notice-bot-2.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (2편) — 인증키가 필요 없는 공공 API도 있습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (2편) — 인증키가 필요 없는 공공 API도 있습니다">
+<meta property="og:description" content="1편에서 &quot;봇은 10분인데 보낼 내용을 가져오는 게 본체&quot;라고 했죠. 그 첫 관문이 인증키였어요. 그런데 여기서부터 예상이 빗나갔습니다.">
+<meta name="twitter:description" content="1편에서 &quot;봇은 10분인데 보낼 내용을 가져오는 게 본체&quot;라고 했죠. 그 첫 관문이 인증키였어요. 그런데 여기서부터 예상이 빗나갔습니다.">
+<meta property="article:published_time" content="2026-07-30T21:41:36+09:00">
+<meta property="article:modified_time" content="2026-07-30T21:42:21+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (2편) — 인증키가 필요 없는 공공 API도 있습니다", "datePublished": "2026-07-30T21:41:36+09:00", "dateModified": "2026-07-30T21:42:21+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/notice-bot-2.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "1편에서 \"봇은 10분인데 보낼 내용을 가져오는 게 본체\"라고 했죠. 그 첫 관문이 인증키였어요. 그런데 여기서부터 예상이 빗나갔습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (2편) — 인증키가 필요 없는 공공 API도 있습니다</h1>
+    <p class="post-meta"><time datetime="2026-07-30T21:41:36+09:00">2026년 7월 30일</time></p>
+  </header>
+  <div class="post-body">
+<p>1편에서 "봇은 10분인데 보낼 내용을 가져오는 게 본체"라고 했죠. 그 첫 관문이 <strong>인증키</strong>였어요. 그런데 여기서부터 예상이 빗나갔습니다.</p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/notice-bot-1.html">1편 — 손으로 찾다 지쳤습니다</a></blockquote>
+
+<h2>공공데이터포털에 다 있는 줄 알았어요</h2>
+
+<p>공공 데이터는 <strong>공공데이터포털(data.go.kr)</strong> 에서 받는다고 알고 있었어요. 회원가입하고, 쓰고 싶은 API에 "활용신청"을 하면 인증키를 받는 구조죠.</p>
+
+<p>실제로 임대주택 쪽은 정말 그랬어요. LH와 마이홈은 신청하니 <strong>자동승인으로 즉시</strong> 키가 나왔습니다. 심사 대기도 없었어요. 개발계정 기준으로 LH는 하루 1만 건, 마이홈은 하루 1천 건까지 호출할 수 있는데, 알림봇 하나 돌리는 데는 넘치는 양이에요.</p>
+
+<p>"어, 생각보다 쉽네?" 싶었죠. 그런데 그건 네 가지 경우 중 하나였을 뿐이었어요.</p>
+
+<h2>키를 안 줬는데 그냥 됐어요</h2>
+
+<p>창업 공고를 가져오려고 K-Startup을 보는데, 아무리 찾아도 인증키 얘기가 안 나왔어요. 신청 절차를 못 찾은 건가 싶어서 한참 헤맸죠.</p>
+
+<p>그래서 <strong>일단 키 없이 그냥 호출해봤어요.</strong></p>
+
+<p>되더라고요.</p>
+
+<p>K-Startup API는 인증 없이 그대로 응답을 줍니다. 키 발급 절차 자체가 없는 거예요. 처음엔 제가 뭘 잘못 이해한 줄 알았는데, 몇 번 더 확인해도 계속 됐어요. <strong>"안 되는 이유"를 찾느라 쓴 시간이 "그냥 해보기"보다 길었던 셈이죠.</strong></p>
+
+<h2>키 이름이 기관마다 달랐어요</h2>
+
+<p>문제는 키가 필요한 곳들도 서로 안 맞았다는 거예요. 파라미터 이름이 제각각이었어요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>소스</th><th>인증 방식</th><th>파라미터 이름</th><th>발급처</th></tr>
+</thead>
+<tbody>
+<tr><td>K-Startup</td><td><strong>불필요</strong></td><td>—</td><td>—</td></tr>
+<tr><td>LH · 마이홈</td><td>키 필요</td><td><code>serviceKey</code></td><td>공공데이터포털 (자동승인)</td></tr>
+<tr><td>기업마당</td><td>키 필요</td><td><code>crtfcKey</code></td><td><strong>기업마당 자체 포털</strong></td></tr>
+<tr><td>든든전세(HUG)</td><td>키 필요</td><td><code>API_KEY</code></td><td><strong>HUG 자체 포털</strong></td></tr>
+<tr><td>중소벤처24</td><td>심사 필요</td><td>—</td><td>사실상 기관용</td></tr>
+</tbody>
+</table>
+
+<p><code>serviceKey</code>, <code>crtfcKey</code>, <code>API_KEY</code>. 하는 일은 똑같이 "나 인증된 사용자야"인데 이름이 셋 다 달라요. 그러니 소스를 하나 붙일 때마다 문서를 새로 읽어야 했어요.</p>
+
+<h2>"통합 포털"이 통합이 아니었어요</h2>
+
+<p>여기서 이상한 걸 발견했어요. <strong>기업마당과 든든전세는 공공데이터포털에서 키를 받을 수가 없었어요.</strong> 각자 자기 사이트에 가서 따로 발급받아야 했죠.</p>
+
+<p>공공데이터포털에 목록은 올라와 있어요. 그런데 실제 API는 자기네 포털에서 운영하고, 포털엔 "여기로 가세요" 하는 링크만 걸어둔 형태였어요. 통합 포털인데 <strong>통합이 껍데기</strong>인 거죠.</p>
+
+<p>기관 계열로 묶어보면 더 이상해요.</p>
+
+<ul>
+<li>LH와 마이홈은 <strong>둘 다 국토교통부 계열</strong>인데 엔드포인트도 다르고 응답 형식도 달라요.</li>
+<li>기업마당과 중소벤처24는 <strong>둘 다 중소벤처기업부 계열</strong>인데 서로 따로 놉니다.</li>
+</ul>
+
+<p>기관마다 예산 따로, 시스템 따로 만들다 보니 이렇게 된 거예요.</p>
+
+<h2>개인에겐 문을 안 열어주는 곳도 있어요</h2>
+
+<p>중소벤처24는 결국 <strong>포기했습니다.</strong> 심사를 받아야 하는데 사실상 기관 대상이라 개인이 발급받기 어려운 구조였어요.</p>
+
+<p>다행히 기업마당과 공고가 상당히 겹쳐서, 없어도 큰 손실은 아니라고 판단했어요. <strong>"안 되는 건 붙이지 않는다"</strong> 도 선택이니까요. 여기에 시간을 더 쓰는 건 의미가 없었어요.</p>
+
+<h2>정리 — 이 마찰이 봇의 존재 이유였어요</h2>
+
+<p>인증키 하나만 봐도 네 갈래였어요. 없는 곳, 자동승인인 곳, 자기 포털에서 따로 주는 곳, 개인에겐 안 주는 곳.</p>
+
+<p>처음엔 이게 그냥 짜증이었어요. 그런데 정리하다 보니 생각이 바뀌었어요. <strong>통합이 잘 돼 있었으면 애초에 봇을 만들 이유가 없었겠죠.</strong> 앱 하나로 다 보였을 테니까요.</p>
+
+<p>흩어져 있다는 게 불편의 원인이면서, 동시에 제가 만든 것의 존재 이유였어요.</p>
+
+<h2>다음 편</h2>
+
+<p>키는 받았는데 이번엔 주소가 없었어요. 공공데이터포털 목록에도, 안내 문서에도 없는 API를 어떻게 찾아냈는지. → <a href="https://blog.secondbranch.kr/2026/07/notice-bot-3.html">3편 — 목록에 없는 API를 직접 찾아냈습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/notice-bot-1.html">1편 — 손으로 찾다 지쳤습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>OpenAPI</li><li>공고 알림봇</li><li>공공데이터포털</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/notice-bot-1.html">공고 알림봇 만들기 (1편) — 손으로 찾다 지쳤습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/notice-bot-3.html">공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>음성으로 코딩하기 (3편) — 인식이 안 되던 진짜 범인은 마이크였다</title>
+<meta name="description" content="음성으로 코딩을 시작하고 가장 답답했던 건, 말을 해도 엉뚱하게 알아듣는 거였어요. 처음엔 &quot;모델이 별로인가?&quot; 했는데, 범인은 전혀 다른 데 있었습니다.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/voice-coding-3.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/voice-coding-3.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="음성으로 코딩하기 (3편) — 인식이 안 되던 진짜 범인은 마이크였다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="음성으로 코딩하기 (3편) — 인식이 안 되던 진짜 범인은 마이크였다">
+<meta property="og:description" content="음성으로 코딩을 시작하고 가장 답답했던 건, 말을 해도 엉뚱하게 알아듣는 거였어요. 처음엔 &quot;모델이 별로인가?&quot; 했는데, 범인은 전혀 다른 데 있었습니다.">
+<meta name="twitter:description" content="음성으로 코딩을 시작하고 가장 답답했던 건, 말을 해도 엉뚱하게 알아듣는 거였어요. 처음엔 &quot;모델이 별로인가?&quot; 했는데, 범인은 전혀 다른 데 있었습니다.">
+<meta property="article:published_time" content="2026-07-25T16:22:30+09:00">
+<meta property="article:modified_time" content="2026-07-25T16:39:23+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "음성으로 코딩하기 (3편) — 인식이 안 되던 진짜 범인은 마이크였다", "datePublished": "2026-07-25T16:22:30+09:00", "dateModified": "2026-07-25T16:39:23+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/voice-coding-3.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "음성으로 코딩을 시작하고 가장 답답했던 건, 말을 해도 엉뚱하게 알아듣는 거였어요. 처음엔 \"모델이 별로인가?\" 했는데, 범인은 전혀 다른 데 있었습니다."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-voxplug">음성으로 코딩하기</a></p>
+    <h1 class="post-title">음성으로 코딩하기 (3편) — 인식이 안 되던 진짜 범인은 마이크였다</h1>
+    <p class="post-meta"><time datetime="2026-07-25T16:22:30+09:00">2026년 7월 25일</time></p>
+  </header>
+  <div class="post-body">
+<p>음성으로 코딩을 시작하고 가장 답답했던 건, <strong>말을 해도 엉뚱하게 알아듣는</strong> 거였어요. 처음엔 "모델이 별로인가?" 했는데, 범인은 전혀 다른 데 있었습니다.</p>
+
+<blockquote>지난 편을 안 보셨다면 → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-2.html">음성으로 코딩하기 (2편) — 듣기는 쉬운데 왜 말하기가 어려울까</a></blockquote>
+
+<h2>처음엔 모델을 의심했어요</h2>
+
+<p>STT(음성→텍스트)로 faster-whisper의 large-v3를 쓰고 있었어요. 꽤 정확하다는 모델인데도 자꾸 틀리니까, "더 큰 모델을 써야 하나?", "코드가 뭔가 잘못됐나?" 하고 그쪽만 파고들었죠.</p>
+
+<p>그런데 아무리 코드를 만져도 인식률이 안 올라갔어요. 뭔가 다른 데 원인이 있다는 뜻이었죠.</p>
+
+<h2>avg_logprob라는 숫자를 들여다봤어요</h2>
+
+<p>whisper는 인식 결과와 함께 <strong>avg_logprob</strong>라는 값을 줘요. 쉽게 말하면 <strong>"내가 이 인식을 얼마나 확신하는가"</strong> 예요. <strong>0에 가까울수록 확신(좋음), 마이너스로 클수록 불확실</strong>하다는 뜻이죠.</p>
+
+<p>이걸 로그로 찍어보니 제 발화가 대부분 <strong>−0.6~−0.9</strong> 언저리였어요. 모델이 "잘 모르겠는데 대충 이거"라고 답하고 있었던 거예요. 그러면 문제는 모델이 아니라 <strong>모델에게 들어가는 소리 자체</strong>일 수 있겠다 싶었죠.</p>
+
+<h2>블루투스 마이크가 사실은 통화용이었어요</h2>
+
+<p>제가 쓰던 건 QCY 블루투스 이어폰의 마이크였어요. 여기서 핵심을 알게 됐습니다. <strong>블루투스 마이크는 통화용 프로파일(HFP)로 동작</strong>하는데, 이게 <strong>8~16kHz로 압축된 저음질</strong>이에요. 음악 들을 때(A2DP)는 고음질인데, <strong>마이크로 말할 때는 통화 수준으로 확 떨어지는</strong> 거죠.</p>
+
+<p>즉 제 목소리가 whisper에 닿기도 전에 이미 뭉개져 있었던 거예요. 아무리 좋은 모델도 뭉개진 소리는 못 살립니다.</p>
+
+<h2>데이터로 범인을 잡았어요</h2>
+
+<p>가설을 확인하려고, 음질만 다른 마이크로 <strong>같은 말을 A/B</strong>로 녹음해 avg_logprob를 비교했어요.</p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th>마이크</th><th>방식</th><th>avg_logprob (0에 가까울수록 좋음)</th></tr>
+</thead>
+<tbody>
+<tr><td>QCY (블루투스)</td><td>HFP 통화용 압축</td><td><strong>−0.64</strong></td></tr>
+<tr><td>WO Mic (폰 → USB, 진단용)</td><td>압축 없음</td><td><strong>−0.27</strong></td></tr>
+</tbody>
+</table>
+
+<p>코드는 한 줄도 안 바꿨는데, <strong>마이크만 바꿨더니 확신도가 확 올라갔어요.</strong> 범인 확정. <strong>음질이 인식률의 천장</strong>이었던 거죠.</p>
+
+<h2>4만 원짜리 핀마이크가 답이었어요</h2>
+
+<p>그래서 <strong>2.4GHz 무선 핀마이크</strong>를 샀어요. 39,900원. 이게 왜 좋냐면:</p>
+
+<ul>
+<li><strong>블루투스가 아니라</strong> 2.4GHz 전용 무선이라 <strong>HFP 압축이 없어요</strong> (USB급 음질)</li>
+<li><strong>핀(라발리에) 형이라 입 근처</strong>에 있어 신호 대 잡음비(SNR)가 높고</li>
+<li>USB 수신기라 <strong>꽂으면 바로</strong> 인식 (드라이버·앱 불필요)</li>
+</ul>
+
+<p>결과는 avg_logprob <strong>−0.12</strong>. QCY(−0.64)와는 비교가 안 됐어요. 서서, 손 자유롭게 쓰기에도 딱이었고요.</p>
+
+<h2>교훈 — 소프트웨어 튜닝 전에 입력부터</h2>
+
+<p>이 삽질의 교훈은 명확했어요. <strong>모델·코드를 붙잡기 전에 입력(마이크) 음질부터 확인하라.</strong> AI(Claude)는 "코드 이렇게 고쳐봐"는 잘 제안했지만, <strong>"애초에 마이크가 통화용이라 소리가 뭉개진 거 아니야?"</strong> 는 결국 제가 데이터를 뽑아 직접 확인해야 했죠.</p>
+
+<h2>다음 편</h2>
+
+<p>마이크를 바꿨더니, 이번엔 <strong>"끊긴 줄 알았다"</strong> 는 새로운 지옥이 열립니다. 멀쩡한 마이크를 죽었다고 오판하던 이야기. → <a href="https://blog.secondbranch.kr/2026/07/voice-coding-4.html">4편 — 멀쩡한 마이크를 죽었다고 오판한 이유</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/voice-coding-2.html">2편 — 듣기는 쉬운데 왜 말하기가 어려울까</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>ClaudeCode</li><li>faster-whisper</li><li>STT</li><li>VoxPlug</li><li>음성으로코딩</li><li>음성인식률</li><li>핀마이크</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/voice-coding-2.html">음성으로 코딩하기 (2편) — 듣기는 쉬운데 왜 말하기가 어려울까</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/voice-coding-4.html">음성으로 코딩하기 (4편) — 멀쩡한 마이크를 죽었다고 오판한 이유</a></p>
+<p><a href="/#series-voxplug">음성으로 코딩하기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

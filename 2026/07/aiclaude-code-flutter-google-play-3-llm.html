@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (3편) — 멀티 LLM 협업으로 개발·심사·재제출</title>
+<meta name="description" content="심사 통과 직전에 폰에서 앱을 켰는데, 촬영 버튼을 눌러도 결과가 안 나왔어요. 무슨 일이 일어난 걸까요?">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-3-llm.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-3-llm.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (3편) — 멀티 LLM 협업으로 개발·심사·재제출">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (3편) — 멀티 LLM 협업으로 개발·심사·재제출">
+<meta property="og:description" content="심사 통과 직전에 폰에서 앱을 켰는데, 촬영 버튼을 눌러도 결과가 안 나왔어요. 무슨 일이 일어난 걸까요?">
+<meta name="twitter:description" content="심사 통과 직전에 폰에서 앱을 켰는데, 촬영 버튼을 눌러도 결과가 안 나왔어요. 무슨 일이 일어난 걸까요?">
+<meta property="article:published_time" content="2026-07-04T09:28:51+09:00">
+<meta property="article:modified_time" content="2026-07-18T19:57:01+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (3편) — 멀티 LLM 협업으로 개발·심사·재제출", "datePublished": "2026-07-04T09:28:51+09:00", "dateModified": "2026-07-18T19:57:01+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-3-llm.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "심사 통과 직전에 폰에서 앱을 켰는데, 촬영 버튼을 눌러도 결과가 안 나왔어요. 무슨 일이 일어난 걸까요?"}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-playstore_recycleapp">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지</a></p>
+    <h1 class="post-title">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (3편) — 멀티 LLM 협업으로 개발·심사·재제출</h1>
+    <p class="post-meta"><time datetime="2026-07-04T09:28:51+09:00">2026년 7월 4일</time></p>
+  </header>
+  <div class="post-body">
+<p>심사 통과 직전에 폰에서 앱을 켰는데, 촬영 버튼을 눌러도 결과가 안 나왔어요. 무슨 일이 일어난 걸까요?</p>
+
+<h2>1인 개발자가 팀처럼 굴리는 법 — 멀티 AI(LLM) 협업</h2>
+
+<p>앱 개발을 시작하기 전에 이렇게 구성했어요:</p>
+
+<ol>
+<li><strong>Planner &amp; QA (Claude Code)</strong>: 저와 논의하며 설계서 작성, 최종 QA</li>
+<li><strong>UI 서브에이전트 (Claude Code)</strong>: 설계서 받아서 Flutter UI만 코딩</li>
+<li><strong>Core 서브에이전트 (Claude Code)</strong>: 카메라 처리, Gemini API 호출 등 핵심 로직</li>
+<li><strong>Gemini</strong>: Planner의 설계 문서를 별도로 분석 → 문제점 도출 (<strong>크로스모델 검증</strong>)</li>
+</ol>
+
+<p>핵심 두 가지예요. <strong>역할별 스코프 명시(페르소나 지정보다 효과적)</strong> 그리고 <strong>다른 모델로 크로스체크</strong>. Claude가 짠 코드에 Claude 자신이 눈이 멀 수 있으니까, Gemini에게 별도로 리뷰를 시켰어요.</p>
+
+<p>이 구조는 <code>CLAUDE.md + 서브에이전트 md 파일</code>로 정리하면 됩니다. <strong>VS Code Claude Code 세션 1개만 열고, Planner가 서브에이전트를 자동 스폰</strong>하는 형태예요.</p>
+
+<h2>심사 전에 채워야 할 게 산더미였어요</h2>
+
+<p>앱 코드 외에 Play Console에서 채우는 항목이 이렇게 많은지 몰랐어요.</p>
+
+<ul>
+<li>개인정보 처리방침 URL / 이용약관 URL</li>
+<li>콘텐츠 등급 (IARC 설문)</li>
+<li><strong>데이터 안전 섹션</strong> (수집 유형별 신고 — 카메라 이미지가 Gemini API로 전송되는 부분 상세)</li>
+<li>타겟층, 광고 선언</li>
+<li>스토어 등록정보 (아이콘 512px, 기능 그래픽, 스크린샷, 짧은/긴 설명)</li>
+</ul>
+
+<p><strong>짧은/긴 설명과 개인정보 처리방침 초안은 Claude에게 작성 위임 → 제가 검토·수정.</strong> 여기서 시간이 크게 절약됐어요. 특히 법령/약관 초안은 LLM이 뼈대를 잡고 사람이 검증하는 흐름이 정말 효율적입니다.</p>
+
+<h2>관리형 게시(Managed Publishing) 활성화 — 이거 꼭 켜세요</h2>
+
+<p>심사 요청 전에 <strong>관리형 게시</strong> 옵션을 켰어요. 승인되어도 자동으로 사용자에게 노출되지 않고, 제가 직접 "게시" 버튼을 눌러야 실제 출시되는 설정이에요.</p>
+
+<p><strong>이 설정이 뒤에서 저를 살렸습니다.</strong></p>
+
+<h2>Version 1 심사 → 앱은 되는데 API만 안 됩니다</h2>
+
+<p>승인 직전에 폰으로 최종 검증. 앱을 실행하면 잘 됩니다. 카메라 화면까지 정상. 그런데 촬영 → AI 분석 시도하면:</p>
+
+<pre><code>Firebase App Check token is invalid</code></pre>
+
+<p>앱은 실행되는데 API 호출만 실패하는 거예요. <strong>관리형 게시로 대기 상태였기 망정이지, 자동 게시로 켜뒀다면 이 상태로 사용자에게 노출됐을 상황이었어요.</strong> 순간 등에 땀이 났어요.</p>
+
+<h2>LLM도 며칠 헤맨 진짜 원인</h2>
+
+<p>Claude와 며칠간 진단 대화를 했어요. Firebase App Check 설정 재확인, Play Integrity API 활성화 여부 체크, SHA 등록 검증, 캐시 삭제 — 매뉴얼대로 다 해봐도 해결이 안 됐어요.</p>
+
+<p>Firebase 패키지를 최신으로 올렸더니, 그제야 명확한 403 에러가 나왔어요.</p>
+
+<pre><code>Requests to firebaseappcheck.googleapis.com are blocked</code></pre>
+
+<p><strong>진짜 원인</strong>: GCP API 키 제한 목록에 <code>Firebase AI Logic API</code>만 넣고 <strong><code>Firebase App Check API</code></strong>를 빠뜨렸던 거예요. 이 상태에서는 앱이 App Check 토큰을 발급받는 API 호출 자체가 차단됩니다.</p>
+
+<p>문서에도 이 부분이 명시적으로 안 나와서 Claude도 처음엔 못 짚었어요. <strong>최신 SDK가 정확한 에러 메시지를 뱉어주고 나서야</strong> 원인이 드러난 겁니다.</p>
+
+<h2>여기서 배운 LLM의 한계</h2>
+
+<ul>
+<li><strong>잘한 것</strong>: 에러 로그 실시간 분석, 가설 나열, GCP/Firebase 문서 대조</li>
+<li><strong>못한 것</strong>: "API 키에 Firebase App Check API도 넣어야 한다"는 걸 처음부터 짚지 못함</li>
+</ul>
+
+<p><strong>AI(LLM)는 학습 데이터 시점 이후의 정책 변화나 문서에 잘 안 나온 함정은 놓칩니다.</strong> 이럴 때는 사람이 SDK를 최신화하고 재현·재시도로 압박해야 진짜 원인이 드러나요. 시간은 걸리지만 결국 풀리긴 합니다.</p>
+
+<h2>Version 3 재빌드 → 심사 통과</h2>
+
+<ul>
+<li><code>firebase_app_check</code>: 0.4.2 → 0.4.4</li>
+<li><code>firebase_ai</code>: 3.10.0 → 3.12.0</li>
+<li>버전 코드 <code>1.0.0+3</code></li>
+</ul>
+
+<p>승인 → 폰 최종 검증 → 관리형 게시에서 직접 "게시" 클릭. <strong>정식 출시.</strong></p>
+
+<h2>정리하며</h2>
+
+<p>이 편의 교훈 세 가지.</p>
+
+<ul>
+<li><strong>관리형 게시는 무조건 켜세요.</strong> 이번에 저를 살렸어요.</li>
+<li><strong>LLM도 놓치는 함정이 있어요.</strong> 사람이 재현·재시도로 압박해야 원인이 드러납니다.</li>
+<li><strong>SDK 최신화가 디버깅 시간을 반으로 줄여요.</strong> 명확한 에러 메시지 하나가 며칠을 아껴줍니다.</li>
+</ul>
+
+<h2>이전 편</h2>
+
+<p>← <a href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-2.html">2편 — DUNS 발급, 1차 반려된 이야기</a></p>
+
+<h2>다음 편</h2>
+
+<p>→ <a href="https://blog.secondbranch.kr/2026/07/aiclaude-code-flutter-google-play-4-llm.html">4편: 첫 수익과 LLM이 못 짚어준 사고 2건</a></p>
+
+<hr>
+
+<p>이 시리즈에서 다루는 앱이 궁금하시면<br>
+👉 <a href="https://play.google.com/store/apps/details?id=com.recycleapp.recycle_app">찰칵분리수거 Google Play에서 받기</a></p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>1인개발</li><li>GooglePlay</li><li>앱개발기</li><li>찰칵분리수거</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/aiclaude-code-flutter-google-play-2.html">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (2편) — DUNS 발급, 1차 반려된 이야기</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/aiclaude-code-flutter-google-play-4-llm.html">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 (4편) — 첫 수익과 LLM이 못 짚어준 사고 2건</a></p>
+<p><a href="/#series-playstore_recycleapp">AI(Claude Code)로 Flutter 앱 만들고 Google Play에 출시하기까지 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다</title>
+<meta name="description" content="2편에서 인증키가 네 갈래라고 했죠. 그런데 든든전세는 키를 받고 나서도 막혔어요. 보낼 주소를 몰랐거든요.">
+<link rel="canonical" href="https://blog.secondbranch.kr/2026/07/notice-bot-3.html">
+<meta property="og:url" content="https://blog.secondbranch.kr/2026/07/notice-bot-3.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Second Branch">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다">
+<meta property="og:image" content="https://blog.secondbranch.kr/static/logo.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다">
+<meta property="og:description" content="2편에서 인증키가 네 갈래라고 했죠. 그런데 든든전세는 키를 받고 나서도 막혔어요. 보낼 주소를 몰랐거든요.">
+<meta name="twitter:description" content="2편에서 인증키가 네 갈래라고 했죠. 그런데 든든전세는 키를 받고 나서도 막혔어요. 보낼 주소를 몰랐거든요.">
+<meta property="article:published_time" content="2026-07-31T18:07:10+09:00">
+<meta property="article:modified_time" content="2026-07-31T18:07:10+09:00">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다", "datePublished": "2026-07-31T18:07:10+09:00", "dateModified": "2026-07-31T18:07:10+09:00", "mainEntityOfPage": "https://blog.secondbranch.kr/2026/07/notice-bot-3.html", "image": "https://blog.secondbranch.kr/static/logo.png", "author": {"@type": "Organization", "name": "Second Branch", "url": "https://secondbranch.kr/"}, "description": "2편에서 인증키가 네 갈래라고 했죠. 그런데 든든전세는 키를 받고 나서도 막혔어요. 보낼 주소를 몰랐거든요."}</script>
+<meta name="naver-site-verification" content="6ab7edffeaeddcf521933b1dc48fae258b5f85c4">
+<link rel="stylesheet" href="/static/style.css">
+<link rel="alternate" type="application/atom+xml" title="Second Branch" href="https://blog.secondbranch.kr/feed.xml">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8448740112105910" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap"><a class="brand" href="/">Second Branch</a></div>
+</header>
+<main>
+  <div class="wrap">
+<article>
+  <header class="post-header">
+    <p class="series-name"><a href="/#series-sbnotifier">공고 알림봇 만들기</a></p>
+    <h1 class="post-title">공고 알림봇 만들기 (3편) — 목록에 없는 API를 직접 찾아냈습니다</h1>
+    <p class="post-meta"><time datetime="2026-07-31T18:07:10+09:00">2026년 7월 31일</time></p>
+  </header>
+  <div class="post-body">
+<p>2편에서 인증키가 네 갈래라고 했죠. 그런데 든든전세는 키를 받고 나서도 막혔어요. <strong>보낼 주소를 몰랐거든요.</strong></p>
+
+<blockquote>지난 편 → <a href="https://blog.secondbranch.kr/2026/07/notice-bot-2.html">2편 — 인증키가 필요 없는 공공 API도 있습니다</a></blockquote>
+
+<h2>목록엔 있는데 명세가 없었어요</h2>
+
+<p>시작할 때 조사 노트에 이렇게 적어뒀었어요. "든든전세 모집공고, 공공데이터포털에 등록돼 있음. 자동승인이라 신청하면 바로 됨."</p>
+
+<p>절반만 맞았어요.</p>
+
+<p>포털에 <strong>목록은 분명히 있습니다.</strong> 그런데 들어가 보면 "이런 데이터가 있습니다" 하고 기관 사이트로 넘기는 형태였어요. 정작 개발자한테 필요한 건 그다음인데 말이죠.</p>
+
+<ul>
+<li>어느 주소로 요청을 보내야 하는지</li>
+<li>파라미터를 뭘 어떻게 넣어야 하는지</li>
+<li>응답이 어떤 모양으로 오는지</li>
+</ul>
+
+<p>이게 없으면 키가 있어도 아무것도 못 해요. <strong>"데이터가 존재한다"와 "데이터를 가져올 수 있다"는 다른 얘기</strong>였습니다.</p>
+
+<h2>반나절을 주소 찾는 데 썼어요</h2>
+
+<p>그날 오후까지도 못 찾았어요. 작업 기록에 이렇게 남아 있습니다.</p>
+
+<blockquote>HUG 든든전세 — 엔드포인트 자체를 아직 못 찾은 상태</blockquote>
+
+<p>이때 이미 다른 세 곳은 돌아가고 있었어요. K-Startup도, LH도, 마이홈도 알림이 오고 있었죠. <strong>든든전세 하나만 안 됐습니다.</strong> 하필 제일 중요한 거였고요.</p>
+
+<p>밤이 되어서야 붙였어요. 반나절을 주소 하나 찾는 데 쓴 거죠. 코드를 짠 시간보다 <strong>"어디로 보내야 하나"를 알아내는 시간이 훨씬 길었어요.</strong></p>
+
+<p>찾고 보니 주소는 공개 페이지들과 아예 다른 자리에 있었어요. 안내 페이지가 <code>/jeonse/web/...</code> 아래 모여 있는데, 실제 API는 사이트 최상단에 따로 있더라고요. 문서 링크만 따라가서는 닿을 수 없는 곳이었습니다.</p>
+
+<h2>공고가 없을 때 빈 배열을 안 줘요</h2>
+
+<p>주소를 찾았으니 끝인 줄 알았죠. 아니었어요.</p>
+
+<p>든든전세는 <strong>수시 모집</strong>이라 공고가 없는 기간이 꽤 깁니다. 그때 응답이 이렇게 와요.</p>
+
+<pre>[{"ERROR_CODE": "03", "ERROR_MSG": "NO_DATA"}]</pre>
+
+<p>빈 배열 <code>[]</code>이 아니라, <strong>에러처럼 생긴 걸 한 건 담아서</strong> 줍니다.</p>
+
+<p>이걸 그냥 받으면 두 가지가 터져요. 공고가 없을 뿐인데 프로그램이 "에러 났다"고 판단해서 로그가 에러로 도배되고, 저 객체를 공고 한 건으로 착각해서 <strong>"NO_DATA 공고가 떴습니다" 같은 알림이 폰으로 날아옵니다.</strong></p>
+
+<p>그래서 <code>ERROR_CODE</code>가 <code>03</code>이면 <strong>"에러가 아니라 정상적으로 공고가 없는 상태"</strong> 로 따로 처리하게 했어요. 실제로 지금까지 이 응답이 257번 왔습니다. 그때마다 조용히 넘어갑니다.</p>
+
+<h2>상세 주소가 아예 없는 API도 있어요</h2>
+
+<p>마지막 복병이 있었어요. 이 API가 주는 필드는 아홉 개인데, <strong>그중에 상세 페이지 주소가 없습니다.</strong></p>
+
+<p>공고일, 접수 시작·종료, 지역, 동 주소, 주택 유형, 전용면적, 보증금. 물건 정보는 다 주는데 <strong>"이 물건 보러 가는 링크"만 없어요.</strong></p>
+
+<p>없는 게 아니라 못 만드는 거였어요. 든든전세 조회 페이지는 지역·면적·보증금으로 걸러 보는 방식이라, 물건 하나를 딱 가리키는 고유 주소가 <strong>애초에 존재하지 않습니다.</strong></p>
+
+<table border="1" cellpadding="8" cellspacing="0">
+<thead>
+<tr><th></th><th>보통의 공고 API</th><th>든든전세</th></tr>
+</thead>
+<tbody>
+<tr><td>상세 링크</td><td>공고마다 고유 주소</td><td><strong>없음</strong></td></tr>
+<tr><td>알림에서 할 수 있는 것</td><td>눌러서 바로 이동</td><td>조회 페이지로 보내고 직접 찾기</td></tr>
+</tbody>
+</table>
+
+<p>그래서 알림엔 조회 페이지 주소를 고정으로 넣고, 대신 <strong>동 주소·면적·보증금을 본문에 실어서</strong> 가서 바로 찾을 수 있게 했어요. 완벽하진 않지만 이게 최선이었습니다.</p>
+
+<h2>정리 — 문서보다 응답이 진실이었어요</h2>
+
+<p>이 편에서 막힌 세 곳은 전부 같은 성격이었어요. <strong>문서엔 없고 실제 응답에만 있는 것들.</strong></p>
+
+<p>주소도, 공고 없을 때의 규칙도, 상세 링크가 없다는 사실도 — 어디에도 안 적혀 있었어요. 한 번 호출해보고 나서야 알았죠.</p>
+
+<p>그래서 소스를 붙일 때 순서가 바뀌었어요. 문서를 끝까지 읽고 짜는 게 아니라, <strong>일단 한 번 던져보고 돌아온 걸 보면서 짭니다.</strong> 2편에서 K-Startup을 "그냥 호출해봤더니 되더라"고 했는데, 그게 요령이 아니라 이 바닥의 기본기였던 거예요.</p>
+
+<h2>다음 편</h2>
+
+<p>주소도 찾고 응답도 받았는데, 이번엔 그 응답들이 서로 안 닮았어요. 표준을 따르는 줄 알았던 API가 내놓은 뜻밖의 구조. → <a href="https://blog.secondbranch.kr/2026/07/notice-bot-4.html">4편 — API마다 응답 구조가 달랐습니다</a></p>
+
+<hr>
+
+<p>(이전 편: <a href="https://blog.secondbranch.kr/2026/07/notice-bot-2.html">2편 — 인증키가 필요 없는 공공 API도 있습니다</a>)</p>
+  </div>
+<ul class="labels" aria-label="라벨"><li>API 연동</li><li>공고 알림봇</li><li>공공API</li></ul>
+<nav class="series-nav">
+<p><span class="dir">이전 편</span><a rel="prev" href="/2026/07/notice-bot-2.html">공고 알림봇 만들기 (2편) — 인증키가 필요 없는 공공 API도 있습니다</a></p>
+<p><span class="dir">다음 편</span><a rel="next" href="/2026/07/notice-bot-4.html">공고 알림봇 만들기 (4편) — API마다 응답 구조가 달랐습니다</a></p>
+<p><a href="/#series-sbnotifier">공고 알림봇 만들기 — 시리즈 전체 목록</a></p>
+</nav>
+</article>
+
+  </div>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-links"><a href="/p/blog-page.html">소개</a><a href="/p/blog-page_19.html">개인정보 처리방침</a><a href="/p/blog-page_919.html">문의</a></p>
+    <p><a href="https://secondbranch.kr/">secondbranch.kr</a> · <a href="https://blog.secondbranch.kr/feed.xml">RSS 피드</a></p>
+  </div>
+</footer>
+</body>
+</html>
