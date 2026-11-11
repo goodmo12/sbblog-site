@@ -1,5 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Second Branch</title><subtitle>1인 개발자가 직접 만든 앱과 웹 도구, 그리고 막혔던 지점까지 남긴 개발 기록.</subtitle><id>tag:blogger.com,1999:blog-3975351869409912032</id><link rel="alternate" type="text/html" href="https://blog.secondbranch.kr/" /><link rel="self" type="application/atom+xml" href="https://blog.secondbranch.kr/feed.xml" /><updated>2026-08-19T20:24:18+09:00</updated><author><name>Second Branch</name></author><entry><id>tag:blogger.com,1999:blog-3975351869409912032.post-8507011575569356742</id><title>Claude Code 플러그인, 통째로 깔지 않고 알맹이만 빼왔다</title><link rel="alternate" type="text/html" href="https://blog.secondbranch.kr/2026/08/ai-build-7.html" /><published>2026-08-19T20:11:30+09:00</published><updated>2026-08-19T20:24:18+09:00</updated><category term="1인개발" /><category term="AI 활용" /><category term="Claude Code" /><category term="개발도구" /><category term="스킬" /><category term="플러그인" /><summary>Claude Code로 한동안 일하다 보면, 남이 만들어 둔 도구를 가져다 쓰고 싶어지는 순간이 옵니다. 마켓플레이스에 올라온 플러그인 중 하나가 눈에 들어왔습니다. 코드를 필요 이상으로 부풀리지 않게, "게으른 시니어 개발자"처럼 최소로만 짜도록 붙잡아 주는 도구였…</summary><content type="html">&lt;blockquote&gt;지난 편 → &lt;a href="https://blog.secondbranch.kr/2026/08/ai-build-6.html"&gt;6편 — 챗GPT랑 클로드, 왜 서로 대화는 못 시킬까&lt;/a&gt;&lt;/blockquote&gt;
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko"><title>Second Branch</title><subtitle>1인 개발자가 직접 만든 앱과 웹 도구, 그리고 막혔던 지점까지 남긴 개발 기록.</subtitle><id>tag:blogger.com,1999:blog-3975351869409912032</id><link rel="alternate" type="text/html" href="https://blog.secondbranch.kr/" /><link rel="self" type="application/atom+xml" href="https://blog.secondbranch.kr/feed.xml" /><updated>2026-11-11T22:06:37+09:00</updated><author><name>Second Branch</name></author><entry><id>https://blog.secondbranch.kr/2026/11/solo-biz-8.html</id><title>2027 부가세 신고기간 총정리 — 1월 25일, 7월은 26일? 내 유형별 기한 (1인 사업자 실무 번외 3)</title><link rel="alternate" type="text/html" href="https://blog.secondbranch.kr/2026/11/solo-biz-8.html" /><published>2026-11-11T22:06:37+09:00</published><updated>2026-11-11T22:06:37+09:00</updated><category term="부가세신고기간" /><category term="2027부가세" /><category term="부가세신고" /><category term="개인사업자" /><category term="간이과세자" /><category term="세금신고일정" /><category term="1인사업자" /><summary>결론부터: 개인 일반과세자의 2027년 부가세 확정신고 기한은 1월 25일(월)과 7월 26일(월)입니다. 7월은 25일이 일요일이라 하루 밀립니다. 간이과세자는 1월 25일 한 번이 기본이고, 면세사업자는 부가세 신고 대신 2월 10일 사업장현황신고입니다. 4월·1…</summary><content type="html">&lt;p&gt;&lt;strong&gt;결론부터&lt;/strong&gt;: 개인 일반과세자의 2027년 부가세 확정신고 기한은 &lt;strong&gt;1월 25일(월)&lt;/strong&gt;과 &lt;strong&gt;7월 26일(월)&lt;/strong&gt;입니다. 7월은 25일이 일요일이라 하루 밀립니다. 간이과세자는 &lt;strong&gt;1월 25일 한 번&lt;/strong&gt;이 기본이고, 면세사업자는 부가세 신고 대신 &lt;strong&gt;2월 10일 사업장현황신고&lt;/strong&gt;입니다. 4월·10월은 신고가 아니라 &lt;strong&gt;고지서가 온 경우에만 내는 날&lt;/strong&gt;이고요. 아래에 유형별로 정리하고, 마지막에 내 유형만 골라 캘린더에 넣어 주는 도구를 붙였습니다.&lt;/p&gt;
+
+&lt;blockquote&gt;지난 편 → &lt;a href="https://blog.secondbranch.kr/2026/08/solo-biz-6.html"&gt;번외 2 — 1인 개발자의 사업 경비, 뭐가 되고 뭐가 안 되나&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;h2&gt;2027년 부가세 신고기간 한눈에&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;&lt;th&gt;내 유형&lt;/th&gt;&lt;th&gt;무엇&lt;/th&gt;&lt;th&gt;법에 적힌 날&lt;/th&gt;&lt;th&gt;실제 기한&lt;/th&gt;&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;일반과세자&lt;/td&gt;&lt;td&gt;확정신고·납부 (2026년 7-12월분)&lt;/td&gt;&lt;td&gt;1월 25일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;1월 25일(월)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;일반과세자&lt;/td&gt;&lt;td&gt;예정고지 납부 (고지서 온 경우만)&lt;/td&gt;&lt;td&gt;4월 25일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;4월 26일(월)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;일반과세자&lt;/td&gt;&lt;td&gt;확정신고·납부 (2027년 1-6월분)&lt;/td&gt;&lt;td&gt;7월 25일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;7월 26일(월)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;일반과세자&lt;/td&gt;&lt;td&gt;예정고지 납부 (고지서 온 경우만)&lt;/td&gt;&lt;td&gt;10월 25일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;10월 25일(월)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;간이과세자&lt;/td&gt;&lt;td&gt;신고·납부 (2026년 1-12월분)&lt;/td&gt;&lt;td&gt;1월 25일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;1월 25일(월)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;간이과세자&lt;/td&gt;&lt;td&gt;1-6월에 세금계산서를 발급했다면 신고, 아니면 고지서 온 경우만 납부&lt;/td&gt;&lt;td&gt;7월 25일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;7월 26일(월)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;면세사업자&lt;/td&gt;&lt;td&gt;사업장현황신고 (2026년 수입금액)&lt;/td&gt;&lt;td&gt;2월 10일&lt;/td&gt;&lt;td&gt;&lt;strong&gt;2월 10일(수)&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;1월에 하는 신고는 &lt;strong&gt;지난해(2026년) 분&lt;/strong&gt;이라는 점도 헷갈리기 쉽습니다. 2027년 1월 25일에 신고하는 건 2026년 하반기(일반과세자) 또는 2026년 한 해(간이과세자)의 부가세예요.&lt;/p&gt;
+
+&lt;h2&gt;7월은 왜 26일인가 — 휴일이면 다음 날&lt;/h2&gt;
+
+&lt;p&gt;국세기본법 5조에 따라, 신고·납부 기한이 &lt;strong&gt;토요일·일요일·공휴일 등 쉬는 날&lt;/strong&gt;이면 &lt;strong&gt;그다음 날&lt;/strong&gt;이 기한이 됩니다.&lt;/p&gt;
+
+&lt;p&gt;2027년 7월 25일은 &lt;strong&gt;일요일&lt;/strong&gt;입니다. 그래서 7월 확정신고 기한은 &lt;strong&gt;7월 26일(월)&lt;/strong&gt;이 됩니다. 4월 25일도 일요일이라 예정고지 납부는 &lt;strong&gt;4월 26일(월)&lt;/strong&gt;이고요.&lt;/p&gt;
+
+&lt;p&gt;거꾸로 말하면, "부가세는 25일"이라고만 외워 두면 해마다 하루 이틀씩 어긋납니다. 다음 날도 쉬는 날이면 또 넘어가는데, 이렇게 &lt;strong&gt;연달아 넘기는 계산은 법에 명시된 게 아니라 통상 그렇게 보는 해석&lt;/strong&gt;이라, 촉박하게 걸리는 건은 세무서에 한 번 확인하시는 게 안전합니다.&lt;/p&gt;
+
+&lt;h2&gt;일반과세자 — 1년에 확정신고 두 번, 4월·10월은 고지서&lt;/h2&gt;
+
+&lt;p&gt;개인 일반과세자는 1년을 두 기간으로 나눠 &lt;strong&gt;1월·7월에 확정신고&lt;/strong&gt;를 합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;1월 25일&lt;/strong&gt;: 지난해 7-12월분&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;7월 26일(2027년)&lt;/strong&gt;: 올해 1-6월분&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;4월·10월은 &lt;strong&gt;개인 일반과세자에게 예정신고 의무가 없습니다.&lt;/strong&gt; 대신 세무서가 직전 기간 납부세액의 &lt;strong&gt;50%를 고지서로 보내고&lt;/strong&gt;, 그걸 내는 날입니다. &lt;strong&gt;고지할 금액이 50만 원 미만이면 고지서 자체가 오지 않아요.&lt;/strong&gt; 그러니 4월·10월은 "고지서가 왔는지"를 보는 날이지, 신고서를 쓰는 날이 아닙니다. 여기서 낸 돈은 다음 확정신고 때 이미 낸 세액으로 빠집니다.&lt;/p&gt;
+
+&lt;p&gt;저는 일반과세자입니다. 첫 부가세 확정신고를 2026년 7월에 했고(매출 0원에 환급을 받았던 4편 이야기입니다), 다음 확정신고가 바로 &lt;strong&gt;2027년 1월 25일&lt;/strong&gt;입니다. 참고로 고지 금액은 직전 기간 납부세액에서 나오니, 저처럼 직전 신고에서 환급을 받아 낸 세액이 없었다면 규칙상 고지할 금액도 없습니다.&lt;/p&gt;
+
+&lt;h2&gt;간이과세자 — 기본은 1월 한 번&lt;/h2&gt;
+
+&lt;p&gt;간이과세자는 &lt;strong&gt;1년에 한 번, 1월 25일&lt;/strong&gt;에 지난해 1-12월분을 신고합니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;공급대가(매출) 합계가 &lt;strong&gt;4,800만 원 미만이면 낼 세금은 면제&lt;/strong&gt;되지만, &lt;strong&gt;신고 의무는 면제되지 않습니다.&lt;/strong&gt; 낼 게 없어도 신고는 해야 해요.&lt;/li&gt;
+&lt;li&gt;7월은 갈림길입니다. &lt;strong&gt;1-6월에 세금계산서를 발급했다면&lt;/strong&gt; 1-6월분을 &lt;strong&gt;7월 26일(2027년)까지 신고&lt;/strong&gt;해야 합니다. 발급하지 않았다면 신고가 아니라, 직전 납부세액의 50%가 고지된 경우에만 내면 됩니다(역시 50만 원 미만이면 고지서가 오지 않습니다).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;세금계산서를 발급했는지 확실하지 않다면 &lt;strong&gt;신고 쪽(7월 26일)으로 챙겨 두는 게 안전&lt;/strong&gt;합니다. 고지 납부라고 믿고 지나쳤는데 사실은 신고 대상이었다면 신고를 빠뜨리게 되니까요.&lt;/p&gt;
+
+&lt;h2&gt;면세사업자 — 부가세 대신 2월 10일&lt;/h2&gt;
+
+&lt;p&gt;면세사업자는 부가세 신고 의무가 없고, 대신 &lt;strong&gt;2월 10일까지 사업장현황신고&lt;/strong&gt;를 합니다(지난해 수입금액). 과세·면세를 겸하면 부가세 신고로 갈음되는 경우가 있습니다.&lt;/p&gt;
+
+&lt;h2&gt;부가세만 있는 게 아닙니다&lt;/h2&gt;
+
+&lt;p&gt;검색으로 부가세 신고기간을 찾는 분이 놓치기 쉬운 건, &lt;strong&gt;내 유형에 따라 다른 기한이 더 붙는다&lt;/strong&gt;는 점입니다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;종합소득세&lt;/strong&gt;: 5월 31일(월). 성실신고확인대상자는 6월 30일. 개인지방소득세는 같은 기간에 위택스 등에서 따로 신고합니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;종합소득세 중간예납&lt;/strong&gt;: 11월 30일 — 고지서가 온 경우에만 납부합니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;직원(아르바이트 포함)이 있다면&lt;/strong&gt;: 원천세를 매월 10일까지(휴일이면 다음 날), 근로소득 지급명세서는 3월 10일까지 냅니다. 그리고 &lt;strong&gt;2027년 1월 지급분부터 근로소득 간이지급명세서가 매월 제출로 바뀝니다&lt;/strong&gt;(지급한 달의 다음 달 말일까지, 한시적으로 종전 반기 기한까지 내면 가산세를 면제하는 특례가 있습니다).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;같은 "개인사업자"라도 일반이냐 간이냐, 직원이 있느냐에 따라 1년 일정이 꽤 달라집니다. 일정표는 검색하면 나오지만, &lt;strong&gt;그중 어느 게 내 것인지는 내가 골라야&lt;/strong&gt; 하죠.&lt;/p&gt;
+
+&lt;h2&gt;그래서 내 유형만 골라 주는 달력을 만들었습니다&lt;/h2&gt;
+
+&lt;p&gt;👉 &lt;strong&gt;&lt;a href="https://secondbranch.kr/tax-calendar/"&gt;내 유형에 맞춘 세무 신고 달력&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;질문 몇 개(과세유형, 직원 여부 등)에 답하면 &lt;strong&gt;내게 해당하는 2027년 기한만&lt;/strong&gt; 보여 줍니다.&lt;/li&gt;
+&lt;li&gt;위에서 본 &lt;strong&gt;휴일 이월을 계산한 실제 기한&lt;/strong&gt;으로 보여 줍니다(7월 26일처럼).&lt;/li&gt;
+&lt;li&gt;휴대폰 캘린더에 넣을 수 있습니다. 파일(.ics)로 받으면 일정마다 &lt;strong&gt;1주 전 오전 9시, 전날 오전 9시 알림 2개&lt;/strong&gt;가 들어 있고, 항목마다 구글 캘린더에 바로 추가하는 링크도 있습니다.&lt;/li&gt;
+&lt;li&gt;모르는 질문은 「모름」을 고르면 &lt;strong&gt;더 이른 쪽 기한으로&lt;/strong&gt; 보여 줍니다.&lt;/li&gt;
+&lt;li&gt;무료이고, 로그인 없고, 입력한 답은 저장하지도 전송하지도 않습니다(브라우저 안에서만 동작합니다).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;한 가지 팁: &lt;strong&gt;카카오톡이나 네이버 앱 안에서 링크를 열면 캘린더 등록이 막힐 수 있습니다.&lt;/strong&gt; 그럴 땐 화면 맨 위 안내대로 크롬이나 Safari 같은 브라우저에서 열어 주세요.&lt;/p&gt;
+
+&lt;h2&gt;다만 이것만은 꼭&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;참고용입니다.&lt;/strong&gt; 국세청 안내와 법 조문을 대조해 만들었지만, 개별 사정(휴업·사업부진에 따른 예정신고 등)까지 다 반영하지는 못합니다.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2027년 기한만&lt;/strong&gt; 있습니다. &lt;strong&gt;법인사업자, 일용직 관련 기한, 프리랜서에게 3.3%를 떼고 지급하는 경우의 기한, 폐업 관련 기한은 없습니다.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;공휴일이 새로 지정되거나 바뀌면 실제 기한도 달라질 수 있습니다.&lt;/li&gt;
+&lt;li&gt;중요한 건은 &lt;strong&gt;홈택스·국세청 안내나 세무대리인에게 최종 확인&lt;/strong&gt;하세요.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;정리&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;일반과세자 2027년 확정신고: &lt;strong&gt;1월 25일(월)&lt;/strong&gt;, &lt;strong&gt;7월 26일(월)&lt;/strong&gt; — 7월 25일이 일요일이라 하루 밀림&lt;/li&gt;
+&lt;li&gt;4월·10월은 신고가 아니라 &lt;strong&gt;고지서 온 경우만 납부&lt;/strong&gt;(2027년엔 4월 26일, 10월 25일)&lt;/li&gt;
+&lt;li&gt;간이과세자: &lt;strong&gt;1월 25일&lt;/strong&gt; 한 번이 기본, 1-6월에 세금계산서를 발급했다면 7월 26일 신고도&lt;/li&gt;
+&lt;li&gt;면세사업자: &lt;strong&gt;2월 10일 사업장현황신고&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;기한이 휴일이면 &lt;strong&gt;다음 날&lt;/strong&gt;. "25일"만 외우면 어긋난다&lt;/li&gt;
+&lt;li&gt;내 유형만 골라 캘린더에 넣으려면 → &lt;a href="https://secondbranch.kr/tax-calendar/"&gt;세무 신고 달력&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;※ 간이과세가 될지부터 궁금하다면 → &lt;a href="https://blog.secondbranch.kr/2026/08/solo-biz-5.html"&gt;간이과세가 안 됐는데, 오히려 이득이었습니다&lt;/a&gt; (배제기준 확인 도구 포함)&lt;/blockquote&gt;</content></entry><entry><id>tag:blogger.com,1999:blog-3975351869409912032.post-8507011575569356742</id><title>Claude Code 플러그인, 통째로 깔지 않고 알맹이만 빼왔다</title><link rel="alternate" type="text/html" href="https://blog.secondbranch.kr/2026/08/ai-build-7.html" /><published>2026-08-19T20:11:30+09:00</published><updated>2026-08-19T20:24:18+09:00</updated><category term="1인개발" /><category term="AI 활용" /><category term="Claude Code" /><category term="개발도구" /><category term="스킬" /><category term="플러그인" /><summary>Claude Code로 한동안 일하다 보면, 남이 만들어 둔 도구를 가져다 쓰고 싶어지는 순간이 옵니다. 마켓플레이스에 올라온 플러그인 중 하나가 눈에 들어왔습니다. 코드를 필요 이상으로 부풀리지 않게, "게으른 시니어 개발자"처럼 최소로만 짜도록 붙잡아 주는 도구였…</summary><content type="html">&lt;blockquote&gt;지난 편 → &lt;a href="https://blog.secondbranch.kr/2026/08/ai-build-6.html"&gt;6편 — 챗GPT랑 클로드, 왜 서로 대화는 못 시킬까&lt;/a&gt;&lt;/blockquote&gt;
 
 &lt;p&gt;Claude Code로 한동안 일하다 보면, 남이 만들어 둔 도구를 가져다 쓰고 싶어지는 순간이 옵니다. 마켓플레이스에 올라온 플러그인 중 하나가 눈에 들어왔습니다. 코드를 필요 이상으로 부풀리지 않게, "게으른 시니어 개발자"처럼 최소로만 짜도록 붙잡아 주는 도구였습니다. 마음에 들었습니다.&lt;/p&gt;
 
