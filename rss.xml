@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Second Branch</title><link>https://blog.secondbranch.kr/</link><description>1인 개발자가 직접 만든 앱과 웹 도구, 그리고 막혔던 지점까지 남긴 개발 기록.</description><language>ko</language><lastBuildDate>Wed, 11 Nov 2026 22:06:37 +0900</lastBuildDate><atom:link href="https://blog.secondbranch.kr/rss.xml" rel="self" type="application/rss+xml" /><item><title>2027 부가세 신고기간 총정리 — 1월 25일, 7월은 26일? 내 유형별 기한 (1인 사업자 실무 번외 3)</title><link>https://blog.secondbranch.kr/2026/11/solo-biz-8.html</link><guid isPermaLink="true">https://blog.secondbranch.kr/2026/11/solo-biz-8.html</guid><pubDate>Wed, 11 Nov 2026 22:06:37 +0900</pubDate><category>부가세신고기간</category><category>2027부가세</category><category>부가세신고</category><category>개인사업자</category><category>간이과세자</category><category>세금신고일정</category><category>1인사업자</category><description>&lt;p&gt;&lt;strong&gt;결론부터&lt;/strong&gt;: 개인 일반과세자의 2027년 부가세 확정신고 기한은 &lt;strong&gt;1월 25일(월)&lt;/strong&gt;과 &lt;strong&gt;7월 26일(월)&lt;/strong&gt;입니다. 7월은 25일이 일요일이라 하루 밀립니다. 간이과세자는 &lt;strong&gt;1월 25일 한 번&lt;/strong&gt;이 기본이고, 면세사업자는 부가세 신고 대신 &lt;strong&gt;2월 10일 사업장현황신고&lt;/strong&gt;입니다. 4월·10월은 신고가 아니라 &lt;strong&gt;고지서가 온 경우에만 내는 날&lt;/strong&gt;이고요. 아래에 유형별로 정리하고, 마지막에 내 유형만 골라 캘린더에 넣어 주는 도구를 붙였습니다.&lt;/p&gt;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Second Branch</title><link>https://blog.secondbranch.kr/</link><description>1인 개발자가 직접 만든 앱과 웹 도구, 그리고 막혔던 지점까지 남긴 개발 기록.</description><language>ko</language><lastBuildDate>Sat, 14 Nov 2026 17:00:46 +0900</lastBuildDate><atom:link href="https://blog.secondbranch.kr/rss.xml" rel="self" type="application/rss+xml" /><item><title>2027 부가세 신고기간 총정리 — 1월 25일, 7월은 26일? 내 유형별 기한 (1인 사업자 실무 번외 3)</title><link>https://blog.secondbranch.kr/2026/11/solo-biz-8.html</link><guid isPermaLink="true">https://blog.secondbranch.kr/2026/11/solo-biz-8.html</guid><pubDate>Wed, 11 Nov 2026 22:06:37 +0900</pubDate><category>부가세신고기간</category><category>2027부가세</category><category>부가세신고</category><category>개인사업자</category><category>간이과세자</category><category>세금신고일정</category><category>1인사업자</category><description>&lt;p&gt;&lt;strong&gt;결론부터&lt;/strong&gt;: 개인 일반과세자의 2027년 부가세 확정신고 기한은 &lt;strong&gt;1월 25일(월)&lt;/strong&gt;과 &lt;strong&gt;7월 26일(월)&lt;/strong&gt;입니다. 7월은 25일이 일요일이라 하루 밀립니다. 간이과세자는 &lt;strong&gt;1월 25일 한 번&lt;/strong&gt;이 기본이고, 면세사업자는 부가세 신고 대신 &lt;strong&gt;2월 10일 사업장현황신고&lt;/strong&gt;입니다. 4월·10월은 신고가 아니라 &lt;strong&gt;고지서가 온 경우에만 내는 날&lt;/strong&gt;이고요. 아래에 유형별로 정리하고, 마지막에 내 유형만 골라 캘린더에 넣어 주는 도구를 붙였습니다.&lt;/p&gt;
 
 &lt;blockquote&gt;지난 편 → &lt;a href="https://blog.secondbranch.kr/2026/08/solo-biz-6.html"&gt;번외 2 — 1인 개발자의 사업 경비, 뭐가 되고 뭐가 안 되나&lt;/a&gt;&lt;/blockquote&gt;
 
@@ -72,7 +72,7 @@
 
 &lt;h2&gt;그래서 내 유형만 골라 주는 달력을 만들었습니다&lt;/h2&gt;
 
-&lt;p&gt;👉 &lt;strong&gt;&lt;a href="https://secondbranch.kr/tax-calendar/"&gt;내 유형에 맞춘 세무 신고 달력&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;👉 &lt;strong&gt;&lt;a href="https://secondbranch.kr/tax-calendar/?utm_source=blog&amp;amp;utm_medium=blog&amp;amp;utm_campaign=solo-biz-8"&gt;내 유형에 맞춘 세무 신고 달력&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;질문 몇 개(과세유형, 직원 여부 등)에 답하면 &lt;strong&gt;내게 해당하는 2027년 기한만&lt;/strong&gt; 보여 줍니다.&lt;/li&gt;
@@ -101,7 +101,7 @@
 &lt;li&gt;간이과세자: &lt;strong&gt;1월 25일&lt;/strong&gt; 한 번이 기본, 1-6월에 세금계산서를 발급했다면 7월 26일 신고도&lt;/li&gt;
 &lt;li&gt;면세사업자: &lt;strong&gt;2월 10일 사업장현황신고&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;기한이 휴일이면 &lt;strong&gt;다음 날&lt;/strong&gt;. "25일"만 외우면 어긋난다&lt;/li&gt;
-&lt;li&gt;내 유형만 골라 캘린더에 넣으려면 → &lt;a href="https://secondbranch.kr/tax-calendar/"&gt;세무 신고 달력&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;내 유형만 골라 캘린더에 넣으려면 → &lt;a href="https://secondbranch.kr/tax-calendar/?utm_source=blog&amp;amp;utm_medium=blog&amp;amp;utm_campaign=solo-biz-8"&gt;세무 신고 달력&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;※ 간이과세가 될지부터 궁금하다면 → &lt;a href="https://blog.secondbranch.kr/2026/08/solo-biz-5.html"&gt;간이과세가 안 됐는데, 오히려 이득이었습니다&lt;/a&gt; (배제기준 확인 도구 포함)&lt;/blockquote&gt;</description></item><item><title>Claude Code 플러그인, 통째로 깔지 않고 알맹이만 빼왔다</title><link>https://blog.secondbranch.kr/2026/08/ai-build-7.html</link><guid isPermaLink="false">tag:blogger.com,1999:blog-3975351869409912032.post-8507011575569356742</guid><pubDate>Wed, 19 Aug 2026 20:11:30 +0900</pubDate><category>1인개발</category><category>AI 활용</category><category>Claude Code</category><category>개발도구</category><category>스킬</category><category>플러그인</category><description>&lt;blockquote&gt;지난 편 → &lt;a href="https://blog.secondbranch.kr/2026/08/ai-build-6.html"&gt;6편 — 챗GPT랑 클로드, 왜 서로 대화는 못 시킬까&lt;/a&gt;&lt;/blockquote&gt;
